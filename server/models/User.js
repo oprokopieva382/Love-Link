@@ -29,8 +29,8 @@ const userSchema = new Schema(
     //   type: Date,
     //   required: true,
     // },
-    // set savedBooks to be an array of data that adheres to the bookSchema
-    // savedBooks: [bookSchema],
+    inbox: [messageSchema],
+    outbox: [messageSchema],
     interests: [
       {
         type: String,

@@ -42,6 +42,23 @@ const resolvers = {
       return { token, user };
     },
 
+    addInterest: async (_, { userID, interest }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userID },
+          {
+            $addToSet: { interests: interest },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+
+      throw AuthenticationError;
+    },
+
     saveMatch: async (_, { matchID }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(

@@ -20,8 +20,10 @@ type User {
   }
 
   type Mutation {
-  login(email: String!, password: String!): Auth
   addUser(username: String!, email: String!, password: String!, gender: String!): Auth
+  login(email: String!, password: String!): Auth
+
+  addInterest(userID: ID!, interest: String!): User
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User
   }
