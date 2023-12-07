@@ -12,11 +12,14 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    users: async () => {
+      return User.find();
+    }
   },
 
   Mutation: {
-    addUser: async (_, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (_, { username, email, password, gender }) => {
+      const user = await User.create({ username, email, password, gender });
       const token = signToken(user);
 
       return { token, user };
@@ -39,12 +42,12 @@ const resolvers = {
       return { token, user };
     },
 
-    saveBook: async (_, { book }, context) => {
+    saveMatch: async (_, { matchID }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { savedBooks: book },
+            $addToSet: { favorited: matchID },
           },
           {
             new: true,
@@ -58,11 +61,11 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    removeBook: async (_, { bookId }, context) => {
+    removeMatch: async (_, { matchID }, context) => {
             if (context.user) {
              const updatedUser = await User.findOneAndUpdate(
                { _id: context.user._id },
-               { $pull: { savedBooks: { bookId } } },
+               { $pull: { savedBooks: { matchID } } },
                { new: true }
              );
 
