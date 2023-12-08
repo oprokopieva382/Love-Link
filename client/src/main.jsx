@@ -8,6 +8,8 @@ import {Profile} from "./pages/Profile";
 import {Matches} from "./pages/Matches";
 import {InTarget} from "./pages/InTarget";
 import {Conversation} from "./pages/Conversation";
+import { Greeting } from "./pages/Greeting.jsx";
+import { QuestionOne } from "./pages/QuestionOne.jsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Entry />,
+      },
+      {
+        path: "/greeting",
+        element: <Greeting />,
+      },
+      {
+        path: "/question1",
+        element: <QuestionOne />,
       },
       {
         path: "profile/",

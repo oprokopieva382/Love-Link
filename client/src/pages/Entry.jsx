@@ -1,4 +1,5 @@
 import entryBackground from "../assets/img/entryBackground.jpeg";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { SignUpFields } from "../components/SignUpFields";
@@ -7,15 +8,16 @@ import Typography from "@mui/material/Typography";
 import { FormControlRadio } from "../components/FormControlRadio";
 
 export const Entry = () => {
-     const initialFormData = {
-       gender: "",
-       lookingFor: "",
-       firstName: "",
-       lastName: "",
-       password: "",
-     };
-     
+  const initialFormData = {
+    gender: "",
+    lookingFor: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+  };
+
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   const boxStyle = {
     backgroundImage: `url(${entryBackground})`,
@@ -38,7 +40,6 @@ export const Entry = () => {
 
   const handleRadioChange = (field) => (event) => {
     setFormData({ ...formData, [field]: event.target.value });
-    
   };
 
   const handleTextFieldChange = (field) => (event) => {
@@ -52,6 +53,7 @@ export const Entry = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form Data:", formData);
+    navigate("/greeting");
     resetForm();
   };
 
