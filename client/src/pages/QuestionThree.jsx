@@ -9,21 +9,33 @@ import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 
 const options = [
-  "🐕‍🦺 Animal Rescue",
-  "💉 Vaccine Rights",
-  "⛪ Faith",
-  "👨‍👩‍👧‍👦 Family",
-  "🧑‍💼 Politics",
-  "🧘‍♀️ Mental health Awareness",
+  "📽️ Movie Buffs",
+  "🗺️ History",
+  "👒 Fashion and Style",
+  "🐈‍⬛ Pet Lover",
+  "🎭 Comedy/ Humor",
+  "✂️ Crafting",
+  "🎮 Gamer",
+  "🏕️ Outdoor Adventures",
+  "🎻 Music Lover",
+  "🏋️‍♂️ Fitness/Wellness",
+  "✈️ Traveling",
+  "🥞 Foodies",
+  "📖 Bookworms",
+  "🫂 Volunteering",
+  "💻 Tech/Innovation",
+  "🏎️ Motorcycle or Car Enthusiasts",
+  "📸 Photography",
+  "💃 Dance/Performing Arts",
 ];
 
-export const QuestionTwo = () => {
+export const QuestionThree = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
   
   const runNextPage = () => {
     console.log(selectedOptions);
-    navigate("/question3")
+    navigate("/question4");
   };
 
   return (
@@ -41,7 +53,7 @@ export const QuestionTwo = () => {
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        What is interest you?
+        Do you have any of this hobbies?
       </Typography>
       <Autocomplete
         multiple

@@ -8,22 +8,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const options = [
-  "🐕‍🦺 Animal Rescue",
-  "💉 Vaccine Rights",
-  "⛪ Faith",
-  "👨‍👩‍👧‍👦 Family",
-  "🧑‍💼 Politics",
-  "🧘‍♀️ Mental health Awareness",
-];
-
-export const QuestionTwo = () => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+export const QuestionFour = () => {
+  const [selectedSection, setSelectedSection] = useState("");
   const navigate = useNavigate();
   
   const runNextPage = () => {
     console.log(selectedOptions);
-    navigate("/question3")
+    // navigate("/question4");
   };
 
   return (
@@ -41,19 +32,20 @@ export const QuestionTwo = () => {
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        What is interest you?
+        Do you have any of this hobbies?
       </Typography>
       <Autocomplete
         multiple
         id="interests"
-        options={options}
-        onChange={(event, value) => setSelectedOptions(value)}
-        value={selectedOptions}
+        onChange={(event, value) => setSelectedSection(value)}
+        value={selectedSection}
         renderInput={(params) => (
           <TextField
             {...params}
             label="Interests"
             variant="outlined"
+            multiline 
+            rows={4}
             sx={{ width: 300, margin: "15px" }}
           />
         )}
