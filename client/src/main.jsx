@@ -1,24 +1,43 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import App from "./App.jsx";
-import SearchBooks from "./pages/SearchBooks";
-import SavedBooks from "./pages/SavedBooks";
+import {Error} from './pages/Error.jsx'
+import { Intro } from "./pages/Intro.jsx";
+import {Entry} from "./pages/Entry";
+import {Profile} from "./pages/Profile";
+import {Matches} from "./pages/Matches";
+import {InTarget} from "./pages/InTarget";
+import {Conversation} from "./pages/Conversation";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <h1 className="display-2">Wrong page!</h1>,
+    errorElement: <Error />,
     children: [
       {
         index: true,
-        element: <SearchBooks />,
+        element: <Intro />,
       },
       {
-        path: "/saved",
-        element: <SavedBooks />,
+        path: "/login",
+        element: <Entry />,
+      },
+      {
+        path: "profile/",
+        element: <Profile />,
+      },
+      {
+        path: "matches",
+        element: <Matches />,
+      },
+      {
+        path: "inTarget",
+        element: <InTarget />,
+      },
+      {
+        path: "conversation",
+        element: <Conversation />,
       },
     ],
   },
