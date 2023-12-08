@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 import App from "./App.jsx";
 import Error from './pages/Error'
 import Entry from "./pages/Entry";
@@ -10,7 +9,6 @@ import Profile from "./pages/Profile";
 import Matches from "./pages/Matches";
 import InTarget from "./pages/InTarget";
 import Conversation from "./pages/Conversation";
-
 
 const router = createBrowserRouter([
   {
