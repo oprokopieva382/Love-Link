@@ -32,6 +32,10 @@ const userSchema = new Schema(
       type: Date,
       required: true,
     },
+    image: {
+      type: String,
+      required: false,
+    },
     inbox: [messageSchema],
     outbox: [messageSchema],
     interests: [

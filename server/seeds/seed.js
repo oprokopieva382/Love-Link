@@ -8,7 +8,7 @@ const getInterests = require('./interests');
 
 // console.trace(seedData[0]);
 
-const mappedData = seedData.map(({ gender, name, email, dob }) => ({
+const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
     firstName: name.first,
     lastName: name.last,
     email: email,
@@ -16,6 +16,7 @@ const mappedData = seedData.map(({ gender, name, email, dob }) => ({
     password: "password123",
     gender: gender,
     interests: getInterests(),
+    image: picture.large
 }));
 
 // console.trace(mappedData[0]);
@@ -34,6 +35,10 @@ db.once('open', async () => {
       { _id: usersData[i]._id.toString() },
       {
         $addToSet: { interests: usersData[i].interests },
+        $set: 
+        {
+          image: usersData[i].image
+        }
       },
       {
         new: true,

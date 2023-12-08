@@ -61,6 +61,25 @@ const resolvers = {
       // throw AuthenticationError;
     },
 
+    addImage: async (_, { userID, imageURL }, context) => {
+      // if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: userID },
+          {
+            $set: 
+            {
+              image: imageURL
+            }
+          },
+          {
+            new: true
+          }
+        )
+      // };
+
+      // throw AuthenticationError;
+    },
+
     saveMatch: async (_, { matchID }, context) => {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
