@@ -1,14 +1,14 @@
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
-import Error from './pages/Error'
-import Entry from "./pages/Entry";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Profile from "./pages/Profile";
-import Matches from "./pages/Matches";
-import InTarget from "./pages/InTarget";
-import Conversation from "./pages/Conversation";
+import {Error} from './pages/Error.jsx'
+import {Entry} from "./pages/Entry";
+import {Login} from "./pages/Login";
+import {SignUp} from "./pages/SignUp";
+import {Profile} from "./pages/Profile";
+import {Matches} from "./pages/Matches";
+import {InTarget} from "./pages/InTarget";
+import {Conversation} from "./pages/Conversation";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: <SignUp />,
       },
       {
         path: "profile/",
