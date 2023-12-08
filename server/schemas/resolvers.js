@@ -19,8 +19,8 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (_, { firstName, lastName, email, password, gender, dob }) => {
-      const user = await User.create({ firstName, lastName, email, password, gender, dob });
+    addUser: async (_, { firstName, lastName, email, password, gender, lookingFor, dob }) => {
+      const user = await User.create({ firstName, lastName, email, password, gender, lookingFor, dob });
       const token = signToken(user);
 
       return { token, user };
@@ -62,6 +62,8 @@ const resolvers = {
     },
 
     addImage: async (_, { userID, imageURL }, context) => {
+      // TODO: comment these back in when front end is up
+      // also will need to bring userID from context instead of args
       // if (context.user) {
         return User.findOneAndUpdate(
           { _id: userID },
@@ -77,6 +79,35 @@ const resolvers = {
         )
       // };
 
+      // throw AuthenticationError;
+    },
+
+    addMessage: async (_, { userID, message, targetID }, context) => {
+      // if (context.user) {
+        const me = await User.findOneAndUpdate(
+          { _id: userID },
+          {
+            $addToSet: { outbox: message }
+          },
+          {
+            new: true,
+            // runValidators: true
+          }
+        );
+
+        const them = await User.findOneAndUpdate(
+          { _id: targetID },
+          {
+            $addToSet: { inbox: message }
+          },
+          {
+            new: true,
+            // runValidators: true
+          }
+        );
+
+      // }
+          return them;
       // throw AuthenticationError;
     },
 

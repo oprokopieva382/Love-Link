@@ -4,7 +4,10 @@ type User {
     firstName: String
     lastName: String
     email: String
+    password: String
     gender: String
+    lookingFor: String
+    about: String
     dob: String
     image: String
     inbox: [Message]
@@ -14,7 +17,12 @@ type User {
   }
 
   type Message {
-    messageId: ID!
+    text: String
+    userId: ID
+    read: Boolean
+  }
+
+  input MessageInput {
     text: String
     userId: ID
     read: Boolean
@@ -31,11 +39,15 @@ type User {
   }
 
   type Mutation {
-  addUser(firstName: String!, lastName: String!, email: String!, password: String!, gender: String!, dob: String!): Auth
+  addUser(firstName: String!, lastName: String!, email: String!, 
+    password: String!, gender: String!, lookingFor: String!, dob: String!): Auth
   login(email: String!, password: String!): Auth
 
   addInterest(userID: ID!, interest: String!): User
   addImage(userID: ID!, imageURL: String!): User
+
+  addMessage(userID: ID!, message: MessageInput!, targetID: ID!): User
+
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User
   }

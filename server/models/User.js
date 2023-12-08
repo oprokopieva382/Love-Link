@@ -28,6 +28,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    lookingFor: {
+      type: String,
+      required: true,
+    },
+    about: {
+      type: String,
+    },
     dob: {
       type: Date,
       required: true,

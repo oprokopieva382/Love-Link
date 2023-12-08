@@ -19,12 +19,6 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
     image: picture.large
 }));
 
-// console.trace(mappedData[0]);
-// console.trace(mappedData[2]);
-// console.trace(mappedData[4]);
-// console.trace(mappedData[5]);
-
-
 db.once('open', async () => {
   await cleanDB('User', 'users');
 
