@@ -2,9 +2,8 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
 import {Error} from './pages/Error.jsx'
+import { Intro } from "./pages/Intro.jsx";
 import {Entry} from "./pages/Entry";
-import {Login} from "./pages/Login";
-import {SignUp} from "./pages/SignUp";
 import {Profile} from "./pages/Profile";
 import {Matches} from "./pages/Matches";
 import {InTarget} from "./pages/InTarget";
@@ -18,15 +17,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Entry />,
+        element: <Intro />,
       },
       {
         path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <SignUp />,
+        element: <Entry />,
       },
       {
         path: "profile/",
