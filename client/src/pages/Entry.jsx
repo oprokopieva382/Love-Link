@@ -6,6 +6,7 @@ import { SignUpFields } from "../components/SignUpFields";
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import { FormControlRadio } from "../components/FormControlRadio";
+import {EntryNavBar} from "../components/EntryNavBar"
 
 export const Entry = () => {
   const initialFormData = {
@@ -58,40 +59,43 @@ export const Entry = () => {
   };
 
   return (
-    <Box sx={boxStyle}>
-      <Typography variant="h3" style={{ margin: "45px" }}>
-        Let's get start
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Box style={formContainerStyle}>
-          <FormControlRadio
-            title="I am"
-            value={formData.gender}
-            onChange={handleRadioChange("gender")}
+    <>
+      <EntryNavBar />
+      <Box sx={boxStyle}>
+        <Typography variant="h3" style={{ margin: "45px" }}>
+          Let's get start
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Box style={formContainerStyle}>
+            <FormControlRadio
+              title="I am"
+              value={formData.gender}
+              onChange={handleRadioChange("gender")}
+            />
+            <FormControlRadio
+              title="I am looking for"
+              value={formData.lookingFor}
+              onChange={handleRadioChange("lookingFor")}
+            />
+          </Box>
+          <SignUpFields
+            formData={formData}
+            onFirstNameChange={handleTextFieldChange("firstName")}
+            onLastNameChange={handleTextFieldChange("lastName")}
+            onPasswordChange={handleTextFieldChange("password")}
           />
-          <FormControlRadio
-            title="I am looking for"
-            value={formData.lookingFor}
-            onChange={handleRadioChange("lookingFor")}
-          />
-        </Box>
-        <SignUpFields
-          formData={formData}
-          onFirstNameChange={handleTextFieldChange("firstName")}
-          onLastNameChange={handleTextFieldChange("lastName")}
-          onPasswordChange={handleTextFieldChange("password")}
-        />
-        <Box sx={{ textAlign: "center" }}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ padding: "8px 26px" }}
-          >
-            Join
-          </Button>
-        </Box>
-      </form>
-    </Box>
+          <Box sx={{ textAlign: "center" }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ padding: "8px 26px" }}
+            >
+              Join
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </>
   );
 };

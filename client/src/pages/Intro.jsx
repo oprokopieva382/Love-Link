@@ -16,7 +16,7 @@ export const Intro = () => {
 
   return (
     <>
-      <video
+       <video
         autoPlay
         muted
         src={intro}
