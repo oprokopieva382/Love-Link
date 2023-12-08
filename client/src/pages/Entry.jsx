@@ -38,6 +38,7 @@ export const Entry = () => {
 
   const handleRadioChange = (field) => (event) => {
     setFormData({ ...formData, [field]: event.target.value });
+    
   };
 
   const handleTextFieldChange = (field) => (event) => {
