@@ -1,0 +1,19 @@
+[
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Hubertus",
+        "last": "Blumenthal"
+    },
+    "email": "hubertus.blumenthal@example.com",
+    "dob": {
+        "date": "1996-06-06T01:41:27.101Z",
+        "age": 27
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/44.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/44.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/44.jpg"
+    }
+}]

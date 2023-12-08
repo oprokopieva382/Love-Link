@@ -1,0 +1,180 @@
+[{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Radimir",
+        "last": "Demenko"
+    },
+    "email": "radimir.demenko@example.com",
+    "dob": {
+        "date": "1961-01-08T18:00:20.823Z",
+        "age": 62
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/92.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/92.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/92.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Elmer",
+        "last": "Mendes"
+    },
+    "email": "elmer.mendes@example.com",
+    "dob": {
+        "date": "1976-04-18T23:02:13.549Z",
+        "age": 47
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/78.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/78.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/78.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Gilano",
+        "last": "Langius"
+    },
+    "email": "gilano.langius@example.com",
+    "dob": {
+        "date": "1968-10-08T08:48:23.882Z",
+        "age": 55
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/96.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/96.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/96.jpg"
+    }
+},
+{
+    "gender": "female",
+    "name": {
+        "title": "Mrs",
+        "first": "Amy",
+        "last": "Thompson"
+    },
+    "email": "amy.thompson@example.com",
+    "dob": {
+        "date": "1979-12-31T21:38:05.098Z",
+        "age": 43
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/women/90.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/women/90.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/women/90.jpg"
+    }
+},
+{
+    "gender": "female",
+    "name": {
+        "title": "Mrs",
+        "first": "Victoria",
+        "last": "Møller"
+    },
+    "email": "victoria.moller@example.com",
+    "dob": {
+        "date": "1960-11-15T11:26:57.406Z",
+        "age": 63
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/women/19.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/women/19.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/women/19.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Gökhan",
+        "last": "Barbarosoğlu"
+    },
+    "email": "gokhan.barbarosoglu@example.com",
+    "dob": {
+        "date": "1985-01-14T12:57:16.510Z",
+        "age": 38
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/5.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/5.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/5.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "John",
+        "last": "Heim"
+    },
+    "email": "john.heim@example.com",
+    "dob": {
+        "date": "1976-09-11T23:33:35.033Z",
+        "age": 47
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/3.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/3.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/3.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Nimit",
+        "last": "Kumari"
+    },
+    "email": "nimit.kumari@example.com",
+    "dob": {
+        "date": "1947-12-09T07:18:33.157Z",
+        "age": 75
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/46.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/46.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/46.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Nolan",
+        "last": "Meyer"
+    },
+    "email": "nolan.meyer@example.com",
+    "dob": {
+        "date": "1988-05-06T20:43:45.179Z",
+        "age": 35
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/38.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/38.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/38.jpg"
+    }
+},
+{
+    "gender": "male",
+    "name": {
+        "title": "Mr",
+        "first": "Hubertus",
+        "last": "Blumenthal"
+    },
+    "email": "hubertus.blumenthal@example.com",
+    "dob": {
+        "date": "1996-06-06T01:41:27.101Z",
+        "age": 27
+    },
+    "picture": {
+        "large": "https://randomuser.me/api/portraits/men/44.jpg",
+        "medium": "https://randomuser.me/api/portraits/med/men/44.jpg",
+        "thumbnail": "https://randomuser.me/api/portraits/thumb/men/44.jpg"
+    }
+}]
