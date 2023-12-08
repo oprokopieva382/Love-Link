@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
-import { FaHeart } from "react-icons/fa";
 import Typography from "@mui/material/Typography";
+import { StyledArrow, StyledFaHeart } from "../style/entryNavBar.style";
 
 export const EntryNavBar = () => {
   return (
@@ -17,16 +17,11 @@ export const EntryNavBar = () => {
       }}
     >
       <Typography variant="h5">
-        Love<span style={{ color: "white" }}>Link </span>
+        Love<span style={{ color: "white", paddingRight: "10px" }}>Link </span>
       </Typography>
-      <FaHeart
-        style={{
-          color: "#90D1FF",
-          fontSize: 30,
-          marginLeft: 10,
-          animation: "heartbeat 1s infinite",
-        }}
-      />
+      <StyledFaHeart onClick={()=> {}}/>
+      <StyledArrow />
+      <Typography sx={{ color: "white",  marginTop: "4px" }}>Login</Typography>
     </Box>
   );
 };
