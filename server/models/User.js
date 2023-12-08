@@ -1,16 +1,11 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
-
+const messageSchema = require('./Message')
 // import schema from Book.js
 // const bookSchema = require("./Book");
 
 const userSchema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     firstName: {
       type: String,
       required: true,
@@ -33,10 +28,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // dob: {
-    //   type: Date,
-    //   required: true,
-    // },
+    dob: {
+      type: Date,
+      required: true,
+    },
     inbox: [messageSchema],
     outbox: [messageSchema],
     interests: [

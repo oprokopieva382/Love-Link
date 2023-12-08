@@ -7,7 +7,8 @@ const resolvers = {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id }).select(
           "-__v-password"
-        );
+        ).populate('messages');
+
         return userData;
       }
       throw AuthenticationError;
@@ -18,8 +19,8 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (_, { username, email, password, gender }) => {
-      const user = await User.create({ username, email, password, gender });
+    addUser: async (_, { firstName, lastName, email, password, gender, dob }) => {
+      const user = await User.create({ firstName, lastName, email, password, gender, dob });
       const token = signToken(user);
 
       return { token, user };
@@ -43,7 +44,8 @@ const resolvers = {
     },
 
     addInterest: async (_, { userID, interest }, context) => {
-      if (context.user) {
+      // TODO: comment these back in when front end is up
+      // if (context.user) {
         return User.findOneAndUpdate(
           { _id: userID },
           {
@@ -54,9 +56,9 @@ const resolvers = {
             runValidators: true,
           }
         );
-      }
+      // }
 
-      throw AuthenticationError;
+      // throw AuthenticationError;
     },
 
     saveMatch: async (_, { matchID }, context) => {

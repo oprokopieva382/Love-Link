@@ -5,9 +5,18 @@ type User {
     lastName: String
     email: String
     gender: String
-    inbox: []
+    dob: String
+    inbox: [Message]
+    outbox: [Message]
     interests: [String]
     favorited: [ID]
+  }
+
+  type Message {
+    messageId: ID!
+    text: String
+    userId: ID
+    read: Boolean
   }
 
   type Auth {
@@ -21,7 +30,7 @@ type User {
   }
 
   type Mutation {
-  addUser(username: String!, email: String!, password: String!, gender: String!): Auth
+  addUser(firstName: String!, lastName: String!, email: String!, password: String!, gender: String!, dob: String!): Auth
   login(email: String!, password: String!): Auth
 
   addInterest(userID: ID!, interest: String!): User
