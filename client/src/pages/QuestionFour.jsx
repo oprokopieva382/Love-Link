@@ -3,18 +3,16 @@ import TextField from "@mui/material/TextField";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
 import background from "../assets/img/questionBackground.jpeg";
 import Typography from "@mui/material/Typography";
-import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Autocomplete from "@mui/material/Autocomplete";
 
 export const QuestionFour = () => {
-  const [selectedSection, setSelectedSection] = useState("");
+  const [userInput, setUserInput] = useState("");
   const navigate = useNavigate();
-  
+ 
   const runNextPage = () => {
-    console.log(selectedOptions);
-    // navigate("/question4");
+    console.log(userInput);
+    navigate("/profile");
   };
 
   return (
@@ -32,23 +30,16 @@ export const QuestionFour = () => {
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        Do you have any of this hobbies?
+        Do you have any of these hobbies?
       </Typography>
-      <Autocomplete
-        multiple
-        id="interests"
-        onChange={(event, value) => setSelectedSection(value)}
-        value={selectedSection}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Interests"
-            variant="outlined"
-            multiline 
-            rows={4}
-            sx={{ width: 300, margin: "15px" }}
-          />
-        )}
+      <TextField
+        multiline
+        rows={4}
+        label="Type your answer here"
+        variant="outlined"
+        value={userInput}
+        onChange={(e) => setUserInput(e.target.value)}
+        sx={{ width: 300, margin: "15px" }}
       />
       <BiSolidSkipNextCircle
         onClick={runNextPage}

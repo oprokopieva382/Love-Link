@@ -12,6 +12,7 @@ import { Greeting } from "./pages/Greeting.jsx";
 import { QuestionOne } from "./pages/QuestionOne.jsx";
 import { QuestionTwo } from "./pages/QuestionTwo.jsx";
 import { QuestionThree } from "./pages/QuestionThree.jsx";
+import { QuestionFour } from "./pages/QuestionFour.jsx";
 
 const router = createBrowserRouter([
   {
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/question4",
-        element: <QuestionThree />,
+        element: <QuestionFour />,
       },
       {
         path: "profile/",
