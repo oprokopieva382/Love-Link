@@ -6,6 +6,7 @@ type User {
     email: String
     gender: String
     dob: String
+    image: String
     inbox: [Message]
     outbox: [Message]
     interests: [String]
@@ -34,6 +35,7 @@ type User {
   login(email: String!, password: String!): Auth
 
   addInterest(userID: ID!, interest: String!): User
+  addImage(userID: ID!, imageURL: String!): User
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User
   }
