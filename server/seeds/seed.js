@@ -18,12 +18,31 @@ const mappedData = seedData.map(({ gender, name, email, dob }) => ({
     interests: getInterests(),
 }));
 
-console.trace(mappedData[0]);
+// console.trace(mappedData[0]);
+// console.trace(mappedData[2]);
+// console.trace(mappedData[4]);
+// console.trace(mappedData[5]);
+
 
 db.once('open', async () => {
   await cleanDB('User', 'users');
 
-  await User.insertMany(mappedData);
+  const usersData = await User.insertMany(mappedData);
+
+  for (let i=0; i<usersData.length; i++) {
+    await User.findOneAndUpdate(
+      { _id: usersData[i]._id.toString() },
+      {
+        $addToSet: { interests: usersData[i].interests },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+  }
+
+  // console.log(usersData[0]._id.toString());
 
   console.log('Users seeded!');
   process.exit(0);
