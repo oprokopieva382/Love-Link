@@ -15,10 +15,10 @@ export const Error = () => {
           
           <div className="contant_box_404">
           <h3 className="h2">
-          Look like I might not be the date you are looking for!
+          Looks like I might not be the date you are looking for!
           </h3>
           
-          <p>the page you are looking for not avaible!</p>
+          <p>LETS FIND YOU SOMEONE BETTER :)</p>
           
           <Link to="/" className="link_404">Go to Home</Link>
         </div>
