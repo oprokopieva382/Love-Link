@@ -30,7 +30,7 @@ export const QuestionFour = () => {
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        Do you have any of these hobbies?
+        Tell us about yourself?
       </Typography>
       <TextField
         multiline
