@@ -27,21 +27,44 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const REMOVE_BOOK = gql`
-  mutation removeBook($bookId: ID!) {
-    removeBook(bookId: $bookId) {
-      _id
-      username
-      email
-      bookCount
-      savedBooks {
-        bookId
-        authors
-        description
-        title
-        image
-        link
-      }
-    }
+export const ADD_INTEREST = gql`
+mutation addInterest($interest: String!) {
+  addInterest(interest: $interest) {
+    _id
+    firstName
+    lastName
+    interests
   }
-`;
+}
+`
+
+export const ADD_IMAGE = gql`
+mutation addImage($imageUrl: String!) {
+  addImage(imageURL: $imageUrl) {
+    _id
+    firstName
+    lastName
+    image
+  }
+}
+`
+
+export const SAVE_MATCH = gql`
+mutation saveMatch($matchId: ID!) {
+  saveMatch(matchID: $matchId) {
+    _id
+    firstName
+    lastName
+  }
+}
+`
+
+export const REMOVE_MATCH = gql`
+mutation Mutation($matchId: ID!) {
+  removeMatch(matchID: $matchId) {
+    _id
+    firstName
+    lastName
+  }
+}
+`

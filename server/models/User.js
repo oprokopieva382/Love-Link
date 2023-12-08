@@ -50,7 +50,7 @@ const userSchema = new Schema(
         type: String,
       }
     ],
-    favorited: [
+    matches: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User'
