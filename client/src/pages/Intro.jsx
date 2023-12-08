@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import intro from "../assets/video/intro.mp4";
-import Typography from "@mui/material/Typography";
+import {StyledTypography} from "../style/Intro.styles";
 
 export const Intro = () => {
   const navigate = useNavigate();
@@ -27,21 +27,7 @@ export const Intro = () => {
           display: "block",
         }}
       />
-      <Typography
-        sx={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          top: 0,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "white",
-          fontSize: "180%",
-        }}
-      >
-        LoveLink
-      </Typography>
+      <StyledTypography variant="h4">LoveLink</StyledTypography>
     </>
   );
 };
