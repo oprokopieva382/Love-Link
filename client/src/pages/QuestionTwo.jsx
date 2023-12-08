@@ -1,19 +1,28 @@
 import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
 import background from "../assets/img/questionBackground.jpeg";
 import Typography from "@mui/material/Typography";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Autocomplete from "@mui/material/Autocomplete";
 
-export const QuestionOne = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
+const options = [
+  "🐕‍🦺 Animal Rescue",
+  "💉 Vaccine Rights",
+  "⛪ Faith",
+  "👨‍👩‍👧‍👦 Family",
+  "🧑‍💼 Politics",
+  "🧘‍♀️ Mental health Awareness",
+];
+
+export const QuestionTwo = () => {
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
-
+  console.log(selectedOptions);
   const runNextPage = () => {
     console.log(selectedDate);
-    navigate("/question2");
   };
 
   return (
@@ -31,14 +40,23 @@ export const QuestionOne = () => {
       }}
     >
       <Typography sx={{ fontSize: "1.5rem", padding: "10px" }}>
-        What is your your date of birth?
+        What is interest you?
       </Typography>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        dateFormat="MM/dd/yyyy"
+      <Autocomplete
+        multiple
+        id="interests"
+        options={options}
+        onChange={(event, value) => setSelectedOptions(value)}
+        value={selectedOptions}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Interests"
+            variant="outlined"
+            sx={{ width: 300 }}
+          />
+        )}
       />
-
       <BiSolidSkipNextCircle
         onClick={runNextPage}
         style={{ fontSize: "4rem" }}

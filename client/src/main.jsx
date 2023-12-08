@@ -10,6 +10,7 @@ import {InTarget} from "./pages/InTarget";
 import {Conversation} from "./pages/Conversation";
 import { Greeting } from "./pages/Greeting.jsx";
 import { QuestionOne } from "./pages/QuestionOne.jsx";
+import { QuestionTwo } from "./pages/QuestionTwo.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/question1",
         element: <QuestionOne />,
+      },
+      {
+        path: "/question2",
+        element: <QuestionTwo />,
       },
       {
         path: "profile/",
