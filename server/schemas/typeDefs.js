@@ -22,12 +22,6 @@ type User {
     read: Boolean
   }
 
-  input MessageInput {
-    text: String
-    userId: ID
-    read: Boolean
-  }
-
   type Auth {
     token: ID!
     user: User
@@ -44,9 +38,11 @@ type User {
   login(email: String!, password: String!): Auth
 
   addInterest(interest: String!): User
+  removeInterest(interest: String!): User
+
   addImage(imageURL: String!): User
 
-  addMessage(message: MessageInput!, targetID: ID!): User
+  addMessage(message: String!, targetID: ID!): User
 
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User

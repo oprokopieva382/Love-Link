@@ -38,6 +38,17 @@ mutation addInterest($interest: String!) {
 }
 `
 
+export const REMOVE_INTEREST = gql`
+mutation removeInterest($interest: String!) {
+  removeInterest(interest: $interest) {
+    _id
+    firstName
+    lastName
+    interests
+  }
+}
+`
+
 export const ADD_IMAGE = gql`
 mutation addImage($imageUrl: String!) {
   addImage(imageURL: $imageUrl) {
@@ -45,6 +56,21 @@ mutation addImage($imageUrl: String!) {
     firstName
     lastName
     image
+  }
+}
+`
+
+export const ADD_MESSAGE = gql`
+mutation addMessage($message: String!, $targetId: ID!) {
+  addMessage(message: $message, targetID: $targetId) {
+    _id
+    firstName
+    lastName
+    outbox {
+      text
+      userId
+      read
+    }
   }
 }
 `
@@ -60,7 +86,7 @@ mutation saveMatch($matchId: ID!) {
 `
 
 export const REMOVE_MATCH = gql`
-mutation Mutation($matchId: ID!) {
+mutation removeMatch($matchId: ID!) {
   removeMatch(matchID: $matchId) {
     _id
     firstName

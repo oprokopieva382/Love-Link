@@ -1,3 +1,7 @@
 export const Conversation = () => {
-  return <>Conversation</>;
+  return <>
+            <Header />
+            Conversation
+          </>;
 };
+
