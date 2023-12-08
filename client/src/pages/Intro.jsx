@@ -1,6 +1,19 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import intro from "../assets/video/intro.mp4";
-import  Typography  from "@mui/material/Typography";
+import Typography from "@mui/material/Typography";
+
 export const Intro = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+       navigate("/login");
+    }, 4100);
+
+    return () => clearTimeout(timeoutId);
+  }, [navigate]);
+
   return (
     <>
       <video
@@ -24,7 +37,7 @@ export const Intro = () => {
           alignItems: "center",
           justifyContent: "center",
           color: "white",
-          fontSize: "180%"
+          fontSize: "180%",
         }}
       >
         LoveLink
