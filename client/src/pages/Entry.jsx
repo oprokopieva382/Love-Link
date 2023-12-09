@@ -1,12 +1,15 @@
-import entryBackground from "../assets/img/entryBackground.jpeg";
 import { useNavigate } from "react-router-dom";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { SignUpFields } from "../components/SignUpFields";
 import { useState } from "react";
-import Typography from "@mui/material/Typography";
 import { FormControlRadio } from "../components/FormControlRadio";
-import {EntryNavBar} from "../components/EntryNavBar"
+import { EntryNavBar } from "../components/EntryNavBar";
+import {
+  BoxContainer,
+  StyledFormContainer,
+  StyledTypography,
+  ButtonBox,
+} from "../style/entry.style";
 
 export const Entry = () => {
   const initialFormData = {
@@ -19,25 +22,6 @@ export const Entry = () => {
 
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
-
-  const boxStyle = {
-    backgroundImage: `url(${entryBackground})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "end",
-  };
-
-  const formContainerStyle = {
-    marginRight: "30px",
-    display: "flex",
-    flexDirection: "row",
-    gap: 20,
-    color: "white",
-  };
 
   const handleRadioChange = (field) => (event) => {
     setFormData({ ...formData, [field]: event.target.value });
@@ -61,12 +45,10 @@ export const Entry = () => {
   return (
     <>
       <EntryNavBar />
-      <Box sx={boxStyle}>
-        <Typography variant="h3" style={{ margin: "45px" }}>
-          Let's get start
-        </Typography>
+      <BoxContainer>
+        <StyledTypography variant="h4">Let's get start</StyledTypography>
         <form onSubmit={handleSubmit}>
-          <Box style={formContainerStyle}>
+          <StyledFormContainer>
             <FormControlRadio
               title="I am"
               value={formData.gender}
@@ -77,14 +59,14 @@ export const Entry = () => {
               value={formData.lookingFor}
               onChange={handleRadioChange("lookingFor")}
             />
-          </Box>
+          </StyledFormContainer>
           <SignUpFields
             formData={formData}
             onFirstNameChange={handleTextFieldChange("firstName")}
             onLastNameChange={handleTextFieldChange("lastName")}
             onPasswordChange={handleTextFieldChange("password")}
           />
-          <Box sx={{ textAlign: "center" }}>
+          <ButtonBox>
             <Button
               type="submit"
               variant="contained"
@@ -93,9 +75,9 @@ export const Entry = () => {
             >
               Join
             </Button>
-          </Box>
+          </ButtonBox>
         </form>
-      </Box>
+      </BoxContainer>
     </>
   );
 };
