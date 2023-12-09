@@ -63,10 +63,13 @@ export const Conversation = () => {
 
   function getMessages(match) {
     // this will bring back the conversation between the two
+    setMessages([]);
     setMatch(match);
     console.log("Your match is: " + match.firstName);
     // console.log(data);
-    let newArr = data.me.inbox;
+    let newArr1 = data.me.inbox.filter(m => m.userId === match._id);
+    let newArr2 = data.me.outbox.filter(m => m.userId === match._id);
+    let newArr = newArr1.concat(newArr2);
     // newArr.push(data.me.inbox);
     // console.log(newArr);
     // newArr.push(data.me.outbox);
@@ -78,6 +81,7 @@ export const Conversation = () => {
   async function sendMessage() {
     // console.log();
     const messageText = valueRef.current.value;
+    document.getElementById('input-with-sx').value = '';
     try {
       const { data } = await sendMessageMutation({
         variables:
@@ -140,7 +144,7 @@ export const Conversation = () => {
           backgroundColor: "lightblue"
         }}>
           <h3 style={{ textAlign: "center" }}>Your conversation with {match.firstName}</h3>
-          {messages.length != 0
+          {messages.length
             ?
             messages.map(m => (
               <div key={m.text} style={{ display: "flex", flexDirection: "row" }}>
