@@ -20,6 +20,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import Avatar from '@mui/material/Avatar';
 import Skeleton from '@mui/material/Skeleton';
 
+import { ProfileNavBar } from '../components/ProfileNavBar';
+import { BoxContainer } from '../style/profile.style';
+
 
 export const Conversation = () => {
   const { loading, data } = useQuery(GET_ME);
@@ -33,6 +36,7 @@ export const Conversation = () => {
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
   const valueRef = useRef('') //creating a refernce for TextField Component
+  const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg"
   let mappedData;
 
   if (newLoading) {
@@ -44,19 +48,20 @@ export const Conversation = () => {
 
   function loadMatches() {
     // const { data } = await getUsersQuery;
-    console.log(newData);
+    // console.log(newData);
     mappedData = newData.users.map(person =>
       <Button
         key={person.email}
         className='button'
-        style={{ textAlign: "center", margin: "auto" }}
+        centerRipple='true'
+        style={{ textAlign: "center", margin: "auto"}}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
-        <img src={person.image} alt="" />
-        <p className='names'>{person.firstName} {person.age}</p>
+        <img src={person.image} alt="" style={{borderRadius: "50px"}}/>
       </Button>
-    )
+    );
+    mappedData = mappedData.slice(0, 5);
   }
 
 
@@ -64,16 +69,17 @@ export const Conversation = () => {
   function getMessages(match) {
     // this will bring back the conversation between the two
     setMessages([]);
+    console.log(messages);
     setMatch(match);
     console.log("Your match is: " + match.firstName);
-    // console.log(data);
-    let newArr1 = data.me.inbox.filter(m => m.userId === match._id);
+    // console.log(match);
+    let newArr1 = match.outbox.filter(m => m.userId === match._id);
     let newArr2 = data.me.outbox.filter(m => m.userId === match._id);
     let newArr = newArr1.concat(newArr2);
     // newArr.push(data.me.inbox);
     // console.log(newArr);
     // newArr.push(data.me.outbox);
-    console.log(newArr);
+    // console.log(newArr);
     setMessages(newArr);
     console.log(messages);
   }
@@ -111,12 +117,14 @@ export const Conversation = () => {
 
 
   return (
-    <div style={{ width: "80%", height: "100vh" }}>
+    <BoxContainer>
+      <ProfileNavBar />
+      <div style={{ width: "100%", height: "100vh" }}>
       <div style={{
         margin: "auto",
-        width: "50%",
+        width: "100%",
         textAlign: "center",
-        padding: "10px"
+        padding: "10px 10%",
       }}>
         <h1 >{data.me.firstName}'s Conversations</h1>
       </div>
@@ -127,9 +135,12 @@ export const Conversation = () => {
         <div style={{
           width: "20%",
           margin: "10px 20px",
-          padding: "10px 20px"
+          padding: "10px 20px",
+          border: "solid #8C5EEB 3px",
+          borderRadius: "30px",
         }}>
-          <ButtonGroup orientation='vertical' variant='none'>
+          <ButtonGroup orientation='vertical' variant='none' fullWidth='true'>
+            <h3 style={{textAlign: "center"}}>Your top 5 matches!</h3>
             {mappedData}
 
           </ButtonGroup>
@@ -138,18 +149,30 @@ export const Conversation = () => {
 
         </div>
         <div style={{
-          width: "80%",
+          width: "70%",
           margin: "10px 20px",
           padding: "10px 20px",
-          backgroundColor: "lightblue"
         }}>
           <h3 style={{ textAlign: "center" }}>Your conversation with {match.firstName}</h3>
           {messages.length
             ?
             messages.map(m => (
-              <div key={m.text} style={{ display: "flex", flexDirection: "row" }}>
-                <img src={match.image} alt="" />
-                <p style={{ justifyContent: "center" }}>{m.text}</p>
+              <div 
+                key={m.text} 
+                style={{ 
+                  display: "flex", 
+                  flexDirection: "row",
+                  border: "solid #8C5EEB 3px",
+                  borderRadius: "10px",
+                  margin: "10px",
+                  justifyContent: "flex-end",
+                  padding: "5px"
+                }}>
+                <p style={{ alignSelf: "center", textAlign: "center", marginRight: "30px" }}>{m.text}</p>
+                <img 
+                  src={m.userId !== match._id ? match.image : tempImgURL} 
+                  alt=""
+                  style={{borderRadius: "50px", width: "75px"}}/>
               </div>))
             :
             <div>
@@ -166,14 +189,17 @@ export const Conversation = () => {
                 id="input-with-sx"
                 label="Say hello!"
                 variant="standard"
+                fullWidth="true"
                 inputRef={valueRef}
                 onKeyUp={handleKeyPress} />
-              <Avatar alt="Remy Sharp" src={heartIcon} />
+              <Avatar alt="Remy Sharp" src={tempImgURL}/>
             </Box>
           </Box>
         </div>
       </div>
     </div>
+    </BoxContainer>
+
   )
 };
 
