@@ -5,15 +5,9 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
 export const FormControlRadio = ({ title, value, onChange }) => {
-  const formControlStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    padding: "16px",
-    borderRadius: "8px",
-    marginRight: "32px"
-  };
 
   return (
-    <FormControl sx={formControlStyle}>
+    <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">{title}</FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"

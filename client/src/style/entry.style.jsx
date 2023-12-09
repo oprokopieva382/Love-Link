@@ -16,12 +16,16 @@ export const BoxContainer = styled(Box)`
 `;
 
 export const StyledTypography = styled(Typography)`
-  padding-right: 6%;
+  padding-right: 4.5%;
   padding-bottom: 1%;
 `;
 
 export const StyledFormContainer = styled(Box)`
   color: white;
+  margin-right: 30px;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 20px;
+  border-radius: 8px;
 `;
 
 export const ButtonBox = styled(Box)`
