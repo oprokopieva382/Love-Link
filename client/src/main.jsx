@@ -14,6 +14,8 @@ import { QuestionTwo } from "./pages/QuestionTwo.jsx";
 import { QuestionThree } from "./pages/QuestionThree.jsx";
 import { QuestionFour } from "./pages/QuestionFour.jsx";
 
+import Auth from './utils/auth.js'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,9 +50,10 @@ const router = createBrowserRouter([
         path: "/question4",
         element: <QuestionFour />,
       },
+
       {
         path: "profile/",
-        element: <Profile />,
+        element: Auth.loggedIn() ? <Profile /> : <Entry />,
       },
       {
         path: "matches",

@@ -8,6 +8,11 @@ import Box from "@mui/material/Box";
 import { useState } from "react";
 import styled from "styled-components";
 
+import Auth from "../utils/auth";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../utils/mutations";
+import { Button } from "@mui/material";
+
 const StyledModalBox = styled(Box)`
   top: 50%;
   left: 50%;
@@ -22,10 +27,8 @@ const StyledModalBox = styled(Box)`
 `;
 
 export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
-  const initialFormData = {
-    email: "",
-    password: "",
-  };
+  const [login] = useMutation(LOGIN_USER);
+
   const formControlStyle = {
     display: "flex",
     flexDirection: "column",
@@ -33,21 +36,38 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
     marginBottom: 2,
   };
 
-  const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleTextFieldChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value });
+  const handleTextFieldChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const resetForm = () => {
-    setFormData(initialFormData);
+    setFormData({
+      email: "",
+      password: "",
+    });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+   
     console.log("Form Data:", formData);
-    navigate("/profile");
+
+    try {
+      const { data } = await login({
+        variables: { ...formData },
+      });
+
+      Auth.login(data.login.token);
+    } catch (err) {
+      console.error(err);
+    }
+
     resetForm();
   };
   return (
@@ -66,24 +86,28 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
           <FormControl sx={formControlStyle}>
             <TextField
               type="email"
+              name="email"
               label="Enter your email"
               variant="outlined"
               value={formData.email}
               sx={{ width: "100%" }}
-              onChange={handleTextFieldChange("email")}
+              onChange={handleTextFieldChange}
             />
           </FormControl>
           <FormControl sx={formControlStyle}>
             <TextField
               type="password"
               label="Enter your password"
+              name="password"
               variant="outlined"
               value={formData.password}
               sx={{ width: "100%" }}
-              onChange={handleTextFieldChange("password")}
+              onChange={handleTextFieldChange}
             />
           </FormControl>
-          <SupperButton title="Login" callback={handleSubmit} />
+          <Button type="submit" color="primary" variant="contained">
+            Login
+          </Button>
         </form>
       </StyledModalBox>
     </Modal>

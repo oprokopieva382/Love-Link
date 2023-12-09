@@ -11,6 +11,10 @@ import {
   ButtonBox,
 } from "../style/entry.style";
 
+import Auth from "../utils/auth";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+
 export const Entry = () => {
   const initialFormData = {
     gender: "",
@@ -21,25 +25,52 @@ export const Entry = () => {
     password: "",
   };
 
-  const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
+  const [addUser] = useMutation(ADD_USER);
 
-  const handleRadioChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value });
+  const [formData, setFormData] = useState({
+    gender: "",
+    lookingFor: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleTextFieldChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value });
-  };
+  //  const handleTextFieldChange = (event) => {
+  //    const { name, value } = event.target;
+  //    setFormData({ ...formData, [name]: value });
+  //  };
 
   const resetForm = () => {
-    setFormData(initialFormData);
+    setFormData({
+      gender: "",
+      lookingFor: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form Data:", formData);
-    navigate("/greeting");
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formData },
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (err) {
+      console.error(err);
+    }
+
     resetForm();
   };
 
@@ -52,22 +83,18 @@ export const Entry = () => {
           <StyledFormContainer>
             <FormControlRadio
               title="I am"
+              name="gender"
               value={formData.gender}
-              onChange={handleRadioChange("gender")}
+              onChange={handleChange}
             />
             <FormControlRadio
               title="I am looking for"
               value={formData.lookingFor}
-              onChange={handleRadioChange("lookingFor")}
+              name="lookingFor"
+              onChange={handleChange}
             />
           </StyledFormContainer>
-          <SignUpFields
-            formData={formData}
-            onFirstNameChange={handleTextFieldChange("firstName")}
-            onLastNameChange={handleTextFieldChange("lastName")}
-            onEmailChange={handleTextFieldChange("email")}
-            onPasswordChange={handleTextFieldChange("password")}
-          />
+          <SignUpFields formData={formData} handleChange={handleChange} />
           <ButtonBox>
             <Button
               type="submit"
