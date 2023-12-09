@@ -34,7 +34,7 @@ type User {
 
   type Mutation {
   addUser(firstName: String!, lastName: String!, email: String!, 
-    password: String!, gender: String!, lookingFor: String!, dob: String!): Auth
+    password: String!, gender: String!, lookingFor: String!): Auth
   login(email: String!, password: String!): Auth
 
   addInterest(interest: String!): User
