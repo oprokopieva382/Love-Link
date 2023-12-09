@@ -15,18 +15,18 @@ export const QuestionFour = () => {
 
   return (
     <BoxContainer>
-      <StyledTypography>Tell us about yourself?</StyledTypography>
+      <StyledTypography variant="h4">Tell us about yourself?</StyledTypography>
       <StyledTextField
         multiline
         rows={4}
-        label="Type your answer here"
+        label="Be creative..."
         variant="outlined"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
       />
       <BiSolidSkipNextCircle
         onClick={runNextPage}
-        style={{ fontSize: "4rem" }}
+        style={{ fontSize: "4rem", marginTop: 10 }}
       />
     </BoxContainer>
   );

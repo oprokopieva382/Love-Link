@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { FaHeart } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export const StyledFaHeart = styled(FaHeart)`
   color: #90d1ff;
@@ -20,4 +22,20 @@ export const StyledArrow = styled(IoIosArrowRoundBack)`
   font-size: 20px;
   margin-left: 10px;
   margin-top: 5px;
+`;
+
+export const StyledContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+`;
+
+export const StyledTypography = styled(Typography)`
+  color: white;
+  margin-top: 4px;
 `;
