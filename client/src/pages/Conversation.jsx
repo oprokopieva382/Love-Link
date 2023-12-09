@@ -153,7 +153,7 @@ export const Conversation = () => {
           margin: "10px 20px",
           padding: "10px 20px",
         }}>
-          <h3 style={{ textAlign: "center" }}>Your conversation with {match.firstName}</h3>
+          <h3 style={{ textAlign: "center" }}>{match ? `Your conversation with ${match.firstName}` : "Click on a match to start a conversation!"}</h3>
           {messages.length
             ?
             messages.map(m => (
