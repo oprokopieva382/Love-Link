@@ -6,6 +6,9 @@ import '../style/conversation.css'
 import { useQuery } from '@apollo/client';
 import { GET_USERS } from '../utils/queries';
 
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 
 export const Conversation = () => {
   // const { loading, data } = useQuery(GET_USERS);
@@ -20,13 +23,11 @@ export const Conversation = () => {
   const [imageURL, setImageURL] = useState('');
 
   const mappedData = testData.map(person =>
-    <li key={person.email}>
-      <button className='button' style={{textAlign: "center", margin: "auto"}} onClick={() => getMessages(person._id, person.image, person.outbox)}>
-        <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
-        <img src={person.image} alt="" />
-      </button>
+    <Button className='button' style={{ textAlign: "center", margin: "auto" }} onClick={() => getMessages(person._id, person.image, person.outbox)}>
+      <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
+      <img src={person.image} alt="" />
       <p className='names'>{person.firstName} {person.age}</p>
-    </li>
+    </Button>
   )
 
   function getMessages(id, image, outbox) {
@@ -60,9 +61,12 @@ export const Conversation = () => {
         margin: "10px 20px",
         padding: "10px 20px"
       }}>
-        <ul style={{ listStyleType: "none" }}>
+        <ButtonGroup orientation='vertical' variant='none'>
           {mappedData}
-        </ul>
+
+        </ButtonGroup>
+
+
 
       </div>
       <div style={{
@@ -71,10 +75,10 @@ export const Conversation = () => {
         padding: "10px 20px",
         backgroundColor: "lightblue"
       }}>
-        {messages.map(m => 
-          <div key={m.text} style={{display: "flex", flexDirection:"row" }}>
+        {messages.map(m =>
+          <div key={m.text} style={{ display: "flex", flexDirection: "row" }}>
             <img src={imageURL} alt="" />
-            <p style={{justifyContent: "center"}}>{m.text}</p>
+            <p style={{ justifyContent: "center" }}>{m.text}</p>
           </div>)
         }
       </div>

@@ -16,7 +16,8 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
     password: "password123",
     gender: gender,
     interests: getInterests(),
-    image: picture.large
+    image: picture.large,
+    lookingFor: "female"
 }));
 
 db.once('open', async () => {
