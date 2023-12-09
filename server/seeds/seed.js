@@ -5,6 +5,7 @@ const cleanDB = require('./cleanDB');
 const seedData = require('./seed-data.json');
 
 const getInterests = require('./interests');
+const getHobbies = require('./hobbies');
 
 // console.trace(seedData[0]);
 
@@ -13,8 +14,10 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
   lastName: name.last,
   email: email,
   dob: dob.date,
+  about: "I'm a very wonderful person!",
   password: "password123",
   gender: gender,
+  hobbies: getHobbies(),
   interests: getInterests(),
   image: picture.large,
   lookingFor: "female",

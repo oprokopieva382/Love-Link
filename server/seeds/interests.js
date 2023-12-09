@@ -1,20 +1,10 @@
 const interests = [
-    'Movies',
-    'History',
-    'Fashion/Style',
-    'Pets',
-    'Comedy',
-    'Crafting',
-    'Gaming',
-    'Hiking',
-    'Music',
-    'Fitness',
-    'Travel',
-    'Reading',
-    'Volunteering',
-    'Technology',
-    'Photography',
-    'Dance'
+    "🐕‍🦺 Animal Rescue",
+    "💉 Vaccine Rights",
+    "⛪ Faith",
+    "👨‍👩‍👧‍👦 Family",
+    "🧑‍💼 Politics",
+    "🧘‍♀️ Mental health Awareness",
 ];
 
 const getInterests = () => {

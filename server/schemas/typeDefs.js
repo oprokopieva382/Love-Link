@@ -12,6 +12,7 @@ type User {
     image: String
     inbox: [Message]
     outbox: [Message]
+    hobbies: [String]
     interests: [String]
     matches: [ID]
   }

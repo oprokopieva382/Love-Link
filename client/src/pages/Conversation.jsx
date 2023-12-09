@@ -3,7 +3,7 @@ import heartIcon from '../assets/img/heart-icon.png'
 import { useState, useRef } from "react";
 
 import '../style/conversation.css'
-import { useQuery } from '@apollo/client';
+import { useQueries } from '@apollo/client';
 import { GET_USERS, GET_ME } from '../utils/queries';
 
 import Button from '@mui/material/Button';
@@ -19,7 +19,17 @@ import Avatar from '@mui/material/Avatar';
 
 
 export const Conversation = () => {
-  const { loading, data } = useQuery(GET_USERS);
+  const { results } = useQueries([
+    { queryKey: 'users', queryFn: GET_USERS },
+    { queryKey: 'me', queryFn: GET_ME },
+  ]);
+  const data1 = results[0].data;
+  const isLoading1 = results[0].isLoading;
+  const error1 = results[0].error;
+
+  const data2 = results[1].data;
+  const isLoading2 = results[1].isLoading;
+  const error2 = results[1].error;
   // const { meLoading, meData } = useQuery(GET_ME);
   const [messages, setMessages] = useState([]);
   // const [imageURL, setImageURL] = useState('');
@@ -33,10 +43,9 @@ export const Conversation = () => {
   // console.log(meData);
 
   const myData = useQuery(GET_ME);
-  console.log(myData);
-  console.log(messages);
+  let me;
 
-  if (loading) {
+  if (isLoading1) {
     return <h2>LOADING...</h2>;
   }
 
@@ -84,7 +93,7 @@ export const Conversation = () => {
         textAlign: "center",
         padding: "10px"
       }}>
-        <h1 >Conversations</h1>
+        <h1 >{me.firstName}'s Conversations</h1>
       </div>
       <div style={{
         display: "flex"
