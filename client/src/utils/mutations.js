@@ -93,7 +93,6 @@ mutation removeInterest($interest: String!) {
   }
 }
 `
-
 export const ADD_IMAGE = gql`
 mutation addImage($imageUrl: String!) {
   addImage(imageURL: $imageUrl) {

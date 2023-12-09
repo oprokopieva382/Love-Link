@@ -7,6 +7,7 @@ import { FaHeartBroken } from "react-icons/fa";
 import { GiBullseye } from "react-icons/gi";
 import { HiOutlineUser } from "react-icons/hi2";
 import { GiLovers } from "react-icons/gi";
+import Auth from "../utils/auth";
 
 export const ProfileNavBar = () => {
   return (
@@ -49,6 +50,7 @@ export const ProfileNavBar = () => {
           ))}
         </div>
         <IconButton
+          onClick={() => Auth.logout()}
           sx={{
             borderRadius: "50%",
             backgroundColor: "#90D1FF",
