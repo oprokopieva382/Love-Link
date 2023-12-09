@@ -35,11 +35,11 @@ type User {
 
   type Mutation {
   addUser(firstName: String!, lastName: String!, email: String!, 
-    password: String!, gender: String!, lookingFor: String!): Auth
+  password: String!, gender: String!, lookingFor: String!): Auth
   login(email: String!, password: String!): Auth
-  
+
   addDOB(dob: String!): User
-  addInterest(interest: String!): User
+  addInterest(interests: [String!]!): User
   removeInterest(interest: String!): User
 
   addImage(imageURL: String!): User

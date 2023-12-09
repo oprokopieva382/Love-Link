@@ -52,8 +52,8 @@ export const ADD_DOB = gql`
 `;
 
 export const ADD_INTEREST = gql`
-mutation addInterest($interest: String!) {
-  addInterest(interest: $interest) {
+mutation addInterest($interests: [String!]!) {
+  addInterest(interests: $interests) {
     _id
     firstName
     lastName

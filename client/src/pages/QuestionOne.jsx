@@ -15,7 +15,6 @@ export const QuestionOne = () => {
   const navigate = useNavigate();
 
   const runNextPage = async () => {
-
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -27,7 +26,6 @@ export const QuestionOne = () => {
       });
       console.log(selectedDate);
       navigate("/question2");
-
     } catch (error) {
       console.error("Mutation Error:", error);
     }

@@ -45,7 +45,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
+
     addDOB: async (_, { dob }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
@@ -59,12 +59,12 @@ const resolvers = {
        throw AuthenticationError;
     },
 
-    addInterest: async (_, { interest }, context) => {
+    addInterest: async (_, { interests }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { interests: interest },
+            $addToSet: { interests: { $each: interests } },
           },
           {
             new: true,
