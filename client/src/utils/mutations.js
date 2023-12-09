@@ -61,6 +61,27 @@ mutation addInterest($interests: [String!]!) {
   }
 }
 `
+export const ADD_HOBBIES = gql`
+  mutation addHobbies($hobbies: [String!]!) {
+    addHobbies(hobbies: $hobbies) {
+      _id
+      firstName
+      lastName
+      hobbies
+    }
+  }
+`;
+
+export const ADD_ABOUT = gql`
+  mutation addAbout($about: String!) {
+    addAbout(about: $about) {
+      _id
+      firstName
+      lastName
+      about
+    }
+  }
+`;
 
 export const REMOVE_INTEREST = gql`
 mutation removeInterest($interest: String!) {

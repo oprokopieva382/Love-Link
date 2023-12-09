@@ -56,7 +56,7 @@ const resolvers = {
           { new: true }
         );
       }
-       throw AuthenticationError;
+      throw AuthenticationError;
     },
 
     addInterest: async (_, { interests }, context) => {
@@ -73,6 +73,36 @@ const resolvers = {
         );
       }
 
+      throw AuthenticationError;
+    },
+
+    addHobbies: async (_, { hobbies }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { hobbies: { $each: hobbies } },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+
+      throw AuthenticationError;
+    },
+
+    addAbout: async (_, { about }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { about: about },
+          },
+          { new: true, runValidators: true }
+        );
+      }
       throw AuthenticationError;
     },
 

@@ -39,7 +39,9 @@ type User {
   login(email: String!, password: String!): Auth
 
   addDOB(dob: String!): User
+  addAbout(about: String!): User
   addInterest(interests: [String!]!): User
+  addHobbies(hobbies: [String!]!): User
   removeInterest(interest: String!): User
 
   addImage(imageURL: String!): User
