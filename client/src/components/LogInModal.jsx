@@ -2,26 +2,12 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { useState } from "react";
-import styled from "styled-components";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import { Button } from "@mui/material";
-
-const StyledModalBox = styled(Box)`
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  width: 400px;
-  background-color: white;
-  border: 2px solid #000;
-  box-shadow: 24px;
-  background-color: rgba(255, 255, 255, 0.6);
-  padding: 16px;
-`;
+import { StyledModalBox } from "../style/loginModal.style";
 
 export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
   const [login] = useMutation(LOGIN_USER);
@@ -52,7 +38,7 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-   
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -106,7 +92,12 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
               onChange={handleTextFieldChange}
             />
           </FormControl>
-          <Button type="submit" color="primary" variant="contained">
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{ display: "block", margin: "0 auto" }}
+          >
             Login
           </Button>
         </form>
