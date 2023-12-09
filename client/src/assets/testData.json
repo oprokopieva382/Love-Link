@@ -8,7 +8,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "male"
+            "gender": "male",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         },
         {
             "firstName": "Elmer",
@@ -19,7 +33,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "male"
+            "gender": "male",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         },
         {
             "firstName": "Gilano",
@@ -30,7 +58,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "male"
+            "gender": "male",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         },
         {
             "firstName": "Amy",
@@ -41,7 +83,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "female"
+            "gender": "female",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         },
         {
             "firstName": "Victoria",
@@ -52,7 +108,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "female"
+            "gender": "female",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         },
         {
             "firstName": "Gökhan",
@@ -63,7 +133,21 @@
             "interests": [
                 "fishing", "movies", "dancing"
             ],
-            "gender": "male"
+            "gender": "male",
+            "inbox": [
+                {
+                    "text": "Heya baby gurl",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ],
+            "outbox": [
+                {
+                    "text": "hey yourself",
+                    "userId": "65732b46d4bb66d24be39ce9",
+                    "read": false
+                }
+            ]
         }
     ]
 
