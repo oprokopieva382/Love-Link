@@ -1,11 +1,10 @@
-import Box from "@mui/material/Box";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
-import background from "../assets/img/questionBackground.jpeg";
-import Typography from "@mui/material/Typography";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BoxContainer } from "../style/general.style";
+import { StyledTypography } from "../style/question.style";
 
 export const QuestionOne = () => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -17,32 +16,19 @@ export const QuestionOne = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white",
-      }}
-    >
-      <Typography sx={{ fontSize: "1.5rem", padding: "10px" }}>
+    <BoxContainer>
+      <StyledTypography variant="h4">
         What is your your date of birth?
-      </Typography>
+      </StyledTypography>
       <DatePicker
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="MM/dd/yyyy"
       />
-
       <BiSolidSkipNextCircle
         onClick={runNextPage}
         style={{ fontSize: "4rem" }}
       />
-    </Box>
+    </BoxContainer>
   );
 };
