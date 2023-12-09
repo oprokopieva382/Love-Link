@@ -45,6 +45,11 @@ const userSchema = new Schema(
     },
     inbox: [messageSchema],
     outbox: [messageSchema],
+    hobbies: [
+      {
+        type: String,
+      }
+    ],
     interests: [
       {
         type: String,

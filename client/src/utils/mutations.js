@@ -41,26 +41,52 @@ export const LOGIN_USER = gql`
 `;
 
 export const ADD_INTEREST = gql`
-  mutation addInterest($interest: String!) {
-    addInterest(interest: $interest) {
-      _id
-      firstName
-      lastName
-      interests
-    }
+mutation addInterest($interest: String!) {
+  addInterest(interest: $interest) {
+    _id
+    firstName
+    lastName
+    interests
   }
-`;
+}
+`
+
+export const REMOVE_INTEREST = gql`
+mutation removeInterest($interest: String!) {
+  removeInterest(interest: $interest) {
+    _id
+    firstName
+    lastName
+    interests
+  }
+}
+`
 
 export const ADD_IMAGE = gql`
-  mutation addImage($imageUrl: String!) {
-    addImage(imageURL: $imageUrl) {
-      _id
-      firstName
-      lastName
-      image
+mutation addImage($imageUrl: String!) {
+  addImage(imageURL: $imageUrl) {
+    _id
+    firstName
+    lastName
+    image
+  }
+}
+`
+
+export const ADD_MESSAGE = gql`
+mutation addMessage($message: String!, $targetId: ID!) {
+  addMessage(message: $message, targetID: $targetId) {
+    _id
+    firstName
+    lastName
+    outbox {
+      text
+      userId
+      read
     }
   }
-`;
+}
+`
 
 export const SAVE_MATCH = gql`
   mutation saveMatch($matchId: ID!) {
@@ -73,11 +99,11 @@ export const SAVE_MATCH = gql`
 `;
 
 export const REMOVE_MATCH = gql`
-  mutation Mutation($matchId: ID!) {
-    removeMatch(matchID: $matchId) {
-      _id
-      firstName
-      lastName
-    }
+mutation removeMatch($matchId: ID!) {
+  removeMatch(matchID: $matchId) {
+    _id
+    firstName
+    lastName
   }
-`;
+}
+`

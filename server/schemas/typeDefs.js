@@ -12,17 +12,12 @@ type User {
     image: String
     inbox: [Message]
     outbox: [Message]
+    hobbies: [String]
     interests: [String]
     matches: [ID]
   }
 
   type Message {
-    text: String
-    userId: ID
-    read: Boolean
-  }
-
-  input MessageInput {
     text: String
     userId: ID
     read: Boolean
@@ -44,9 +39,11 @@ type User {
   login(email: String!, password: String!): Auth
 
   addInterest(interest: String!): User
+  removeInterest(interest: String!): User
+
   addImage(imageURL: String!): User
 
-  addMessage(message: MessageInput!, targetID: ID!): User
+  addMessage(message: String!, targetID: ID!): User
 
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User

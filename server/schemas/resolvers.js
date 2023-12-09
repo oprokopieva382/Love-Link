@@ -5,14 +5,17 @@ const resolvers = {
   Query: {
     me: async (_, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v-password"
-        ).populate('messages');
+        // console.log('in here to get a user -- have context')
+        const userData = await User.findOne({ _id: context.user._id })
+        .select('-password')
+        .populate('inbox', 'outbox');
 
+        console.log(userData);
         return userData;
       }
       throw AuthenticationError;
     },
+
     users: async () => {
       return User.find();
     }
@@ -45,7 +48,6 @@ const resolvers = {
     },
 
     addInterest: async (_, { interest }, context) => {
-      // TODO: comment these back in when front end is up
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -62,9 +64,22 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    removeInterest: async (_, { interest }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: { interests: { interest } }
+          },
+          {
+            new: true
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+
     addImage: async (_, { imageURL }, context) => {
-      // TODO: comment these back in when front end is up
-      // also will need to bring userID from context instead of args
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
@@ -88,7 +103,13 @@ const resolvers = {
         const me = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { outbox: message }
+            $addToSet: {
+              inbox: {
+                text: message,
+                userId: targetID,
+                read: false,
+              }
+            }
           },
           {
             new: true,
@@ -101,7 +122,7 @@ const resolvers = {
           {
             $addToSet: {
               inbox: {
-                text: message.text,
+                text: message,
                 userId: context.user._id,
                 read: false,
               }
@@ -139,8 +160,8 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { 
-            $pull: { matches: { matchID } } 
+          {
+            $pull: { matches: { matchID } }
           },
           { new: true }
         );
