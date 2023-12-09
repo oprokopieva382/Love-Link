@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client'
 import { GET_ME, GET_USERS } from '../utils/queries'
+import React, { useState } from "react";
 
 export const Profile = () => {
   // const { loading, data } = useQuery(GET_USERS);
   const { loading, data } = useQuery(GET_ME);
-
 
   if (loading) {
     return <h2>LOADING...</h2>
@@ -13,6 +13,6 @@ export const Profile = () => {
   console.log(data.me);
 
   return <>
-          <h1>Welcome {data.me.firstName}!</h1>
-        </>;
+    <h1>Welcome {data.me.firstName}!</h1>
+  </>;
 };

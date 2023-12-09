@@ -9,39 +9,47 @@ const getInterests = require('./interests');
 // console.trace(seedData[0]);
 
 const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
-    firstName: name.first,
-    lastName: name.last,
-    email: email,
-    dob: dob.date,
-    password: "password123",
-    gender: gender,
-    interests: getInterests(),
-    image: picture.large,
-    lookingFor: "female"
+  firstName: name.first,
+  lastName: name.last,
+  email: email,
+  dob: dob.date,
+  password: "password123",
+  gender: gender,
+  interests: getInterests(),
+  image: picture.large,
+  lookingFor: "female",
+  message: [{
+    "text": "Hey Bob! How are you?",
+    "userId": "6574589a07f2b1e63fa59444",
+    "read": false
+  }]
 }));
 
 db.once('open', async () => {
   await cleanDB('User', 'users');
 
-  
+
   var obj = { data: mappedData };
 
   var json = JSON.stringify(obj);
 
   var fs = require('fs');
-  fs.writeFile('myjsonfile.json', json, 'utf-8', () => {});
+  fs.writeFile('myjsonfile.json', json, 'utf-8', () => { });
 
   const usersData = await User.insertMany(mappedData);
 
-  for (let i=0; i<usersData.length; i++) {
+  for (let i = 0; i < usersData.length; i++) {
     await User.findOneAndUpdate(
       { _id: usersData[i]._id.toString() },
       {
-        $addToSet: { interests: usersData[i].interests },
-        $set: 
+        $addToSet: {
+          interests: usersData[i].interests,
+          outbox: usersData[i].message
+        },
+        $set:
         {
           image: usersData[i].image
-        }
+        },
       },
       {
         new: true,
