@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { SignUpFields } from "../components/SignUpFields";
 import { useState } from "react";
@@ -10,23 +9,13 @@ import {
   StyledTypography,
   ButtonBox,
 } from "../style/entry.style";
-
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
+import Box from "@mui/material/Box";
 
 export const Entry = () => {
-  const initialFormData = {
-    gender: "",
-    lookingFor: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  };
-
   const [addUser] = useMutation(ADD_USER);
-
   const [formData, setFormData] = useState({
     gender: "",
     lookingFor: "",
@@ -42,11 +31,6 @@ export const Entry = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  //  const handleTextFieldChange = (event) => {
-  //    const { name, value } = event.target;
-  //    setFormData({ ...formData, [name]: value });
-  //  };
-
   const resetForm = () => {
     setFormData({
       gender: "",
@@ -61,6 +45,12 @@ export const Entry = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
     try {
       const { data } = await addUser({
         variables: { ...formData },
@@ -70,7 +60,6 @@ export const Entry = () => {
     } catch (err) {
       console.error(err);
     }
-
     resetForm();
   };
 
@@ -80,20 +69,24 @@ export const Entry = () => {
       <BoxContainer>
         <StyledTypography variant="h4">Let's get start</StyledTypography>
         <form onSubmit={handleSubmit}>
-          <StyledFormContainer>
-            <FormControlRadio
-              title="I am"
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
-            />
-            <FormControlRadio
-              title="I am looking for"
-              value={formData.lookingFor}
-              name="lookingFor"
-              onChange={handleChange}
-            />
-          </StyledFormContainer>
+          <Box sx={{display: "flex"}}>
+            <StyledFormContainer>
+              <FormControlRadio
+                title="I am"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              />
+            </StyledFormContainer>
+            <StyledFormContainer>
+              <FormControlRadio
+                title="I am looking for"
+                value={formData.lookingFor}
+                name="lookingFor"
+                onChange={handleChange}
+              />
+            </StyledFormContainer>
+          </Box>
           <SignUpFields formData={formData} handleChange={handleChange} />
           <ButtonBox>
             <Button

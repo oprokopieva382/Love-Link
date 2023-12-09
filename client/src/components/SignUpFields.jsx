@@ -1,29 +1,10 @@
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import { StyledFormControl, StyledTypography } from "../style/signUpFields.style";
 
 export const SignUpFields = ({ formData, handleChange }) => {
-  const boxStyle = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20px",
-    marginRight: "30px",
-    gap: 2,
-  };
-
-  const formControlStyle = {
-    display: "flex",
-    width: "100%",
-    marginRight: 2,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    borderRadius: "8px",
-  };
-
   return (
-    <Box sx={boxStyle}>
-      <FormControl sx={formControlStyle}>
+    <StyledTypography>
+      <StyledFormControl>
         <TextField
           label="What is your first name?"
           variant="outlined"
@@ -31,8 +12,8 @@ export const SignUpFields = ({ formData, handleChange }) => {
           value={formData.firstName}
           onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           label="What is your last name?"
           variant="outlined"
@@ -41,8 +22,8 @@ export const SignUpFields = ({ formData, handleChange }) => {
           value={formData.lastName}
           onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           type="email"
           label="Enter your email"
@@ -51,8 +32,8 @@ export const SignUpFields = ({ formData, handleChange }) => {
           value={formData.email}
           onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           type="password"
           label="Enter your password"
@@ -61,7 +42,7 @@ export const SignUpFields = ({ formData, handleChange }) => {
           value={formData.password}
           onChange={handleChange}
         />
-      </FormControl>
-    </Box>
+      </StyledFormControl>
+    </StyledTypography>
   );
 };

@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-import { SupperButton } from "./SupperButton";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
@@ -7,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 import styled from "styled-components";
-
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
@@ -56,7 +53,11 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
    
-    console.log("Form Data:", formData);
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
     try {
       const { data } = await login({
@@ -67,9 +68,9 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
     } catch (err) {
       console.error(err);
     }
-
     resetForm();
   };
+
   return (
     <Modal open={modal} onClose={handleCloseModal}>
       <StyledModalBox>
