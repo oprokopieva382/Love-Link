@@ -1,50 +1,33 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
-import background from "../assets/img/questionBackground.jpeg";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { BoxContainer } from "../style/general.style";
+import { StyledTextField, StyledTypography } from "../style/question.style";
 
 export const QuestionFour = () => {
   const [userInput, setUserInput] = useState("");
   const navigate = useNavigate();
- 
+
   const runNextPage = () => {
     console.log(userInput);
     navigate("/profile");
   };
 
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white",
-      }}
-    >
-      <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        Tell us about yourself?
-      </Typography>
-      <TextField
+    <BoxContainer>
+      <StyledTypography variant="h4">Tell us about yourself?</StyledTypography>
+      <StyledTextField
         multiline
         rows={4}
-        label="Type your answer here"
+        label="Be creative..."
         variant="outlined"
         value={userInput}
         onChange={(e) => setUserInput(e.target.value)}
-        sx={{ width: 300, margin: "15px" }}
       />
       <BiSolidSkipNextCircle
         onClick={runNextPage}
-        style={{ fontSize: "4rem" }}
+        style={{ fontSize: "4rem", marginTop: 10 }}
       />
-    </Box>
+    </BoxContainer>
   );
 };
