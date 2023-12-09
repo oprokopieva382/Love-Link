@@ -12,10 +12,10 @@ export const Greeting = () => {
 
   return (
     <BoxContainer>
-      <GreetingText>
+      <GreetingText variant="h3">
         Hi Kurt, tell us about yourself.
       </GreetingText>
-      <GreetingSubText>
+      <GreetingSubText variant="h5">
         Let's break it down, step by step
       </GreetingSubText>
       <BiSolidSkipNextCircle
