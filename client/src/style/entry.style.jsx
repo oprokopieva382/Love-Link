@@ -30,4 +30,5 @@ export const StyledFormContainer = styled(Box)`
 
 export const ButtonBox = styled(Box)`
   text-align: center;
+  margin-right: 30px;
 `;

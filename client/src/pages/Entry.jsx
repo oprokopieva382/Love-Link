@@ -17,6 +17,7 @@ export const Entry = () => {
     lookingFor: "",
     firstName: "",
     lastName: "",
+    email: "",
     password: "",
   };
 
@@ -64,6 +65,7 @@ export const Entry = () => {
             formData={formData}
             onFirstNameChange={handleTextFieldChange("firstName")}
             onLastNameChange={handleTextFieldChange("lastName")}
+            onEmailChange={handleTextFieldChange("email")}
             onPasswordChange={handleTextFieldChange("password")}
           />
           <ButtonBox>

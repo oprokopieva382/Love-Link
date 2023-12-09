@@ -6,6 +6,7 @@ export const SignUpFields = ({
   formData,
   onFirstNameChange,
   onLastNameChange,
+  onEmailChange,
   onPasswordChange,
 }) => {
   const boxStyle = {
@@ -43,6 +44,15 @@ export const SignUpFields = ({
           sx={{ color: "white" }}
           value={formData.lastName}
           onChange={onLastNameChange}
+        />
+      </FormControl>
+      <FormControl sx={formControlStyle}>
+        <TextField
+          type="email"
+          label="Enter your email"
+          variant="outlined"
+          value={formData.email}
+          onChange={onEmailChange}
         />
       </FormControl>
       <FormControl sx={formControlStyle}>

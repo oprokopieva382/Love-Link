@@ -37,5 +37,5 @@ export const StyledContainer = styled(Box)`
 
 export const StyledTypography = styled(Typography)`
   color: white;
-  margin-top: 4px;
-`;
+  padding-top: 3px;
+ `;
