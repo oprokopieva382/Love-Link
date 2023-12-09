@@ -7,7 +7,7 @@ const resolvers = {
       if (context.user) {
         // console.log('in here to get a user -- have context')
         const userData = await User.findOne({ _id: context.user._id })
-        .select('-password')
+        .select('-__v-password')
         .populate('inbox', 'outbox');
 
         console.log(userData);
