@@ -40,6 +40,17 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const ADD_DOB = gql`
+  mutation addDOB($dob: String!) {
+    addDOB(dob: $dob) {
+      _id
+      firstName
+      lastName
+      dob
+    }
+  }
+`;
+
 export const ADD_INTEREST = gql`
 mutation addInterest($interest: String!) {
   addInterest(interest: $interest) {
