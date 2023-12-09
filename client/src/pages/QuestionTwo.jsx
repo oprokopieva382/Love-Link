@@ -1,12 +1,10 @@
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
-import background from "../assets/img/questionBackground.jpeg";
-import Typography from "@mui/material/Typography";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
+import { BoxContainer } from "../style/general.style";
+import { StyledTextField, StyledTypography } from "../style/question.style";
 
 const options = [
   "🐕‍🦺 Animal Rescue",
@@ -27,22 +25,8 @@ export const QuestionTwo = () => {
   };
 
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        color: "white",
-      }}
-    >
-      <Typography sx={{ fontSize: "1.5rem", padding: "15px" }}>
-        What is interest you?
-      </Typography>
+    <BoxContainer>
+      <StyledTypography variant="h4">What is interest you?</StyledTypography>
       <Autocomplete
         multiple
         id="interests"
@@ -50,7 +34,7 @@ export const QuestionTwo = () => {
         onChange={(event, value) => setSelectedOptions(value)}
         value={selectedOptions}
         renderInput={(params) => (
-          <TextField
+          <StyledTextField
             {...params}
             label="Interests"
             variant="outlined"
@@ -62,6 +46,6 @@ export const QuestionTwo = () => {
         onClick={runNextPage}
         style={{ fontSize: "4rem" }}
       />
-    </Box>
+    </BoxContainer>
   );
 };
