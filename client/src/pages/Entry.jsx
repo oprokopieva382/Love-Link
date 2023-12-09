@@ -56,7 +56,7 @@ export const Entry = () => {
         variables: { ...formData },
       });
 
-      Auth.login(data.addUser.token);
+      Auth.signUp(data.addUser.token);
     } catch (err) {
       console.error(err);
     }
