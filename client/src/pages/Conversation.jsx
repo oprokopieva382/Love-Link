@@ -1,4 +1,4 @@
-import testData from '../assets/testData.json';
+// import testData from '../assets/testData.json';
 import heartIcon from '../assets/img/heart-icon.png'
 import { useState } from "react";
 
@@ -11,19 +11,25 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 export const Conversation = () => {
-  // const { loading, data } = useQuery(GET_USERS);
+  const { loading, data } = useQuery(GET_USERS);
+  const [messages, setMessages] = useState([]);
+  const [imageURL, setImageURL] = useState('');
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
 
-  // if (loading) {
-  //   return <h2>LOADING...</h2>;
-  // }
+  if (loading) {
+    return <h2>LOADING...</h2>;
+  }
 
-  const [messages, setMessages] = useState([]);
-  const [imageURL, setImageURL] = useState('');
+  console.log(data.users);
 
-  const mappedData = testData.map(person =>
-    <Button className='button' style={{ textAlign: "center", margin: "auto" }} onClick={() => getMessages(person._id, person.image, person.outbox)}>
+  const mappedData = data.users.map(person =>
+    <Button 
+      key={person.email} 
+      className='button' 
+      style={{ textAlign: "center", margin: "auto" }} 
+      onClick={() => getMessages(person._id, person.image, person.outbox)}
+    >
       <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
       <img src={person.image} alt="" />
       <p className='names'>{person.firstName} {person.age}</p>
@@ -34,13 +40,14 @@ export const Conversation = () => {
     // this will bring back the conversation between the two
     console.log('click');
     let newArr = outbox;
-    console.log(newArr[0].text);
+    // console.log(newArr[0].text);
+    console.log(image);
     setMessages(newArr);
     setImageURL(image)
   }
 
 
-  console.log(testData);
+  // console.log(testData);
   // console.trace(data);
 
   return <>

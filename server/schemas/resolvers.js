@@ -5,14 +5,17 @@ const resolvers = {
   Query: {
     me: async (_, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v-password"
-        ).populate('messages');
+        // console.log('in here to get a user -- have context')
+        const userData = await User.findOne({ _id: context.user._id })
+        .select('-password')
+        .populate('inbox', 'outbox');
 
+        console.log(userData);
         return userData;
       }
       throw AuthenticationError;
     },
+
     users: async () => {
       return User.find();
     }
