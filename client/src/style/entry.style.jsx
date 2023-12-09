@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import entryBackground from "../assets/img/entryBackground.jpeg";
-
 import styled from "styled-components";
 
 export const BoxContainer = styled(Box)`
@@ -13,16 +12,16 @@ export const BoxContainer = styled(Box)`
   flex-direction: column;
   justify-content: center;
   align-items: end;
-`;
+  `;
 
 export const StyledTypography = styled(Typography)`
-  padding-right: 4.5%;
+  padding-right: 8%;
   padding-bottom: 1%;
 `;
 
 export const StyledFormContainer = styled(Box)`
   color: white;
-  margin-right: 30px;
+  margin-right: 37px;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 20px;
   border-radius: 8px;

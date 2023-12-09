@@ -1,69 +1,48 @@
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import { StyledFormControl, StyledTypography } from "../style/signUpFields.style";
 
-export const SignUpFields = ({
-  formData,
-  onFirstNameChange,
-  onLastNameChange,
-  onEmailChange,
-  onPasswordChange,
-}) => {
-  const boxStyle = {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "20px",
-    marginRight: "30px",
-    gap: 2,
-  };
-
-  const formControlStyle = {
-    display: "flex",
-    width: "100%",
-    marginRight: 2,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    borderRadius: "8px",
-  };
-
+export const SignUpFields = ({ formData, handleChange }) => {
   return (
-    <Box sx={boxStyle}>
-      <FormControl sx={formControlStyle}>
+    <StyledTypography>
+      <StyledFormControl>
         <TextField
           label="What is your first name?"
           variant="outlined"
+          name="firstName"
           value={formData.firstName}
-          onChange={onFirstNameChange}
+          onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           label="What is your last name?"
           variant="outlined"
+          name="lastName"
           sx={{ color: "white" }}
           value={formData.lastName}
-          onChange={onLastNameChange}
+          onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           type="email"
           label="Enter your email"
           variant="outlined"
+          name="email"
           value={formData.email}
-          onChange={onEmailChange}
+          onChange={handleChange}
         />
-      </FormControl>
-      <FormControl sx={formControlStyle}>
+      </StyledFormControl>
+      <StyledFormControl>
         <TextField
           type="password"
           label="Enter your password"
           variant="outlined"
+          name="password"
           value={formData.password}
-          onChange={onPasswordChange}
+          onChange={handleChange}
         />
-      </FormControl>
-    </Box>
+      </StyledFormControl>
+    </StyledTypography>
   );
 };
