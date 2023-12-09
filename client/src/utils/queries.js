@@ -53,7 +53,6 @@ query users{
       read
     }
     interests
-    favorited
   }
 }
 `
