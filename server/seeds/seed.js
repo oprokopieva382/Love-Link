@@ -22,6 +22,14 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
 db.once('open', async () => {
   await cleanDB('User', 'users');
 
+  
+  var obj = { data: mappedData };
+
+  var json = JSON.stringify(obj);
+
+  var fs = require('fs');
+  fs.writeFile('myjsonfile.json', json, 'utf-8', () => {});
+
   const usersData = await User.insertMany(mappedData);
 
   for (let i=0; i<usersData.length; i++) {
@@ -40,6 +48,7 @@ db.once('open', async () => {
       }
     );
   }
+
 
   // console.log(usersData[0]._id.toString());
 
