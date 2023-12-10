@@ -1,154 +1,206 @@
-// // import testData from '../assets/testData.json';
-// import heartIcon from '../assets/img/heart-icon.png'
-// import { useState, useRef } from "react";
+// import testData from '../assets/testData.json';
+import heartIcon from '../assets/img/heart-icon.png'
+import { useState, useRef } from "react";
 
-// import '../style/conversation.css'
-// import { useQueries } from '@apollo/client';
-// import { GET_USERS, GET_ME } from '../utils/queries';
-
-// import Button from '@mui/material/Button';
-// import ButtonGroup from '@mui/material/ButtonGroup';
-// import Box from '@mui/material/Box';
-// import Input from '@mui/material/Input';
-// import InputLabel from '@mui/material/InputLabel';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import FormControl from '@mui/material/FormControl';
-// import TextField from '@mui/material/TextField';
-// import AccountCircle from '@mui/icons-material/AccountCircle';
-// import Avatar from '@mui/material/Avatar';
+import '../style/conversation.css'
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_USERS, GET_ME } from '../utils/queries';
+import { ADD_MESSAGE } from '../utils/mutations';
 
 
-// export const Conversation = () => {
-//   const { results } = useQueries([
-//     { queryKey: 'users', queryFn: GET_USERS },
-//     { queryKey: 'me', queryFn: GET_ME },
-//   ]);
-//   const data1 = results[0].data;
-//   const isLoading1 = results[0].isLoading;
-//   const error1 = results[0].error;
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+import Avatar from '@mui/material/Avatar';
+import Skeleton from '@mui/material/Skeleton';
 
-//   const data2 = results[1].data;
-//   const isLoading2 = results[1].isLoading;
-//   const error2 = results[1].error;
-//   // const { meLoading, meData } = useQuery(GET_ME);
-//   const [messages, setMessages] = useState([]);
-//   // const [imageURL, setImageURL] = useState('');
-//   const [match, setMatch] = useState('');
-//   // Using test data while server connection is down
-//   // let data = require('../assets/testData.json');
-//   const valueRef = useRef('') //creating a refernce for TextField Component
+import { ProfileNavBar } from '../components/ProfileNavBar';
+import { BoxContainer } from '../style/profile.style';
 
-
-
-//   // console.log(meData);
-
-//   const myData = useQuery(GET_ME);
-//   let me;
-
-//   if (isLoading1) {
-//     return <h2>LOADING...</h2>;
-//   }
-
-//   const mappedData = data.users.map(person =>
-//     <Button
-//       key={person.email}
-//       className='button'
-//       style={{ textAlign: "center", margin: "auto" }}
-//       onClick={() => getMessages(person)}
-//     >
-//       <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
-//       <img src={person.image} alt="" />
-//       <p className='names'>{person.firstName} {person.age}</p>
-//     </Button>
-//   )
-
-//   function getMessages(match) {
-//     // this will bring back the conversation between the two
-//     setMatch(match);
-//     console.log(match);
-//   }
-
-//   function sendMessage() {
-//     console.log(valueRef.current.value);
-//   }
-
-//   const handleKeyPress = (event) => {
-//     // look for the `Enter` keyCode
-//     console.log('key clicked!!');
-//     if (event.keyCode === 13 || event.which === 13) {
-//       console.log('ENTER KEY clicked!!');
-//       sendMessage()
-//     }
-//   }
-
-
-//   // console.log(testData);
-//   // console.trace(data);
-
-//   return (
-//     <div style={{ width: "80%", height: "100vh" }}>
-//       <div style={{
-//         margin: "auto",
-//         width: "50%",
-//         textAlign: "center",
-//         padding: "10px"
-//       }}>
-//         <h1 >{me.firstName}'s Conversations</h1>
-//       </div>
-//       <div style={{
-//         display: "flex"
-//       }}
-//       >
-//         <div style={{
-//           width: "20%",
-//           margin: "10px 20px",
-//           padding: "10px 20px"
-//         }}>
-//           <ButtonGroup orientation='vertical' variant='none'>
-//             {mappedData}
-
-//           </ButtonGroup>
-
-
-
-//         </div>
-//         <div style={{
-//           width: "80%",
-//           margin: "10px 20px",
-//           padding: "10px 20px",
-//           backgroundColor: "lightblue"
-//         }}>
-//           <h3 style={{ textAlign: "center" }}>Your conversation with {match.firstName}</h3>
-//           {messages.length!=0 
-//             ? 
-//             messages.map(m => (
-//             <div key={m.text} style={{ display: "flex", flexDirection: "row" }}>
-//               <img src={imageURL} alt="" />
-//               <p style={{ justifyContent: "center" }}>{m.text}</p>
-//             </div>)) 
-//             : 
-//             <p style={{ textAlign: "center" }}>No message history yet. Why don't you take the first step?</p>
-//           }
-//           <Box sx={{ '& > :not(style)': { m: 1 } }}>
-//             <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-//               <TextField 
-//                 id="input-with-sx" 
-//                 label="Say hello!" 
-//                 variant="standard"
-//                 inputRef={valueRef}
-//                 onKeyUp={handleKeyPress}/>
-//               <Avatar alt="Remy Sharp" src={heartIcon} />
-//             </Box>
-//           </Box>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// };
 
 export const Conversation = () => {
+  const { loading, data } = useQuery(GET_ME);
+  const { loading: newLoading, data: newData } = useQuery(GET_USERS);
+  const [sendMessageMutation] = useMutation(ADD_MESSAGE);
+  // const { meLoading, meData } = useQuery(GET_ME);
+  const [matches, setMatches] = useState([]);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  // const [imageURL, setImageURL] = useState('');
+  const [match, setMatch] = useState('');
+  // Using test data while server connection is down
+  // let data = require('../assets/testData.json');
+  const valueRef = useRef('') //creating a refernce for TextField Component
+  const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg"
+  let mappedData;
+
+  if (newLoading) {
+    return <h2>Loading...</h2>
+  } else {
+    loadMatches();
+  }
+
+
+  function loadMatches() {
+    // const { data } = await getUsersQuery;
+    // console.log(newData);
+    mappedData = newData.users.map(person =>
+      <Button
+        key={person.email}
+        className='button'
+        centerRipple={true}
+        style={{ textAlign: "center", margin: "auto"}}
+        onClick={() => getMessages(person)}
+      >
+        <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
+        <img src={person.image} alt="" style={{borderRadius: "50px"}}/>
+      </Button>
+    );
+    mappedData = mappedData.slice(0, 5);
+  }
+
+
+
+  function getMessages(match) {
+    // this will bring back the conversation between the two
+    setMessages([]);
+    console.log(messages);
+    setMatch(match);
+    console.log("Your match is: " + match.firstName);
+    // console.log(match);
+    let newArr1 = match.outbox.filter(m => m.userId === match._id);
+    let newArr2 = data.me.outbox.filter(m => m.userId === match._id);
+    let newArr = newArr1.concat(newArr2);
+    // newArr.push(data.me.inbox);
+    // console.log(newArr);
+    // newArr.push(data.me.outbox);
+    // console.log(newArr);
+    setMessages(newArr);
+    console.log(messages);
+  }
+
+  function sendMessage(event) {
+    // setInput(event.target.value);
+    let text = event.target.value;
+    console.log(text);
+    // setInput(text);
+    if (event.keyCode === 13 || event.which === 13) {
+      console.log('ENTER KEY clicked!!');
+      makeMessage(text)
+    }    
+  }
+
+  async function makeMessage(text) {
+    try {
+      const { data } = await sendMessageMutation({
+        variables:
+        {
+          message: text,
+          targetId: match._id.toString()
+        }
+      });
+
+      if (data) {
+        console.log('Message sent!');
+      }
+    } catch (err) {
+      console.error(err);
+    }
+    setInput('');
+  }
+
+
   return (
-    <>Conver</>
-  );
-}
+    <BoxContainer>
+      <ProfileNavBar />
+      <div style={{ width: "100%", height: "100vh" }}>
+      <div style={{
+        margin: "auto",
+        width: "100%",
+        textAlign: "center",
+        padding: "10px 10%",
+      }}>
+        <h1 >{data.me.firstName}'s Conversations</h1>
+      </div>
+      <div style={{
+        display: "flex"
+      }}
+      >
+        <div style={{
+          width: "20%",
+          margin: "10px 20px",
+          padding: "10px 20px",
+          border: "solid #8C5EEB 3px",
+          borderRadius: "30px",
+        }}>
+          <ButtonGroup orientation='vertical' variant='none' fullWidth={true}>
+            <h3 style={{textAlign: "center"}}>Your top 5 matches!</h3>
+            {mappedData}
+
+          </ButtonGroup>
+
+
+
+        </div>
+        <div style={{
+          width: "70%",
+          margin: "10px 20px",
+          padding: "10px 20px",
+        }}>
+          <h3 style={{ textAlign: "center" }}>{match ? `Your conversation with ${match.firstName}` : "Click on a match to start a conversation!"}</h3>
+          {messages.length
+            ?
+            messages.map(m => (
+              <div 
+                key={m.text} 
+                style={{ 
+                  display: "flex", 
+                  flexDirection: "row",
+                  border: "solid #8C5EEB 3px",
+                  borderRadius: "10px",
+                  margin: "10px",
+                  justifyContent: "flex-end",
+                  padding: "5px"
+                }}>
+                <p style={{ alignSelf: "center", textAlign: "center", marginRight: "30px" }}>{m.text}</p>
+                <img 
+                  src={m.userId !== match._id ? match.image : tempImgURL} 
+                  alt=""
+                  style={{borderRadius: "50px", width: "75px"}}/>
+              </div>))
+            :
+            <div>
+              <p style={{ textAlign: "center" }}>No message history yet. Why don't you take the first step?</p>
+              <Skeleton animation="wave"/>
+              <Skeleton animation="wave" />
+              <Skeleton animation="wave" />
+            </div>
+
+          }
+          <Box sx={{ '& > :not(style)': { m: 1 } }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+              <TextField
+                id="input-with-sx"
+                label="Say hello!"
+                variant="standard"
+                fullWidth={true}
+                value={input}
+                onChange={(event, value) => setInput(value)}
+                onKeyUp={(event) => sendMessage(event)} />
+              <Avatar alt="Remy Sharp" src={tempImgURL}/>
+            </Box>
+          </Box>
+        </div>
+      </div>
+    </div>
+    </BoxContainer>
+
+  )
+};
 

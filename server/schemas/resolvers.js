@@ -145,7 +145,7 @@ const resolvers = {
           { _id: context.user._id },
           {
             $addToSet: {
-              inbox: {
+              outbox: {
                 text: message,
                 userId: targetID,
                 read: false,
