@@ -4,17 +4,17 @@ import { GreetingSubText, GreetingText } from "../style/greeting.style";
 import { BoxContainer } from "../style/general.style";
 import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { Spinner } from './../components/Spinner';
+import { Spinner } from "./../components/Spinner";
 
 export const Greeting = () => {
-   const { loading, error, data } = useQuery(GET_ME);
+  const { loading, error, data } = useQuery(GET_ME);
   const navigate = useNavigate();
 
-   if (loading) return <Spinner/>
-   if (error) return <p>Error: {error.message}</p>;
+  if (loading) return <Spinner />;
+  if (error) return <p>Error: {error.message}</p>;
 
-   const { firstName } = data.me;
-  
+  const { firstName } = data.me;
+
   const runNextPage = () => {
     navigate("/question1");
   };

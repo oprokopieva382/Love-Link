@@ -1,4 +1,5 @@
 import { Hearts } from "react-loader-spinner";
+import { SpinnerContainer } from "../style/general.style";
 
 export const Spinner = () => {
   return (

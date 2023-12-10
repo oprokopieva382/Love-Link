@@ -11,10 +11,14 @@ import Auth from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 
 export const ProfileNavBar = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
-    <AppBar position="sticky" elevation={3} sx={{ background: "transparent" }}>
+    <AppBar
+      position="sticky"
+      elevation={3}
+      sx={{ background: "transparent", marginBottom: "2%" }}
+    >
       <Toolbar>
         <Typography variant="h5">
           <span style={{ color: "#90D1FF" }}>Love</span>
