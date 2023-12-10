@@ -24,6 +24,8 @@ export const GET_ME = gql`
         read
       }
       interests
+      hobbies
+      matches
     }
   }
 `;

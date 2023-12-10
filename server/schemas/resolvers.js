@@ -7,8 +7,8 @@ const resolvers = {
       if (context.user) {
         // console.log('in here to get a user -- have context')
         const userData = await User.findOne({ _id: context.user._id })
-        .select('-password')
-        .populate('inbox', 'outbox');
+          .select("-__v-password")
+          .populate("inbox", "outbox");
 
         console.log(userData);
         return userData;
@@ -18,12 +18,11 @@ const resolvers = {
 
     users: async () => {
       return User.find();
-    }
+    },
   },
 
   Mutation: {
-    addUser: async (_,  args) => {
-   
+    addUser: async (_, args) => {
       const user = await User.create(args);
       const token = signToken(user);
 
@@ -47,12 +46,25 @@ const resolvers = {
       return { token, user };
     },
 
-    addInterest: async (_, { interest }, context) => {
+    addDOB: async (_, { dob }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { interests: interest },
+            $set: { dob },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    addInterest: async (_, { interests }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { interests: { $each: interests } },
           },
           {
             new: true,
@@ -64,15 +76,45 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    addHobbies: async (_, { hobbies }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { hobbies: { $each: hobbies } },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+
+      throw AuthenticationError;
+    },
+
+    addAbout: async (_, { about }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { about: about },
+          },
+          { new: true, runValidators: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
     removeInterest: async (_, { interest }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $pull: { interests: { interest } }
+            $pull: { interests: { interest } },
           },
           {
-            new: true
+            new: true,
           }
         );
       }
@@ -84,16 +126,15 @@ const resolvers = {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $set:
-            {
-              image: imageURL
-            }
+            $set: {
+              image: imageURL,
+            },
           },
           {
-            new: true
+            new: true,
           }
-        )
-      };
+        );
+      }
 
       throw AuthenticationError;
     },
@@ -108,12 +149,12 @@ const resolvers = {
                 text: message,
                 userId: targetID,
                 read: false,
-              }
-            }
+              },
+            },
           },
           {
             new: true,
-            runValidators: true
+            runValidators: true,
           }
         );
 
@@ -125,12 +166,12 @@ const resolvers = {
                 text: message,
                 userId: context.user._id,
                 read: false,
-              }
-            }
+              },
+            },
           },
           {
             new: true,
-            runValidators: true
+            runValidators: true,
           }
         );
         return [me, them];
@@ -161,7 +202,7 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $pull: { matches: { matchID } }
+            $pull: { matches: { matchID } },
           },
           { new: true }
         );
