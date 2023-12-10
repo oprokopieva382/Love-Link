@@ -1,10 +1,10 @@
 // import testData from '../assets/testData.json';
 import heartIcon from '../assets/img/heart-icon.png'
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import '../style/conversation.css'
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_USERS, GET_ME } from '../utils/queries';
+import { GET_USERS, GET_ME, GET_USER } from '../utils/queries';
 import { ADD_MESSAGE } from '../utils/mutations';
 
 
@@ -26,8 +26,10 @@ import { BoxContainer } from '../style/profile.style';
 
 export const Conversation = () => {
   const { loading, data } = useQuery(GET_ME);
+
   const { loading: newLoading, data: newData } = useQuery(GET_USERS);
   const [sendMessageMutation] = useMutation(ADD_MESSAGE);
+  // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -38,7 +40,12 @@ export const Conversation = () => {
   // let data = require('../assets/testData.json');
   const valueRef = useRef('') //creating a refernce for TextField Component
   const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg"
+
   let mappedData;
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [input])
 
   if (newLoading) {
     return <h2>Loading...</h2>
@@ -48,8 +55,6 @@ export const Conversation = () => {
 
 
   function loadMatches() {
-    // const { data } = await getUsersQuery;
-    // console.log(newData);
     mappedData = newData.users.map(person =>
       <Button
         key={person.email}
@@ -77,10 +82,6 @@ export const Conversation = () => {
     let newArr1 = match.outbox.filter(m => m.userId === match._id);
     let newArr2 = data.me.outbox.filter(m => m.userId === match._id);
     let newArr = newArr1.concat(newArr2);
-    // newArr.push(data.me.inbox);
-    // console.log(newArr);
-    // newArr.push(data.me.outbox);
-    // console.log(newArr);
     setMessages(newArr);
     console.log(messages);
   }
@@ -108,6 +109,8 @@ export const Conversation = () => {
 
       if (data) {
         console.log('Message sent!');
+        setMessages(...messages, data);
+        console.log(messages);
       }
     } catch (err) {
       console.error(err);

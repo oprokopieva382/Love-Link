@@ -30,6 +30,36 @@ export const GET_ME = gql`
   }
 `;
 
+export const GET_USER = gql`
+query user($userId: ID!) {
+  user(userID: $userId) {
+    _id
+    firstName
+    lastName
+    email
+    password
+    gender
+    lookingFor
+    about
+    dob
+    image
+    inbox {
+      text
+      userId
+      read
+    }
+    outbox {
+      text
+      userId
+      read
+    }
+    interests
+    hobbies
+    matches
+  }
+}
+`
+
 export const GET_USERS = gql`
   query users {
     users {

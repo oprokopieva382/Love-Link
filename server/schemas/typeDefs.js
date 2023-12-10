@@ -30,6 +30,7 @@ type User {
 
   type Query {
     me: User
+    user(userID: ID!): User
     users: [User]!
   }
 
