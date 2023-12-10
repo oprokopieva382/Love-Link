@@ -1,35 +1,52 @@
 // import testData from '../assets/testData.json';
 import heartIcon from "../assets/img/heart-icon.png";
-import { useState } from "react";
+import { useState, useRef } from "react";
+
 import "../style/conversation.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
 import { ADD_MESSAGE } from "../utils/mutations";
+
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
+import Input from "@mui/material/Input";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import Avatar from "@mui/material/Avatar";
 import Skeleton from "@mui/material/Skeleton";
+
 import { ProfileNavBar } from "../components/ProfileNavBar";
 import { BoxContainer } from "../style/profile.style";
-import Auth from "../utils/auth";
 
 export const Conversation = () => {
   const { loading, data } = useQuery(GET_ME);
   const { loading: newLoading, data: newData } = useQuery(GET_USERS);
   const [sendMessageMutation] = useMutation(ADD_MESSAGE);
-  // const [matches, setMatches] = useState([]);
+  // const { meLoading, meData } = useQuery(GET_ME);
+  const [matches, setMatches] = useState([]);
   const [messages, setMessages] = useState([]);
-  console.log(messages);
   const [input, setInput] = useState("");
-  console.log(input);
-  const [match, setMatch] = useState({});
-  console.log(match);
+  // const [imageURL, setImageURL] = useState('');
+  const [match, setMatch] = useState("");
+  // Using test data while server connection is down
+  // let data = require('../assets/testData.json');
+  const valueRef = useRef(""); //creating a refernce for TextField Component
   const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg";
   let mappedData;
 
-  const loadMatches = () => {
+  if (newLoading) {
+    return <h2>Loading...</h2>;
+  } else {
+    loadMatches();
+  }
+
+  function loadMatches() {
+    // const { data } = await getUsersQuery;
+    // console.log(newData);
     mappedData = newData.users.map((person) => (
       <Button
         key={person.email}
@@ -43,72 +60,52 @@ export const Conversation = () => {
       </Button>
     ));
     mappedData = mappedData.slice(0, 5);
-  };
-
-  if (newLoading) {
-    return <h2>Loading...</h2>;
-  } else {
-    loadMatches();
   }
 
-  const getMessages = (person) => {
-    console.log(person);
+  function getMessages(match) {
+    // this will bring back the conversation between the two
+    setMessages([]);
     console.log(messages);
-    setMatch(person);
-    console.log("Your match is: " + person.firstName);
-    console.log(person);
-
-    let newArr1 = person.outbox.filter((m) => m.userId === person._id);
-    let newArr2 = data.me.outbox.filter((m) => m.userId === person._id);
+    setMatch(match);
+    console.log("Your match is: " + match.firstName);
+    // console.log(match);
+    let newArr1 = match.outbox.filter((m) => m.userId === match._id);
+    let newArr2 = data.me.outbox.filter((m) => m.userId === match._id);
     let newArr = newArr1.concat(newArr2);
-    setMessages([...newArr]);
+    // newArr.push(data.me.inbox);
+    // console.log(newArr);
+    // newArr.push(data.me.outbox);
+    // console.log(newArr);
+    setMessages(newArr);
     console.log(messages);
-  };
+  }
 
-  const onEnterClick = async (event) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-
-    if (!token) {
-      return false;
+  function sendMessage(event) {
+    // setInput(event.target.value);
+    let text = event.target.value;
+    console.log(text);
+    // setInput(text);
+    if (event.keyCode === 13 || event.which === 13) {
+      console.log("ENTER KEY clicked!!");
+      makeMessage(text);
     }
-
-    if (event.key === "Enter") {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: input, userId: match._id.toString() },
-      ]);
-    }
-
-    try {
-      await sendMessageMutation({
-        variables: {
-          message: input,
-          targetID: match._id,
-        },
-      });
-    } catch (err) {
-      console.error("Mutation Error:", err);
-    }
-  };
+  }
 
   async function makeMessage(text) {
-    console.log(text);
-    if (!text) return;
-    // try {
-    //   const { data } = await sendMessageMutation({
-    //     variables:
-    //     {
-    //       message: text,
-    //       targetId: match._id
-    //     }
-    //   });
+    try {
+      const { data } = await sendMessageMutation({
+        variables: {
+          message: text,
+          targetId: match._id.toString(),
+        },
+      });
 
-    //   if (data) {
-    //     console.log('Message sent!');
-    //   }
-    // } catch (err) {
-    //   console.error(err);
-    // }
+      if (data) {
+        console.log("Message sent!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
     setInput("");
   }
 
@@ -158,9 +155,9 @@ export const Conversation = () => {
                 : "Click on a match to start a conversation!"}
             </h3>
             {messages.length ? (
-              messages.map((m, i) => (
+              messages.map((m) => (
                 <div
-                  key={i}
+                  key={m.text}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -205,10 +202,8 @@ export const Conversation = () => {
                   variant="standard"
                   fullWidth={true}
                   value={input}
-                  onChange={(e) => {
-                    setInput(e.target.value);
-                  }}
-                  onKeyUp={onEnterClick}
+                  onChange={(event, value) => setInput(value)}
+                  onKeyUp={(event) => sendMessage(event)}
                 />
                 <Avatar alt="Remy Sharp" src={tempImgURL} />
               </Box>
