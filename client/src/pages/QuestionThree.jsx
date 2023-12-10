@@ -1,12 +1,14 @@
 import TextField from "@mui/material/TextField";
 import { BiSolidSkipNextCircle } from "react-icons/bi";
-import Typography from "@mui/material/Typography";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 import { BoxContainer } from "../style/general.style";
 import { StyledTypography } from "../style/question.style";
+import { useMutation } from "@apollo/client";
+import { ADD_HOBBIES } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const options = [
   "📽️ Movie Buffs",
@@ -31,11 +33,24 @@ const options = [
 
 export const QuestionThree = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [addHobbies] = useMutation(ADD_HOBBIES);
   const navigate = useNavigate();
-  
-  const runNextPage = () => {
-    console.log(selectedOptions);
-    navigate("/question4");
+
+  const runNextPage = async () => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await addHobbies({
+        variables: { hobbies: selectedOptions },
+      });
+      console.log(selectedOptions);
+      navigate("/question4");
+    } catch (error) {
+      console.error("Mutation Error:", error);
+    }
   };
 
   return (
@@ -45,14 +60,14 @@ export const QuestionThree = () => {
       </StyledTypography>
       <Autocomplete
         multiple
-        id="interests"
+        id="hobbies"
         options={options}
         onChange={(event, value) => setSelectedOptions(value)}
         value={selectedOptions}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="Interests"
+            label="hobbies"
             variant="outlined"
             sx={{ width: 300, margin: "15px" }}
           />

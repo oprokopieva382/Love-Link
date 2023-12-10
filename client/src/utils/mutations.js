@@ -40,9 +40,20 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const ADD_DOB = gql`
+  mutation addDOB($dob: String!) {
+    addDOB(dob: $dob) {
+      _id
+      firstName
+      lastName
+      dob
+    }
+  }
+`;
+
 export const ADD_INTEREST = gql`
-mutation addInterest($interest: String!) {
-  addInterest(interest: $interest) {
+mutation addInterest($interests: [String!]!) {
+  addInterest(interests: $interests) {
     _id
     firstName
     lastName
@@ -50,6 +61,27 @@ mutation addInterest($interest: String!) {
   }
 }
 `
+export const ADD_HOBBIES = gql`
+  mutation addHobbies($hobbies: [String!]!) {
+    addHobbies(hobbies: $hobbies) {
+      _id
+      firstName
+      lastName
+      hobbies
+    }
+  }
+`;
+
+export const ADD_ABOUT = gql`
+  mutation addAbout($about: String!) {
+    addAbout(about: $about) {
+      _id
+      firstName
+      lastName
+      about
+    }
+  }
+`;
 
 export const REMOVE_INTEREST = gql`
 mutation removeInterest($interest: String!) {
@@ -61,7 +93,6 @@ mutation removeInterest($interest: String!) {
   }
 }
 `
-
 export const ADD_IMAGE = gql`
 mutation addImage($imageUrl: String!) {
   addImage(imageURL: $imageUrl) {
