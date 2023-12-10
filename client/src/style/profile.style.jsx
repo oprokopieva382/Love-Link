@@ -18,8 +18,8 @@ export const BoxContainer = styledMUI(Box)`
   `;
 
 export const StyledAvatarPaper = styledMUI(Paper)`
-  width: 20rem;
-  height: 20rem;
+   width: 20vw;
+  height: 20vw;
   border-radius: 50%;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.9);
   overflow: hidden;
@@ -34,16 +34,16 @@ export const StyledAvatarImage = styled("img")`
 
 export const TransparentPaper = styledMUI(Paper)`
   width: 70%;
-  height: 100%;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.4);
-  margin-bottom:5%
 `;
 
 export const TransparentBox = styledMUI(Box)`
+ flex-direction: column; 
   margin-top: 5%;
   display: flex;
   justify-content: center;

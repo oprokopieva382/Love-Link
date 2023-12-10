@@ -9,7 +9,21 @@ export const AboutMe = () => {
   return (
     <TransparentBox>
       <TransparentPaper elevation={5}>
-        <Typography sx={{lineHeight: "2rem", padding: "4%", textAlign: "center",}}>{about}</Typography>
+        <Typography
+          sx={{
+            lineHeight: "1.5rem",
+            padding: "4%",
+            textAlign: "center",
+            fontSize: {
+              xs: "0.7rem", 
+              sm: "0.8rem",
+              md: "1rem",
+              lg: "1.2rem",
+            },
+          }}
+        >
+          {about}
+        </Typography>
       </TransparentPaper>
     </TransparentBox>
   );
