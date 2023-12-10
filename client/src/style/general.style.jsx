@@ -13,4 +13,10 @@ export const BoxContainer = styled(Box)`
   align-items: center;
   color: white;
 `;
+const SpinnerContainer = styled(Box)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
 

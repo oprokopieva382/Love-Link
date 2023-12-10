@@ -8,8 +8,11 @@ import { GiBullseye } from "react-icons/gi";
 import { HiOutlineUser } from "react-icons/hi2";
 import { GiLovers } from "react-icons/gi";
 import Auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 export const ProfileNavBar = () => {
+   const navigate = useNavigate();
+
   return (
     <AppBar position="sticky" elevation={3} sx={{ background: "transparent" }}>
       <Toolbar>
@@ -27,10 +30,10 @@ export const ProfileNavBar = () => {
           }}
         >
           {[
-            { icon: <HiOutlineUser />, label: "Profile" },
-            { icon: <GiLovers />, label: "Matches" },
-            { icon: <GiBullseye />, label: "InTarget" },
-            { icon: <GiLoveLetter />, label: "Message History" },
+            { icon: <HiOutlineUser />, label: "profile" },
+            { icon: <GiLovers />, label: "matches" },
+            { icon: <GiBullseye />, label: "inTarget" },
+            { icon: <GiLoveLetter />, label: "conversation" },
           ].map((item, index) => (
             <IconButton
               key={index}
@@ -44,6 +47,7 @@ export const ProfileNavBar = () => {
                 margin: "0 5px",
               }}
               aria-label={item.label}
+              onClick={() => navigate(`/${item.label}`)}
             >
               {item.icon}
             </IconButton>
