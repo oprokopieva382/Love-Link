@@ -31,6 +31,7 @@ export const Conversation = () => {
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
   const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
   // const [imageURL, setImageURL] = useState('');
   const [match, setMatch] = useState('');
   // Using test data while server connection is down
@@ -53,7 +54,7 @@ export const Conversation = () => {
       <Button
         key={person.email}
         className='button'
-        centerRipple='true'
+        centerRipple={true}
         style={{ textAlign: "center", margin: "auto"}}
         onClick={() => getMessages(person)}
       >
@@ -84,15 +85,23 @@ export const Conversation = () => {
     console.log(messages);
   }
 
-  async function sendMessage() {
-    // console.log();
-    const messageText = valueRef.current.value;
-    document.getElementById('input-with-sx').value = '';
+  function sendMessage(event) {
+    // setInput(event.target.value);
+    let text = event.target.value;
+    console.log(text);
+    // setInput(text);
+    if (event.keyCode === 13 || event.which === 13) {
+      console.log('ENTER KEY clicked!!');
+      makeMessage(text)
+    }    
+  }
+
+  async function makeMessage(text) {
     try {
       const { data } = await sendMessageMutation({
         variables:
         {
-          message: messageText,
+          message: text,
           targetId: match._id.toString()
         }
       });
@@ -103,16 +112,7 @@ export const Conversation = () => {
     } catch (err) {
       console.error(err);
     }
-  }
-
-  const handleKeyPress = (event) => {
-    // look for the `Enter` keyCode
-    // console.log('key clicked!!');
-    console.log(match._id);
-    if (event.keyCode === 13 || event.which === 13) {
-      // console.log('ENTER KEY clicked!!');
-      sendMessage()
-    }
+    setInput('');
   }
 
 
@@ -139,7 +139,7 @@ export const Conversation = () => {
           border: "solid #8C5EEB 3px",
           borderRadius: "30px",
         }}>
-          <ButtonGroup orientation='vertical' variant='none' fullWidth='true'>
+          <ButtonGroup orientation='vertical' variant='none' fullWidth={true}>
             <h3 style={{textAlign: "center"}}>Your top 5 matches!</h3>
             {mappedData}
 
@@ -189,9 +189,10 @@ export const Conversation = () => {
                 id="input-with-sx"
                 label="Say hello!"
                 variant="standard"
-                fullWidth="true"
-                inputRef={valueRef}
-                onKeyUp={handleKeyPress} />
+                fullWidth={true}
+                value={input}
+                onChange={(event, value) => setInput(value)}
+                onKeyUp={(event) => sendMessage(event)} />
               <Avatar alt="Remy Sharp" src={tempImgURL}/>
             </Box>
           </Box>
