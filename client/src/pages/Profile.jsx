@@ -1,5 +1,5 @@
 import { AboutMe } from "../components/AboutMe";
-import { AboutMeInterestBlock } from "../components/AboutMeInterestBlock";
+import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
 import { Avatar } from "../components/Avatar";
 import { ProfileNavBar } from "../components/ProfileNavBar";
 import { BoxContainer } from "../style/profile.style";
@@ -18,7 +18,8 @@ export const Profile = () => {
             <AboutMe />
           </Grid>
           <Grid item xs={8}>
-          <AboutMeInterestBlock/></Grid>
+            <AboutMeInterestHobbyBlock />
+          </Grid>
         </Grid>
       </Box>
     </BoxContainer>

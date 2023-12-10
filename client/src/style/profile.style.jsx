@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import profileBackground from "../assets/img/profileBackground.jpeg";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { styled as styledMUI } from "@mui/system";
 
@@ -49,4 +50,35 @@ export const TransparentBox = styledMUI(Box)`
   justify-content: center;
   align-items: center;
   height: 60%;
+`;
+
+export const StyledTitle = styledMUI(Typography)`
+  font-size: 1.5rem;
+  @media (min-width: 600px) {
+    font-size: 1.8rem;
+  }
+  @media (min-width: 960px) {
+    font-size: 2rem;
+  }
+`;
+
+export const StyledSubtitle = styledMUI(Typography)`
+  font-size: 1rem;
+  @media (min-width: 600px) {
+    font-size: 1.3rem;
+  }
+  @media (min-width: 960px) {
+    font-size: 1.5rem;
+  }
+`;
+
+export const StyledFlexBox = styledMUI(Box)`
+  display: flex;
+  flex-direction: column;
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+  @media (min-width: 960px) {
+    flex-direction: row;
+  }
 `;
