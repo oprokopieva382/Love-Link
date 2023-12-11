@@ -17,9 +17,11 @@ export const AboutMe = () => {
 
   return (
     <TransparentBox>
-      <TfiThought style={{ width: "10%", height: "20%" }} />
       <TransparentPaper elevation={5}>
-        <StyledAboutMeText>{about}</StyledAboutMeText>
+        <StyledAboutMeText>
+          <TfiThought style={{ width: "15%", height: "30%", paddingRight: "10px" }} />
+          {about}
+        </StyledAboutMeText>
       </TransparentPaper>
     </TransparentBox>
   );

@@ -13,10 +13,21 @@ import { UploadModal } from "../components/UploadModal";
 
 export const Profile = () => {
   const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const uploadProfilePicture = () => {
+    setOpen(true);
+    setTitle("Upload your profile picture");
+  };
+
+   const uploadPGalleryPictures = () => {
+     setOpen(true);
+     setTitle("Show us your best pictures");
+   };
 
   return (
     <BoxContainer>
@@ -24,14 +35,19 @@ export const Profile = () => {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
-            <Avatar />
+            <Box sx={{ textAlign: "center"}}>
+              <StyledUploadButton onClick={uploadProfilePicture}>
+                <TbPhotoPlus />
+              </StyledUploadButton>
+            </Box>
+            <Avatar setOpen={setOpen} />
             <AboutMe />
           </Grid>
           <Grid item xs={8}>
             <AboutMeInterestHobbyBlock />
             <Typography variant="h5">
               Gallery{" "}
-              <StyledUploadButton onClick={() => setOpen(true)}>
+              <StyledUploadButton onClick={uploadPGalleryPictures}>
                 <TbPhotoPlus />
               </StyledUploadButton>
             </Typography>
@@ -39,7 +55,7 @@ export const Profile = () => {
           </Grid>
         </Grid>
       </Box>
-      <UploadModal open={open} handleClose={handleClose} />
+      <UploadModal open={open} handleClose={handleClose} title={title} />
     </BoxContainer>
   );
 };

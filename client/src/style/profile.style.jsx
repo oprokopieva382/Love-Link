@@ -3,6 +3,7 @@ import profileBackground from "../assets/img/profileBackground.jpeg";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import { blue } from "@mui/material/colors";
 import { TbHeartOff } from "react-icons/tb";
@@ -23,12 +24,13 @@ export const BoxContainer = styledMUI(Box)`
   `;
 
 export const StyledAvatarPaper = styledMUI(Paper)`
-   width: 20vw;
+  width: 20vw;
   height: 20vw;
   border-radius: 50%;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.9);
   overflow: hidden;
   margin: auto;
+  margin-bottom: 15px
 `;
 
 export const StyledAvatarImage = styled("img")`
@@ -41,7 +43,6 @@ export const TransparentPaper = styledMUI(Paper)`
   width: 70%;
   height: auto;
   display: flex;
-  justify-content: center;
   align-items: center;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.4);
@@ -52,7 +53,6 @@ export const TransparentBox = styledMUI(Box)`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40%;
 `;
 
 export const StyledTitle = styledMUI(Typography)`
@@ -188,13 +188,24 @@ export const StyledButton = styledMUI(Button)`
 `;
 
 export const StyledUploadButton = styledMUI(Button)`
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 40px;
   font-size: 18px;
   &:hover {
-    background-color: ${blue[100]};
     transition: transform 0.3s ease-in, color 0.5s ease-out;
     transform: scale(1.1);
   }
+`;
+
+export const StyledSubmitUploadButton = styledMUI(Button)`
+  display: block;
+  margin: 0 auto;
+  margin-top: 10px;
+`;
+
+export const StyledUploadTypography = styledMUI(Typography)`
+  text-align: center;
+  margin: 20px;
+`;
+
+export const StyledMediaCard = styledMUI(Card)`
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7)
 `;

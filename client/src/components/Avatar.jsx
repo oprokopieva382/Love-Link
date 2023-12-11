@@ -1,4 +1,4 @@
-import avatar from "../assets/img/entryBackground.jpeg";
+import avatar from "../assets/img/placeholder.jpg";
 import { StyledAvatarImage, StyledAvatarPaper } from "../style/profile.style";
 
 export const Avatar = () => {
