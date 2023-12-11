@@ -15,7 +15,7 @@ export const ProfileNavBar = () => {
 
   return (
     <AppBar
-      position="sticky"
+      position="block"
       elevation={3}
       sx={{ background: "transparent", marginBottom: "2%" }}
     >
