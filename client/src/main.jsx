@@ -55,15 +55,15 @@ const router = createBrowserRouter([
       },
       {
         path: "matches",
-        element: <Matches />,
+        element: Auth.loggedIn() ? <Matches /> : <Entry />,
       },
       {
         path: "inTarget",
-        element: <InTarget />,
+        element: Auth.loggedIn() ? <InTarget /> : <Entry />,
       },
       {
         path: "conversation",
-        element: <Conversation />,
+        element: Auth.loggedIn() ? <Conversation /> : <Entry />,
       },
     ],
   },

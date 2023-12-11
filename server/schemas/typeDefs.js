@@ -42,7 +42,8 @@ type User {
   addAbout(about: String!): User
   addInterest(interests: [String!]!): User
   addHobbies(hobbies: [String!]!): User
-  removeInterest(interest: String!): User
+  removeInterest(interests: String!): User
+  removeHobby(hobbies: String!): User
 
   addImage(imageURL: String!): User
 

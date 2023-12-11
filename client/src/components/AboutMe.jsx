@@ -1,15 +1,27 @@
-import { TransparentBox, TransparentPaper } from "../style/profile.style";
+import {
+  StyledAboutMeText,
+  TransparentBox,
+  TransparentPaper,
+} from "../style/profile.style";
 import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import Typography from "@mui/material/Typography";
+import { TfiThought } from "react-icons/tfi";
+import { Spinner } from "./Spinner";
 
 export const AboutMe = () => {
   const { loading, error, data } = useQuery(GET_ME);
-    const about = data?.me?.about;
+  const about = data?.me?.about;
+
+  if (loading) return <Spinner />;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <TransparentBox>
       <TransparentPaper elevation={5}>
-        <Typography sx={{lineHeight: "2rem", padding: "4%", textAlign: "center",}}>{about}</Typography>
+        <StyledAboutMeText>
+          <TfiThought style={{ width: "15%", height: "30%", paddingRight: "10px" }} />
+          {about}
+        </StyledAboutMeText>
       </TransparentPaper>
     </TransparentBox>
   );
