@@ -16,7 +16,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function MatchCard (props) {
-    console.log();
+    console.log("test");
   return (
     <Card sx={{ maxWidth: 345 }}>
       {/* <CardHeader
