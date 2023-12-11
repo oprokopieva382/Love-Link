@@ -11,7 +11,7 @@ import { Spinner } from "./Spinner";
 export const AboutMe = () => {
   const { loading, error, data } = useQuery(GET_ME);
   const about = data?.me?.about;
-
+e
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
 
