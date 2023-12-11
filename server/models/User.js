@@ -37,14 +37,19 @@ const userSchema = new Schema(
     },
     dob: {
       type: Date,
-      required: true,
+
     },
     image: {
       type: String,
-      required: false,
+
     },
     inbox: [messageSchema],
     outbox: [messageSchema],
+    hobbies: [
+      {
+        type: String,
+      }
+    ],
     interests: [
       {
         type: String,

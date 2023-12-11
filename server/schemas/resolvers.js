@@ -5,22 +5,25 @@ const resolvers = {
   Query: {
     me: async (_, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          "-__v-password"
-        ).populate('messages');
+        // console.log('in here to get a user -- have context')
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v-password")
+          .populate("inbox", "outbox");
 
+        console.log(userData);
         return userData;
       }
       throw AuthenticationError;
     },
+
     users: async () => {
       return User.find();
-    }
+    },
   },
 
   Mutation: {
-    addUser: async (_, { firstName, lastName, email, password, gender, lookingFor, dob }) => {
-      const user = await User.create({ firstName, lastName, email, password, gender, lookingFor, dob });
+    addUser: async (_, args) => {
+      const user = await User.create(args);
       const token = signToken(user);
 
       return { token, user };
@@ -43,13 +46,25 @@ const resolvers = {
       return { token, user };
     },
 
-    addInterest: async (_, { interest }, context) => {
-      // TODO: comment these back in when front end is up
+    addDOB: async (_, { dob }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { interests: interest },
+            $set: { dob },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    addInterest: async (_, { interests }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { interests: { $each: interests } },
           },
           {
             new: true,
@@ -61,23 +76,80 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    addImage: async (_, { imageURL }, context) => {
-      // TODO: comment these back in when front end is up
-      // also will need to bring userID from context instead of args
+    addHobbies: async (_, { hobbies }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $set:
-            {
-              image: imageURL
-            }
+            $addToSet: { hobbies: { $each: hobbies } },
           },
           {
-            new: true
+            new: true,
+            runValidators: true,
           }
-        )
-      };
+        );
+      }
+
+      throw AuthenticationError;
+    },
+
+    addAbout: async (_, { about }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: { about: about },
+          },
+          { new: true, runValidators: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    removeInterest: async (_, { interests }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: { interests },
+          },
+          {
+            new: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    removeHobby: async (_, { hobbies }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: { hobbies },
+          },
+          {
+            new: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    addImage: async (_, { imageURL }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: {
+              image: imageURL,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      }
 
       throw AuthenticationError;
     },
@@ -87,11 +159,17 @@ const resolvers = {
         const me = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { outbox: message }
+            $addToSet: {
+              outbox: {
+                text: message,
+                userId: targetID,
+                read: false,
+              },
+            },
           },
           {
             new: true,
-            runValidators: true
+            runValidators: true,
           }
         );
 
@@ -100,15 +178,15 @@ const resolvers = {
           {
             $addToSet: {
               inbox: {
-                text: message.text,
+                text: message,
                 userId: context.user._id,
                 read: false,
-              }
-            }
+              },
+            },
           },
           {
             new: true,
-            runValidators: true
+            runValidators: true,
           }
         );
         return [me, them];
@@ -138,8 +216,8 @@ const resolvers = {
       if (context.user) {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
-          { 
-            $pull: { matches: { matchID } } 
+          {
+            $pull: { matches: { matchID } },
           },
           { new: true }
         );

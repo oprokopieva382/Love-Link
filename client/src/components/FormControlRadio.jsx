@@ -4,7 +4,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-export const FormControlRadio = ({ title, value, onChange }) => {
+export const FormControlRadio = ({ title, value, onChange, name }) => {
 
   return (
     <FormControl>
@@ -12,11 +12,11 @@ export const FormControlRadio = ({ title, value, onChange }) => {
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
         defaultValue="female"
-        name="radio-buttons-group"
+        name={name}
         value={value}
         onChange={onChange}
       >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="female"  control={<Radio />} label="Female" />
         <FormControlLabel value="male" control={<Radio />} label="Male" />
         <FormControlLabel
           value="nonbinary"

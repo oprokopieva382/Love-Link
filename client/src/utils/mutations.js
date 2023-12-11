@@ -1,16 +1,29 @@
 import { gql } from "@apollo/client";
 
 export const ADD_USER = gql`
-mutation addUser($firstName: String!, $lastName: String!, $email: String!, $password: String!, $gender: String!, $lookingFor: String!, $dob: String!) {
-  addUser(firstName: $firstName, lastName: $lastName, email: $email, password: $password, gender: $gender, lookingFor: $lookingFor, dob: $dob) {
-    token
-    user {
-      _id
-      firstName
-      lastName
+  mutation addUser(
+    $firstName: String!
+    $email: String!
+    $password: String!
+    $gender: String!
+    $lookingFor: String!
+    $lastName: String!
+  ) {
+    addUser(
+      firstName: $firstName
+      email: $email
+      password: $password
+      gender: $gender
+      lookingFor: $lookingFor
+      lastName: $lastName
+    ) {
+      token
+      user {
+        _id
+        email
+      }
     }
   }
-}
 `;
 
 export const LOGIN_USER = gql`
@@ -27,9 +40,20 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const ADD_DOB = gql`
+  mutation addDOB($dob: String!) {
+    addDOB(dob: $dob) {
+      _id
+      firstName
+      lastName
+      dob
+    }
+  }
+`;
+
 export const ADD_INTEREST = gql`
-mutation addInterest($interest: String!) {
-  addInterest(interest: $interest) {
+mutation addInterest($interests: [String!]!) {
+  addInterest(interests: $interests) {
     _id
     firstName
     lastName
@@ -37,6 +61,49 @@ mutation addInterest($interest: String!) {
   }
 }
 `
+export const ADD_HOBBIES = gql`
+  mutation addHobbies($hobbies: [String!]!) {
+    addHobbies(hobbies: $hobbies) {
+      _id
+      firstName
+      lastName
+      hobbies
+    }
+  }
+`;
+
+export const ADD_ABOUT = gql`
+  mutation addAbout($about: String!) {
+    addAbout(about: $about) {
+      _id
+      firstName
+      lastName
+      about
+    }
+  }
+`;
+
+export const REMOVE_INTEREST = gql`
+mutation removeInterest($interests: String!) {
+  removeInterest(interests: $interests) {
+    _id
+    firstName
+    lastName
+    interests
+  }
+}
+`
+
+export const REMOVE_HOBBIES = gql`
+  mutation removeHobby($hobbies: String!) {
+    removeHobby(hobbies: $hobbies) {
+      _id
+      firstName
+      lastName
+      hobbies
+    }
+  }
+`;
 
 export const ADD_IMAGE = gql`
 mutation addImage($imageUrl: String!) {
@@ -49,18 +116,33 @@ mutation addImage($imageUrl: String!) {
 }
 `
 
-export const SAVE_MATCH = gql`
-mutation saveMatch($matchId: ID!) {
-  saveMatch(matchID: $matchId) {
-    _id
-    firstName
-    lastName
+export const ADD_MESSAGE = gql`
+  mutation addMessage($message: String!, $targetId: ID!) {
+    addMessage(message: $message, targetID: $targetId) {
+      _id
+      firstName
+      lastName
+      outbox {
+        text
+        userId
+        read
+      }
+    }
   }
-}
-`
+`;
+
+export const SAVE_MATCH = gql`
+  mutation saveMatch($matchId: ID!) {
+    saveMatch(matchID: $matchId) {
+      _id
+      firstName
+      lastName
+    }
+  }
+`;
 
 export const REMOVE_MATCH = gql`
-mutation Mutation($matchId: ID!) {
+mutation removeMatch($matchId: ID!) {
   removeMatch(matchID: $matchId) {
     _id
     firstName

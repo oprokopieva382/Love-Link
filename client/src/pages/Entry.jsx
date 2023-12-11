@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { SignUpFields } from "../components/SignUpFields";
 import { useState } from "react";
@@ -10,36 +9,57 @@ import {
   StyledTypography,
   ButtonBox,
 } from "../style/entry.style";
+import Auth from "../utils/auth";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Box from "@mui/material/Box";
 
 export const Entry = () => {
-  const initialFormData = {
+  const [addUser] = useMutation(ADD_USER);
+  const [formData, setFormData] = useState({
     gender: "",
     lookingFor: "",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-  };
+  });
 
-  const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
-
-  const handleRadioChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value });
-  };
-
-  const handleTextFieldChange = (field) => (event) => {
-    setFormData({ ...formData, [field]: event.target.value });
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const resetForm = () => {
-    setFormData(initialFormData);
+    setFormData({
+      gender: "",
+      lookingFor: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+    });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Form Data:", formData);
-    navigate("/greeting");
+
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formData },
+      });
+
+      Auth.signUp(data.addUser.token);
+    } catch (err) {
+      console.error(err);
+    }
     resetForm();
   };
 
@@ -49,25 +69,25 @@ export const Entry = () => {
       <BoxContainer>
         <StyledTypography variant="h4">Let's get start</StyledTypography>
         <form onSubmit={handleSubmit}>
-          <StyledFormContainer>
-            <FormControlRadio
-              title="I am"
-              value={formData.gender}
-              onChange={handleRadioChange("gender")}
-            />
-            <FormControlRadio
-              title="I am looking for"
-              value={formData.lookingFor}
-              onChange={handleRadioChange("lookingFor")}
-            />
-          </StyledFormContainer>
-          <SignUpFields
-            formData={formData}
-            onFirstNameChange={handleTextFieldChange("firstName")}
-            onLastNameChange={handleTextFieldChange("lastName")}
-            onEmailChange={handleTextFieldChange("email")}
-            onPasswordChange={handleTextFieldChange("password")}
-          />
+          <Box sx={{display: "flex"}}>
+            <StyledFormContainer>
+              <FormControlRadio
+                title="I am"
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              />
+            </StyledFormContainer>
+            <StyledFormContainer>
+              <FormControlRadio
+                title="I am looking for"
+                value={formData.lookingFor}
+                name="lookingFor"
+                onChange={handleChange}
+              />
+            </StyledFormContainer>
+          </Box>
+          <SignUpFields formData={formData} handleChange={handleChange} />
           <ButtonBox>
             <Button
               type="submit"

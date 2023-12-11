@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
 import { BoxContainer } from "../style/general.style";
 import { StyledTextField, StyledTypography } from "../style/question.style";
+import { useMutation } from "@apollo/client";
+import { ADD_INTEREST } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 const options = [
   "🐕‍🦺 Animal Rescue",
@@ -18,10 +21,24 @@ const options = [
 export const QuestionTwo = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
-  
-  const runNextPage = () => {
-    console.log(selectedOptions);
-    navigate("/question3")
+  const [addInterest] = useMutation(ADD_INTEREST);
+
+  const runNextPage = async () => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      await addInterest({
+        variables: { interests: selectedOptions },
+      });
+      console.log(selectedOptions);
+      navigate("/question3");
+    } catch (error) {
+      console.error("Mutation Error:", error);
+    }
   };
 
   return (

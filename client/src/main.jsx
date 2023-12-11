@@ -13,6 +13,7 @@ import { QuestionOne } from "./pages/QuestionOne.jsx";
 import { QuestionTwo } from "./pages/QuestionTwo.jsx";
 import { QuestionThree } from "./pages/QuestionThree.jsx";
 import { QuestionFour } from "./pages/QuestionFour.jsx";
+import Auth from './utils/auth.js'
 
 const router = createBrowserRouter([
   {
@@ -50,19 +51,19 @@ const router = createBrowserRouter([
       },
       {
         path: "profile/",
-        element: <Profile />,
+        element: Auth.loggedIn() ? <Profile /> : <Entry />,
       },
       {
         path: "matches",
-        element: <Matches />,
+        element: Auth.loggedIn() ? <Matches /> : <Entry />,
       },
       {
         path: "inTarget",
-        element: <InTarget />,
+        element: Auth.loggedIn() ? <InTarget /> : <Entry />,
       },
       {
         path: "conversation",
-        element: <Conversation />,
+        element: Auth.loggedIn() ? <Conversation /> : <Entry />,
       },
     ],
   },
