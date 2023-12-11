@@ -98,7 +98,7 @@ const resolvers = {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $addToSet: { about: about },
+            $set: { about: about },
           },
           { new: true, runValidators: true }
         );
