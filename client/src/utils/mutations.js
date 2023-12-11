@@ -105,19 +105,19 @@ mutation addImage($imageUrl: String!) {
 `
 
 export const ADD_MESSAGE = gql`
-mutation addMessage($message: String!, $targetId: ID!) {
-  addMessage(message: $message, targetID: $targetId) {
-    _id
-    firstName
-    lastName
-    outbox {
-      text
-      userId
-      read
+  mutation addMessage($message: String!, $targetId: ID!) {
+    addMessage(message: $message, targetID: $targetId) {
+      _id
+      firstName
+      lastName
+      outbox {
+        text
+        userId
+        read
+      }
     }
   }
-}
-`
+`;
 
 export const SAVE_MATCH = gql`
   mutation saveMatch($matchId: ID!) {
