@@ -17,11 +17,13 @@ export const GET_ME = gql`
         text
         userId
         read
+        createdAt
       }
       outbox {
         text
         userId
         read
+        createdAt
       }
       interests
       hobbies
@@ -47,11 +49,13 @@ query user($userId: ID!) {
       text
       userId
       read
+      createdAt
     }
     outbox {
       text
       userId
       read
+      createdAt
     }
     interests
     hobbies

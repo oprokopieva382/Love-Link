@@ -22,6 +22,17 @@ import Skeleton from "@mui/material/Skeleton";
 import { ProfileNavBar } from "../components/ProfileNavBar";
 import { BoxContainer } from "../style/profile.style";
 
+import * as toxicity from '@tensorflow-models/toxicity';
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+// import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
+
 export const Conversation = () => {
   const { loading, data } = useQuery(GET_ME);
 
@@ -85,6 +96,7 @@ export const Conversation = () => {
   function sendMessage(event) {
     // setInput(event.target.value);
     let text = event.target.value;
+
     console.log(text);
     // setInput(text);
     if (event.keyCode === 13 || event.which === 13) {
@@ -94,6 +106,13 @@ export const Conversation = () => {
   }
 
   async function makeMessage(text) {
+    let newMessage = {
+      text: text,
+      read: false,
+      createdAt: new Date().toString(),
+      userId: data.me._id
+    }
+    setMessages([...messages, newMessage]);
     try {
       const { data } = await sendMessageMutation({
         variables: {
@@ -110,6 +129,39 @@ export const Conversation = () => {
     }
     setInput("");
   }
+
+  const threshold = 0.9;
+  function classify(event) {
+    if (event.keyCode === 13 || event.which === 13) {
+
+      toxicity.load(threshold).then(model => {
+        const sentence = document.getElementById('input-with-sx').value;
+        model.classify(sentence).then(predictions => {
+          console.log(predictions);
+          for (let i=0; i<predictions.length; i++) {
+            console.log(predictions[i].label);
+            console.log(predictions[i].results[0].match);
+          }
+        })
+      })
+      sendMessage(event);
+    }
+  };
+
+
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+
+  //   setOpen(false);
+  // };
 
   return (
     <BoxContainer>
@@ -159,7 +211,7 @@ export const Conversation = () => {
             {messages.length ? (
               messages.map((m) => (
                 <div
-                  key={m.text}
+                  key={m.createdAt}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -177,7 +229,7 @@ export const Conversation = () => {
                       marginRight: "30px",
                     }}
                   >
-                    {m.text}
+                    {m.text} @ {m.createdAt}
                   </p>
                   <img
                     src={m.userId !== match._id ? match.image : tempImgURL}
@@ -205,7 +257,7 @@ export const Conversation = () => {
                   fullWidth={true}
                   value={input}
                   onChange={(event, value) => setInput(value)}
-                  onKeyUp={(event) => sendMessage(event)}
+                  onKeyUp={classify}
                 />
                 <Avatar alt="Remy Sharp" src={tempImgURL} />
               </Box>
@@ -213,6 +265,15 @@ export const Conversation = () => {
           </div>
         </div>
       </div>
+
     </BoxContainer>
   );
 };
+
+
+// onKeyUp={(event) => sendMessage(event)}
+{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+<Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+  Warning: your text is potentially toxic.
+</Alert>
+</Snackbar> */}

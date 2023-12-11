@@ -126,6 +126,7 @@ export const ADD_MESSAGE = gql`
         text
         userId
         read
+        createdAt
       }
     }
   }
