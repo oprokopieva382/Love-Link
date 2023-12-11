@@ -84,8 +84,8 @@ export const ADD_ABOUT = gql`
 `;
 
 export const REMOVE_INTEREST = gql`
-mutation removeInterest($interest: String!) {
-  removeInterest(interest: $interest) {
+mutation removeInterest($interests: String!) {
+  removeInterest(interests: $interests) {
     _id
     firstName
     lastName
@@ -93,6 +93,18 @@ mutation removeInterest($interest: String!) {
   }
 }
 `
+
+export const REMOVE_HOBBIES = gql`
+  mutation removeHobby($hobbies: String!) {
+    removeHobby(hobbies: $hobbies) {
+      _id
+      firstName
+      lastName
+      hobbies
+    }
+  }
+`;
+
 export const ADD_IMAGE = gql`
 mutation addImage($imageUrl: String!) {
   addImage(imageURL: $imageUrl) {

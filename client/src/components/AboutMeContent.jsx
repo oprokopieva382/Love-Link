@@ -16,13 +16,15 @@ import { useMutation } from "@apollo/client";
 import { ADD_HOBBIES } from "../utils/mutations";
 import { ADD_INTEREST } from "../utils/mutations";
 import { REMOVE_INTEREST } from "../utils/mutations";
+import { REMOVE_HOBBIES } from "../utils/mutations";
 import Auth from "../utils/auth";
 
-export const AboutMeContent = ({ title, content, onDelete }) => {
+export const AboutMeContent = ({ title, content }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addHobbies] = useMutation(ADD_HOBBIES);
   const [addInterest] = useMutation(ADD_INTEREST);
   const [removeInterest] = useMutation(REMOVE_INTEREST);
+  const [removeHobby] = useMutation(REMOVE_HOBBIES);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -48,6 +50,25 @@ export const AboutMeContent = ({ title, content, onDelete }) => {
       console.error("Mutation Error:", error);
     }
     closeModal();
+  };
+
+  const handleDeleteItem = async (item) => {
+    debugger
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+
+    try {
+      title === "interests"
+        ? await removeInterest({ variables: { interests: item } })
+        : title === "hobbies"
+        ? await removeHobby({ variables: { hobbies: item } })
+        : null;
+    } catch (error) {
+      console.error("Remove Mutation Error:", error);
+    }
   };
 
   const options =
@@ -92,7 +113,18 @@ export const AboutMeContent = ({ title, content, onDelete }) => {
           content.map((item) => (
             <Badge
               key={item}
-              badgeContent={<StyledTbHeartOff onClick={() => onDelete(item)} />}
+              onClick={() => {
+                console.log(`delete ${item}`);
+                handleDeleteItem(item);
+              }}
+              badgeContent={
+                <StyledTbHeartOff
+                  onClick={() => {
+                    console.log(`delete ${item}`);
+                    handleDeleteItem(item);
+                  }}
+                />
+              }
               color="info"
               sx={{ margin: "2%" }}
             >

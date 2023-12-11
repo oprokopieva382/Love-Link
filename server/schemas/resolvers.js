@@ -106,12 +106,27 @@ const resolvers = {
       throw AuthenticationError;
     },
 
-    removeInterest: async (_, { interest }, context) => {
+    removeInterest: async (_, { interests }, context) => {
       if (context.user) {
         return User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $pull: { interests: { interest } },
+            $pull: { interests },
+          },
+          {
+            new: true,
+          }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    removeHobby: async (_, { hobbies }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $pull: { hobbies },
           },
           {
             new: true,
