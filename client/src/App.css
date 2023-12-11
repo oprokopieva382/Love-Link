@@ -36,25 +36,30 @@ h1, h2, h3, h4, h5, h6 {
 .page_404 {
   padding: 40px 0;
   background: #fff;
-  font-family: "Arvo", serif;
+  font-family: 'Lora', serif;
+  text-align: center;
 }
 
 .page_404 img {
   width: 100%;
 }
 
-.four_zero_four_bg {
-  background-image: url(https://media.giphy.com/media/VV1qFLfUAYcaYz4CSH/giphy.gif);
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 400px;
-  background-position: center;
-}
 
 .four_zero_four_bg h1 {
   font-size: 80px;
+  text-align: center;
 }
+.robotContainer{
+  background-image: url(https://media.giphy.com/media/VV1qFLfUAYcaYz4CSH/giphy.gif);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 350px;
+  background-position: center; 
+}
+.errorTitle{
+  margin: 0 auto;
 
+}
 .four_zero_four_bg h3 {
   font-size: 80px;
 }
@@ -62,10 +67,9 @@ h1, h2, h3, h4, h5, h6 {
 .link_404 {
   color: #fff !important;
   padding: 10px 20px;
-  background: #39ac31;
+  background: #BB2A1E;
   margin: 20px 0;
   display: inline-block;
+  text-decoration: none;
 }
-.contant_box_404 {
-  margin-top: -50px;
-}
+
