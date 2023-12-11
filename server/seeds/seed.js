@@ -2,14 +2,17 @@ const db = require('../config/connection');
 const { User } = require('../models');
 const cleanDB = require('./cleanDB');
 
-const seedData = require('./seed-data.json');
+// const seedData = require('./seed-data.json');
+const seedData = require('./large-seed-data.json')
 
 const getInterests = require('./interests');
 const getHobbies = require('./hobbies');
+const getLooking = require('./lookingFor');
+const getAbout = require('./about');
 
 // console.trace(seedData[0]);
 
-const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
+const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor, about }) => ({
   firstName: name.first,
   lastName: name.last,
   email: email,
@@ -17,10 +20,11 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
   about: "I'm a very wonderful person!",
   password: "password123",
   gender: gender,
+  about: getAbout(),
   hobbies: getHobbies(),
   interests: getInterests(),
   image: picture.large,
-  lookingFor: "female",
+  lookingFor: getLooking(),
   message: [{
     "text": "Hey Bob! How are you?",
     "userId": "6574589a07f2b1e63fa59444",

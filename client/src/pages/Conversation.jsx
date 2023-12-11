@@ -1,6 +1,6 @@
 // import testData from '../assets/testData.json';
 import heartIcon from "../assets/img/heart-icon.png";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import "../style/conversation.css";
 import { useQuery, useMutation } from "@apollo/client";
@@ -22,10 +22,27 @@ import Skeleton from "@mui/material/Skeleton";
 import { ProfileNavBar } from "../components/ProfileNavBar";
 import { BoxContainer } from "../style/profile.style";
 
+import * as toxicity from '@tensorflow-models/toxicity';
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+// import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+// const Alert = React.forwardRef(function Alert(props, ref) {
+//   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+// });
+
 export const Conversation = () => {
   const { loading, data } = useQuery(GET_ME);
-  const { loading: newLoading, data: newData } = useQuery(GET_USERS);
-  const [sendMessageMutation] = useMutation(ADD_MESSAGE);
+
+  const { loading: newLoading, data: newData, error, refetch } = useQuery(GET_USERS);
+  const [sendMessageMutation, {err}] = useMutation(ADD_MESSAGE,
+    {onCompleted: () => {
+      refetch()
+    }
+    });
+  // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
   const [messages, setMessages] = useState([]);
@@ -38,16 +55,25 @@ export const Conversation = () => {
   const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg";
   let mappedData;
 
+  useEffect(() => {
+    refetch();
+  })
+
   if (newLoading) {
     return <h2>Loading...</h2>;
   } else {
     loadMatches();
   }
 
+  // useEffect(() => {
+
+  // }, [input])
+
   function loadMatches() {
     // const { data } = await getUsersQuery;
     // console.log(newData);
-    mappedData = newData.users.map((person) => (
+    mappedData = newData.users.slice(0, 5);
+    mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
         className="button"
@@ -59,7 +85,6 @@ export const Conversation = () => {
         <img src={person.image} alt="" style={{ borderRadius: "50px" }} />
       </Button>
     ));
-    mappedData = mappedData.slice(0, 5);
   }
 
   function getMessages(match) {
@@ -67,15 +92,11 @@ export const Conversation = () => {
     setMessages([]);
     console.log(messages);
     setMatch(match);
-    console.log("Your match is: " + match.firstName);
+    // console.log("Your match is: " + match.firstName);
     // console.log(match);
     let newArr1 = match.outbox.filter((m) => m.userId === match._id);
     let newArr2 = data.me.outbox.filter((m) => m.userId === match._id);
     let newArr = newArr1.concat(newArr2);
-    // newArr.push(data.me.inbox);
-    // console.log(newArr);
-    // newArr.push(data.me.outbox);
-    // console.log(newArr);
     setMessages(newArr);
     console.log(messages);
   }
@@ -83,15 +104,24 @@ export const Conversation = () => {
   function sendMessage(event) {
     // setInput(event.target.value);
     let text = event.target.value;
-    console.log(text);
+
+    // console.log(text);
     // setInput(text);
     if (event.keyCode === 13 || event.which === 13) {
-      console.log("ENTER KEY clicked!!");
+      // console.log("ENTER KEY clicked!!");
       makeMessage(text);
     }
   }
 
   async function makeMessage(text) {
+    // let newMessage = {
+    //   text: text,
+    //   read: false,
+    //   createdAt: new Date().toString(),
+    //   userId: data.me._id
+    // }
+    // // console.log(data.me._id);
+    // setMessages([...messages, newMessage]);
     try {
       const { data } = await sendMessageMutation({
         variables: {
@@ -101,13 +131,50 @@ export const Conversation = () => {
       });
 
       if (data) {
-        console.log("Message sent!");
+        // console.log("Message sent!");
+        loadMatches();
       }
     } catch (err) {
       console.error(err);
     }
     setInput("");
+    loadMatches();
+
+
   }
+
+  const threshold = 0.9;
+  function classify(event) {
+    if (event.keyCode === 13 || event.which === 13) {
+
+      toxicity.load(threshold).then(model => {
+        const sentence = document.getElementById('input-with-sx').value;
+        model.classify(sentence).then(predictions => {
+          console.log(predictions);
+          for (let i=0; i<predictions.length; i++) {
+            console.log(predictions[i].label);
+            console.log(predictions[i].results[0].match);
+          }
+        })
+      })
+      sendMessage(event);
+    }
+  };
+
+
+
+  // const [open, setOpen] = React.useState(false);
+  // const handleClick = () => {
+  //   setOpen(true);
+  // };
+
+  // const handleClose = (event, reason) => {
+  //   if (reason === 'clickaway') {
+  //     return;
+  //   }
+
+  //   setOpen(false);
+  // };
 
   return (
     <BoxContainer>
@@ -157,7 +224,7 @@ export const Conversation = () => {
             {messages.length ? (
               messages.map((m) => (
                 <div
-                  key={m.text}
+                  key={m.createdAt}
                   style={{
                     display: "flex",
                     flexDirection: "row",
@@ -175,7 +242,7 @@ export const Conversation = () => {
                       marginRight: "30px",
                     }}
                   >
-                    {m.text}
+                    {m.text} @ {m.createdAt}
                   </p>
                   <img
                     src={m.userId !== match._id ? match.image : tempImgURL}
@@ -203,7 +270,7 @@ export const Conversation = () => {
                   fullWidth={true}
                   value={input}
                   onChange={(event, value) => setInput(value)}
-                  onKeyUp={(event) => sendMessage(event)}
+                  onKeyUp={classify}
                 />
                 <Avatar alt="Remy Sharp" src={tempImgURL} />
               </Box>
@@ -211,6 +278,15 @@ export const Conversation = () => {
           </div>
         </div>
       </div>
+
     </BoxContainer>
   );
 };
+
+
+// onKeyUp={(event) => sendMessage(event)}
+{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+<Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
+  Warning: your text is potentially toxic.
+</Alert>
+</Snackbar> */}

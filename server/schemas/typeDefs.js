@@ -1,3 +1,5 @@
+
+
 const typeDefs = `
 type User {
     _id: ID!
@@ -21,6 +23,7 @@ type User {
     text: String
     userId: ID
     read: Boolean
+    createdAt: String!
   }
 
   type Auth {
@@ -30,6 +33,7 @@ type User {
 
   type Query {
     me: User
+    user(userID: ID!): User
     users: [User]!
   }
 

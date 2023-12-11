@@ -1,5 +1,5 @@
 const { Schema } = require('mongoose');
-// const User = require('./User');
+const dateFormat = require('../utils/dateFormat');
 
 // This is a subdocument schema; it won't become its own model but it 
 // will be used as the schema for the User's 'inbox' and 'outbox' arrays in User.js
@@ -17,7 +17,12 @@ const messageSchema = new Schema({
         type: Boolean,
         required: true,
         default: false,
-    }
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: timestamp => dateFormat(timestamp)
+      },
 });
 
 module.exports = messageSchema;
