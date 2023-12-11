@@ -34,13 +34,16 @@ import MuiAlert from '@mui/material/Alert';
 // });
 
 export const Conversation = () => {
-  const { loading, data } = useQuery(GET_ME);
+  const { loading, data, myError, refetch: myRefetch } = useQuery(GET_ME);
 
   const { loading: newLoading, data: newData, error, refetch } = useQuery(GET_USERS);
-  const [sendMessageMutation, {err}] = useMutation(ADD_MESSAGE,
-    {onCompleted: () => {
-      refetch()
-    }
+  const [sendMessageMutation, { err }] = useMutation(ADD_MESSAGE,
+    // invalidate cache of use query data
+    {
+      onCompleted: () => {
+        refetch()
+        myRefetch()
+      }
     });
   // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
@@ -49,25 +52,34 @@ export const Conversation = () => {
   const [input, setInput] = useState("");
   // const [imageURL, setImageURL] = useState('');
   const [match, setMatch] = useState("");
+
+  const [mapMessages, setMapMessages] = useState([]);
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
   const valueRef = useRef(""); //creating a refernce for TextField Component
   const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg";
   let mappedData;
+  let newMessages;
+
 
   useEffect(() => {
-    refetch();
-  })
+    (async () => {
+      try {
+        await refetch();
+        await myRefetch();
+        getMessages(match);
+      } catch (err) {
+        console.log('Error occured when refetching');
+      }
+    })();
+  }, [newData])
 
   if (newLoading) {
     return <h2>Loading...</h2>;
   } else {
     loadMatches();
+    // newMessages = printMessages();
   }
-
-  // useEffect(() => {
-
-  // }, [input])
 
   function loadMatches() {
     // const { data } = await getUsersQuery;
@@ -90,7 +102,8 @@ export const Conversation = () => {
   function getMessages(match) {
     // this will bring back the conversation between the two
     setMessages([]);
-    console.log(messages);
+    // console.log("empty out messages state variable: ");
+    // console.log(messages);
     setMatch(match);
     // console.log("Your match is: " + match.firstName);
     // console.log(match);
@@ -98,7 +111,10 @@ export const Conversation = () => {
     let newArr2 = data.me.outbox.filter((m) => m.userId === match._id);
     let newArr = newArr1.concat(newArr2);
     setMessages(newArr);
-    console.log(messages);
+    // console.log("added newArr to messages state variable: " + messages);
+    // console.log(messages);
+
+    newMessages = printMessages();
   }
 
   function sendMessage(event) {
@@ -111,6 +127,10 @@ export const Conversation = () => {
       // console.log("ENTER KEY clicked!!");
       makeMessage(text);
     }
+  }
+
+  function printMessages() {
+    console.log(newMessages);
   }
 
   async function makeMessage(text) {
@@ -126,21 +146,22 @@ export const Conversation = () => {
       const { data } = await sendMessageMutation({
         variables: {
           message: text,
-          targetId: match._id.toString(),
+          targetId: match?._id?.toString(),
         },
       });
 
       if (data) {
         // console.log("Message sent!");
         loadMatches();
+        // console.log("Message sent!");
+        getMessages(match);
+        // console.log("Message sent!");
       }
     } catch (err) {
       console.error(err);
     }
     setInput("");
     loadMatches();
-
-
   }
 
   const threshold = 0.9;
@@ -150,10 +171,10 @@ export const Conversation = () => {
       toxicity.load(threshold).then(model => {
         const sentence = document.getElementById('input-with-sx').value;
         model.classify(sentence).then(predictions => {
-          console.log(predictions);
-          for (let i=0; i<predictions.length; i++) {
-            console.log(predictions[i].label);
-            console.log(predictions[i].results[0].match);
+          // console.log(predictions);
+          for (let i = 0; i < predictions.length; i++) {
+            // console.log(predictions[i].label);
+            // console.log(predictions[i].results[0].match);
           }
         })
       })
@@ -269,7 +290,7 @@ export const Conversation = () => {
                   variant="standard"
                   fullWidth={true}
                   value={input}
-                  onChange={(event, value) => setInput(value)}
+                  onChange={(event) => setInput(event.target.value)}
                   onKeyUp={classify}
                 />
                 <Avatar alt="Remy Sharp" src={tempImgURL} />
