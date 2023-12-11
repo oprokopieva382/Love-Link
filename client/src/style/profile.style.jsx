@@ -186,3 +186,15 @@ export const StyledButton = styledMUI(Button)`
     background-color: ${blue[100]};
   }
 `;
+
+export const StyledUploadButton = styledMUI(Button)`
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 40px;
+  font-size: 18px;
+  &:hover {
+    background-color: ${blue[100]};
+    transition: transform 0.3s ease-in, color 0.5s ease-out;
+    transform: scale(1.1);
+  }
+`;
