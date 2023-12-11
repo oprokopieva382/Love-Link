@@ -8,10 +8,11 @@ const seedData = require('./large-seed-data.json')
 const getInterests = require('./interests');
 const getHobbies = require('./hobbies');
 const getLooking = require('./lookingFor');
+const getAbout = require('./about');
 
 // console.trace(seedData[0]);
 
-const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor }) => ({
+const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor, about }) => ({
   firstName: name.first,
   lastName: name.last,
   email: email,
@@ -19,6 +20,7 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor
   about: "I'm a very wonderful person!",
   password: "password123",
   gender: gender,
+  about: getAbout(),
   hobbies: getHobbies(),
   interests: getInterests(),
   image: picture.large,

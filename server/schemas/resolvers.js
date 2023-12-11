@@ -197,7 +197,7 @@ const resolvers = {
             runValidators: true,
           }
         );
-        return [me, them];
+        return me;
       }
       throw AuthenticationError;
     },
