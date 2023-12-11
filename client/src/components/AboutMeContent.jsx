@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  StyledButton,
   StyledContentPaper,
   StyledContentTypography,
   StyledDeleteButton,
@@ -11,7 +12,6 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
-import Button from "@mui/material/Button";
 import { useMutation } from "@apollo/client";
 import { ADD_HOBBIES } from "../utils/mutations";
 import { ADD_INTEREST } from "../utils/mutations";
@@ -53,7 +53,7 @@ export const AboutMeContent = ({ title, content }) => {
   };
 
   const handleDeleteItem = async (item) => {
-    debugger
+    debugger;
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -113,10 +113,6 @@ export const AboutMeContent = ({ title, content }) => {
           content.map((item) => (
             <Badge
               key={item}
-              onClick={() => {
-                console.log(`delete ${item}`);
-                handleDeleteItem(item);
-              }}
               badgeContent={
                 <StyledTbHeartOff
                   onClick={() => {
@@ -137,12 +133,14 @@ export const AboutMeContent = ({ title, content }) => {
         <DialogContent>
           {options.map((option) => (
             <div key={option}>
-              <Button onClick={() => handleSelection(option)}>{option}</Button>
+              <StyledButton onClick={() => handleSelection(option)}>
+                {option}
+              </StyledButton>
             </div>
           ))}
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeModal}>Cancel</Button>
+          <StyledButton onClick={closeModal}>Cancel</StyledButton>
         </DialogActions>
       </Dialog>
     </>

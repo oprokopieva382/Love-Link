@@ -180,3 +180,9 @@ export const StyledRiHeartAddFill = styledMUI(RiHeartAddFill)`
     }
   }
 `;
+
+export const StyledButton = styledMUI(Button)`
+ &:hover {
+    background-color: ${blue[100]};
+  }
+`;
