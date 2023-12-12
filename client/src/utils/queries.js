@@ -28,6 +28,7 @@ export const GET_ME = gql`
       interests
       hobbies
       matches
+      isToxic
     }
   }
 `;
@@ -60,6 +61,7 @@ query user($userId: ID!) {
     interests
     hobbies
     matches
+    isToxic
   }
 }
 `
@@ -88,6 +90,9 @@ export const GET_USERS = gql`
         read
       }
       interests
+      hobbies
+      matches
+      isToxic
     }
   }
 `;

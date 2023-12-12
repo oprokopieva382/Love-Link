@@ -60,7 +60,11 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'User'
       }
-    ]
+    ],
+    isToxic: {
+      type: Boolean,
+      default: false
+    }
   },
   // set this to use virtual below
   {
