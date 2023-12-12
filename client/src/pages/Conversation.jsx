@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import "../style/conversation.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
-import { ADD_MESSAGE } from "../utils/mutations";
+import { ADD_MESSAGE, SET_TOXIC } from "../utils/mutations";
 
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -36,6 +36,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
@@ -52,6 +55,8 @@ export const Conversation = () => {
         myRefetch()
       }
     });
+
+  const [setToxic, { loading: toxicLoading, error: toxicError }] = useMutation(SET_TOXIC);
   // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
@@ -63,7 +68,11 @@ export const Conversation = () => {
   const [mapMessages, setMapMessages] = useState([]);
 
   // For dialog modal
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+
+  // For loading spinner
+  const [spinner, setSpinner] = useState(false);
+
 
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
@@ -157,7 +166,7 @@ export const Conversation = () => {
       const { data } = await sendMessageMutation({
         variables: {
           message: text,
-          targetId: match?._id?.toString(),
+          targetId: match._id.toString(),
         },
       });
 
@@ -180,11 +189,14 @@ export const Conversation = () => {
     const sentence = event.target.value;
     setInput(event.target.value);
     if (event.keyCode === 13 || event.which === 13) {
-
+      setSpinner(true);
       toxicity.load(threshold).then(model => {
         console.log(sentence);
+        // Activate spinner
         model.classify(sentence).then(predictions => {
           // console.log(predictions);
+          // Deactivate spinner
+          setSpinner(false);
           for (let i = 0; i < predictions.length; i++) {
             console.log(predictions[i].label);
 
@@ -202,7 +214,9 @@ export const Conversation = () => {
   };
 
 
-
+  const flagAccountToxic = async () => {
+    await setToxic;
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -214,6 +228,7 @@ export const Conversation = () => {
 
   const handleCloseAndContinue = () => {
     setOpen(false);
+    // add in here call to function to flag user account for toxicity
     sendMessage();
   };
 
@@ -343,6 +358,12 @@ export const Conversation = () => {
           </DialogActions>
         </Dialog>
       </React.Fragment>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={spinner}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </BoxContainer>
   );
 };
