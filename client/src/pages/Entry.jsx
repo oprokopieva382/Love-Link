@@ -55,7 +55,6 @@ export const Entry = () => {
       const { data } = await addUser({
         variables: { ...formData },
       });
-
       Auth.signUp(data.addUser.token);
     } catch (err) {
       console.error(err);
@@ -69,13 +68,14 @@ export const Entry = () => {
       <BoxContainer>
         <StyledTypography variant="h4">Let's get start</StyledTypography>
         <form onSubmit={handleSubmit}>
-          <Box sx={{display: "flex"}}>
+          <Box sx={{ display: "flex" }}>
             <StyledFormContainer>
               <FormControlRadio
                 title="I am"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
+                required
               />
             </StyledFormContainer>
             <StyledFormContainer>
@@ -84,6 +84,7 @@ export const Entry = () => {
                 value={formData.lookingFor}
                 name="lookingFor"
                 onChange={handleChange}
+                required
               />
             </StyledFormContainer>
           </Box>

@@ -8,6 +8,10 @@ import { StyledTextField, StyledTypography } from "../style/question.style";
 import { useMutation } from "@apollo/client";
 import { ADD_INTEREST } from "../utils/mutations";
 import Auth from "../utils/auth";
+import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { successMessage } from "../utils/helper/notifications";
 
 const options = [
   "🐕‍🦺 Animal Rescue",
@@ -22,6 +26,10 @@ export const QuestionTwo = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
   const [addInterest] = useMutation(ADD_INTEREST);
+
+  useEffect(() => {
+    successMessage("List all of your interests!");
+  }, []);
 
   const runNextPage = async () => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
@@ -63,6 +71,7 @@ export const QuestionTwo = () => {
         onClick={runNextPage}
         style={{ fontSize: "4rem" }}
       />
+      <ToastContainer />
     </BoxContainer>
   );
 };

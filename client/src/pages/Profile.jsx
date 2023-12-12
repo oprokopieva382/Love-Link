@@ -3,7 +3,11 @@ import { AboutMe } from "../components/AboutMe";
 import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
 import { Avatar } from "../components/Avatar";
 import { ProfileNavBar } from "../components/ProfileNavBar";
-import { BoxContainer, StyledSubmitUploadButton, StyledUploadButton } from "../style/profile.style";
+import {
+  BoxContainer,
+  StyledSubmitUploadButton,
+  StyledUploadButton,
+} from "../style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
