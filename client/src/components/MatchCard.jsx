@@ -40,9 +40,10 @@ export default function MatchCard(props) {
           aria-label="add to favorites"
           onClick={() => props.setMatch(props.user._id)}>
           {props.me.matches.includes(props.user._id) ?
-            <GradeRoundedIcon />
+            <FavoriteIcon style={{color: "red"}}/>
             :
-            <FavoriteIcon />}
+            <FavoriteIcon/>}
+
         </IconButton>
       </CardActions>
     </Card>
