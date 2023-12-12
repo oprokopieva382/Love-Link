@@ -150,7 +150,7 @@ export const Conversation = () => {
   }
 
   function printMessages() {
-    console.log(newMessages);
+    // console.log(newMessages);
   }
 
   async function makeMessage(text) {
@@ -198,9 +198,9 @@ export const Conversation = () => {
           // Deactivate spinner
           setSpinner(false);
           for (let i = 0; i < predictions.length; i++) {
-            console.log(predictions[i].label);
+            // console.log(predictions[i].label);
 
-            console.log(predictions[i].results[0].match);
+            // console.log(predictions[i].results[0].match);
 
             if (predictions[i].results[0].match === true) {
               handleClickOpen();
@@ -215,7 +215,8 @@ export const Conversation = () => {
 
 
   const flagAccountToxic = async () => {
-    await setToxic;
+    const retData = setToxic();
+    console.log(retData);
   }
 
   const handleClickOpen = () => {
@@ -230,6 +231,7 @@ export const Conversation = () => {
     setOpen(false);
     // add in here call to function to flag user account for toxicity
     sendMessage();
+    flagAccountToxic();
   };
 
   return (
