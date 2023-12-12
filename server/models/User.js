@@ -43,6 +43,12 @@ const userSchema = new Schema(
       type: String,
 
     },
+    gallery: [
+      {
+        name: String,
+        imageUrl: String
+      }
+    ], 
     inbox: [messageSchema],
     outbox: [messageSchema],
     hobbies: [
