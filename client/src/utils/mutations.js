@@ -126,6 +126,7 @@ export const ADD_MESSAGE = gql`
         text
         userId
         read
+        createdAt
       }
     }
   }
@@ -147,6 +148,17 @@ mutation removeMatch($matchId: ID!) {
     _id
     firstName
     lastName
+  }
+}
+`;
+
+export const SET_TOXIC = gql`
+mutation setToxic {
+  setToxic {
+    _id
+    firstName
+    lastName
+    isToxic
   }
 }
 `

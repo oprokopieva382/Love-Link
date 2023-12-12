@@ -1,3 +1,5 @@
+
+
 const typeDefs = `
 type User {
     _id: ID!
@@ -15,12 +17,14 @@ type User {
     hobbies: [String]
     interests: [String]
     matches: [ID]
+    isToxic: String
   }
 
   type Message {
     text: String
     userId: ID
     read: Boolean
+    createdAt: String!
   }
 
   type Auth {
@@ -30,6 +34,7 @@ type User {
 
   type Query {
     me: User
+    user(userID: ID!): User
     users: [User]!
   }
 
@@ -51,6 +56,8 @@ type User {
 
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User
+
+  setToxic: User
   }
 `;
 

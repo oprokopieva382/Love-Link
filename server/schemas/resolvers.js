@@ -16,6 +16,14 @@ const resolvers = {
       throw AuthenticationError;
     },
 
+    user: async (_, { userID }, context) => {
+        const userData = await User.findOne({ _id: userID })
+          .select("-__v-password")
+          .populate("inbox", "outbox");
+
+          return userData;
+    },
+
     users: async () => {
       return User.find();
     },
@@ -189,7 +197,7 @@ const resolvers = {
             runValidators: true,
           }
         );
-        return [me, them];
+        return me;
       }
       throw AuthenticationError;
     },
@@ -227,6 +235,20 @@ const resolvers = {
 
       throw AuthenticationError;
     },
+
+    setToxic: async (_, args, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: { isToxic: true },
+          },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw AuthenticationError;
+    }
   },
 };
 
