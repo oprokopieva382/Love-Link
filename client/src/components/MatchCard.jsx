@@ -15,6 +15,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Placeholder from "../assets/img/placeholder.jpg"
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 
 export default function MatchCard(props) {
   console.log("test");
@@ -24,7 +25,7 @@ export default function MatchCard(props) {
         component="img"
         height="194"
         image={props.user.image}
-        
+
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
@@ -35,10 +36,16 @@ export default function MatchCard(props) {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton
+          aria-label="add to favorites"
+          onClick={() => props.setMatch(props.user._id)}>
+          {props.me.matches.includes(props.user._id) ?
+            <GradeRoundedIcon />
+            :
+            <FavoriteIcon />}
         </IconButton>
       </CardActions>
     </Card>
   );
 }
+
