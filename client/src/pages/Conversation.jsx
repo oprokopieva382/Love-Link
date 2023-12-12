@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import "../style/conversation.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
-import { ADD_MESSAGE } from "../utils/mutations";
+import { ADD_MESSAGE, SET_TOXIC } from "../utils/mutations";
 
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -29,6 +29,16 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
+// Working on dialog; import here
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
@@ -45,6 +55,8 @@ export const Conversation = () => {
         myRefetch()
       }
     });
+
+  const [setToxic, { loading: toxicLoading, error: toxicError }] = useMutation(SET_TOXIC);
   // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
@@ -54,6 +66,14 @@ export const Conversation = () => {
   const [match, setMatch] = useState("");
 
   const [mapMessages, setMapMessages] = useState([]);
+
+  // For dialog modal
+  const [open, setOpen] = useState(false);
+
+  // For loading spinner
+  const [spinner, setSpinner] = useState(false);
+
+
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
   const valueRef = useRef(""); //creating a refernce for TextField Component
@@ -117,20 +137,20 @@ export const Conversation = () => {
     newMessages = printMessages();
   }
 
-  function sendMessage(event) {
+  function sendMessage() {
     // setInput(event.target.value);
-    let text = event.target.value;
+    let text = input;
 
     // console.log(text);
     // setInput(text);
-    if (event.keyCode === 13 || event.which === 13) {
+
       // console.log("ENTER KEY clicked!!");
       makeMessage(text);
-    }
+
   }
 
   function printMessages() {
-    console.log(newMessages);
+    // console.log(newMessages);
   }
 
   async function makeMessage(text) {
@@ -146,7 +166,7 @@ export const Conversation = () => {
       const { data } = await sendMessageMutation({
         variables: {
           message: text,
-          targetId: match?._id?.toString(),
+          targetId: match._id.toString(),
         },
       });
 
@@ -166,36 +186,53 @@ export const Conversation = () => {
 
   const threshold = 0.9;
   function classify(event) {
+    const sentence = event.target.value;
+    setInput(event.target.value);
     if (event.keyCode === 13 || event.which === 13) {
-
+      setSpinner(true);
       toxicity.load(threshold).then(model => {
-        const sentence = document.getElementById('input-with-sx').value;
+        console.log(sentence);
+        // Activate spinner
         model.classify(sentence).then(predictions => {
           // console.log(predictions);
+          // Deactivate spinner
+          setSpinner(false);
           for (let i = 0; i < predictions.length; i++) {
             // console.log(predictions[i].label);
+
             // console.log(predictions[i].results[0].match);
+
+            if (predictions[i].results[0].match === true) {
+              handleClickOpen();
+            } else if (i === predictions.length-1) {
+              sendMessage();
+            }
           }
         })
       })
-      sendMessage(event);
     }
   };
 
 
+  const flagAccountToxic = async () => {
+    const retData = setToxic();
+    console.log(retData);
+  }
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  //   setOpen(false);
-  // };
+  const handleCloseAndContinue = () => {
+    setOpen(false);
+    // add in here call to function to flag user account for toxicity
+    sendMessage();
+    flagAccountToxic();
+  };
 
   return (
     <BoxContainer>
@@ -299,7 +336,36 @@ export const Conversation = () => {
           </div>
         </div>
       </div>
-
+      <React.Fragment>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Send a toxic message?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              We have determined that the message you wish to send is potentially toxic.
+              Sending toxic messages may flag your account and make you less visible to potential matches.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>Cancel</Button>
+            <Button onClick={handleCloseAndContinue}>
+              Send
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={spinner}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </BoxContainer>
   );
 };

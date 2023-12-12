@@ -175,4 +175,15 @@ mutation removeMatch($matchId: ID!) {
     lastName
   }
 }
+`;
+
+export const SET_TOXIC = gql`
+mutation setToxic {
+  setToxic {
+    _id
+    firstName
+    lastName
+    isToxic
+  }
+}
 `

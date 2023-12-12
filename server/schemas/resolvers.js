@@ -265,6 +265,20 @@ const resolvers = {
 
       throw AuthenticationError;
     },
+
+    setToxic: async (_, args, context) => {
+      if (context.user) {
+        const updatedUser = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: { isToxic: true },
+          },
+          { new: true }
+        );
+        return updatedUser;
+      }
+      throw AuthenticationError;
+    }
   },
 };
 

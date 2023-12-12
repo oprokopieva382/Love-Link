@@ -17,6 +17,7 @@ type User {
     hobbies: [String]
     interests: [String]
     matches: [ID]
+    isToxic: String
     gallery: [Gallery]
   }
 
@@ -67,6 +68,8 @@ type User {
 
   saveMatch(matchID: ID!): User 
   removeMatch(matchID : ID!): User
+
+  setToxic: User
   }
 `;
 
