@@ -12,34 +12,40 @@ export const Matches = () => {
   const { loading: myLoading, data: myData, error: myError, refetch: myRefetch } = useQuery(GET_ME);
   const [yourMatches, setYourMatches] = useState();
   let users;
-  let me;
+  // let me;
 
   useEffect(() => {
-    users = data?.users || [];
-    me = myData?.me;
     init();
-  }, [])
+  }, []);
+
+  function containsAny(arr, elements) {
+    return arr.some(item => elements.includes(item));
+  }
 
   const init = () => {
     // setYourMatches(users);
-    setYourMatches(users.filter(
+    setYourMatches(data && data.users.filter(
       // Matches where their gender matches what you're looking for
-      (user) => user.gender.toLowerCase() == me.lookingFor.toLowerCase()
+      (user) => user.gender.toLowerCase() === myData.me.lookingFor.toLowerCase()
     )
     .filter(
       // Matches where your gender matches what they're looking for
-      (user) => user.lookingFor.toLowerCase() == me.gender.toLowerCase()
+      (user) => user.lookingFor.toLowerCase() === myData.me.gender.toLowerCase()
+    )
+    .filter(
+      (user) => containsAny(user.hobbies, myData.me.hobbies)
+    )
+    .filter(
+      (user) => containsAny(user.interests, myData.me.interests)
     ));
     console.log(yourMatches);
   }
 
   if (loading || myLoading) {
     return <h2>Loading...</h2>;
-  } else if (!yourMatches) {
-    console.log('im in here');
-
-  };
-
+  } else {
+    // init();
+  }
 
 
   // console.log(yourMatches[0].gender.toLowerCase());
