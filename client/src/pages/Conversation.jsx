@@ -29,6 +29,13 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
+// Working on dialog; import here
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 // });
@@ -54,6 +61,10 @@ export const Conversation = () => {
   const [match, setMatch] = useState("");
 
   const [mapMessages, setMapMessages] = useState([]);
+
+  // For dialog modal
+  const [open, setOpen] = React.useState(false);
+
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
   const valueRef = useRef(""); //creating a refernce for TextField Component
@@ -117,16 +128,16 @@ export const Conversation = () => {
     newMessages = printMessages();
   }
 
-  function sendMessage(event) {
+  function sendMessage() {
     // setInput(event.target.value);
-    let text = event.target.value;
+    let text = input;
 
     // console.log(text);
     // setInput(text);
-    if (event.keyCode === 13 || event.which === 13) {
+
       // console.log("ENTER KEY clicked!!");
       makeMessage(text);
-    }
+
   }
 
   function printMessages() {
@@ -166,36 +177,45 @@ export const Conversation = () => {
 
   const threshold = 0.9;
   function classify(event) {
+    const sentence = event.target.value;
+    setInput(event.target.value);
     if (event.keyCode === 13 || event.which === 13) {
 
       toxicity.load(threshold).then(model => {
-        const sentence = document.getElementById('input-with-sx').value;
+        console.log(sentence);
         model.classify(sentence).then(predictions => {
           // console.log(predictions);
           for (let i = 0; i < predictions.length; i++) {
-            // console.log(predictions[i].label);
-            // console.log(predictions[i].results[0].match);
+            console.log(predictions[i].label);
+
+            console.log(predictions[i].results[0].match);
+
+            if (predictions[i].results[0].match === true) {
+              handleClickOpen();
+            } else if (i === predictions.length-1) {
+              sendMessage();
+            }
           }
         })
       })
-      sendMessage(event);
     }
   };
 
 
 
-  // const [open, setOpen] = React.useState(false);
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
 
-  // const handleClose = (event, reason) => {
-  //   if (reason === 'clickaway') {
-  //     return;
-  //   }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  //   setOpen(false);
-  // };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCloseAndContinue = () => {
+    setOpen(false);
+    sendMessage();
+  };
 
   return (
     <BoxContainer>
@@ -299,7 +319,30 @@ export const Conversation = () => {
           </div>
         </div>
       </div>
-
+      <React.Fragment>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Send a toxic message?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              We have determined that the message you wish to send is potentially toxic.
+              Sending toxic messages may flag your account and make you less visible to potential matches.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>Cancel</Button>
+            <Button onClick={handleCloseAndContinue}>
+              Send
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
     </BoxContainer>
   );
 };
