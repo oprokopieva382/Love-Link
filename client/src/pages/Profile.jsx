@@ -3,7 +3,7 @@ import { AboutMe } from "../components/AboutMe";
 import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
 import { Avatar } from "../components/Avatar";
 import { ProfileNavBar } from "../components/ProfileNavBar";
-import { BoxContainer, StyledUploadButton } from "../style/profile.style";
+import { BoxContainer, StyledSubmitUploadButton, StyledUploadButton } from "../style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
@@ -34,8 +34,8 @@ export const Profile = () => {
     cloudinaryRef.current = window.cloudinary;
     widgetRefProfile.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dvket0mnz",
-        uploadPreset: "epbd9mut",
+        cloudName: import.meta.env.VITE_API_KEY_CLOUD_NAME,
+        uploadPreset: import.meta.env.VITE_API_KEY_UPLOAD_PRESENT,
         folder: "lovelink/profile",
         theme: "purple",
       },
@@ -52,8 +52,8 @@ export const Profile = () => {
 
     widgetRefGallery.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dvket0mnz",
-        uploadPreset: "epbd9mut",
+        cloudName: import.meta.env.VITE_API_KEY_CLOUD_NAME,
+        uploadPreset: import.meta.env.VITE_API_KEY_UPLOAD_PRESENT,
         folder: "lovelink/gallery",
         theme: "purple",
       },
@@ -115,7 +115,7 @@ export const Profile = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, marginRight: "30px" }}>
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Box sx={{ textAlign: "center" }}>
@@ -128,7 +128,9 @@ export const Profile = () => {
             <Avatar avatar={avatar} />
             <AboutMe />
             {showProfileButton ? (
-              <button onClick={updateUserAvatar}>updateAvatar</button>
+              <StyledSubmitUploadButton onClick={updateUserAvatar}>
+                update
+              </StyledSubmitUploadButton>
             ) : (
               ""
             )}
@@ -143,7 +145,9 @@ export const Profile = () => {
                 <TbPhotoPlus />
               </StyledUploadButton>
               {showGalleryButton ? (
-                <button onClick={updateUserGallery}>updateGallery</button>
+                <StyledSubmitUploadButton onClick={updateUserGallery}>
+                  update
+                </StyledSubmitUploadButton>
               ) : (
                 ""
               )}
