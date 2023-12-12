@@ -50,19 +50,19 @@ const router = createBrowserRouter([
         element: <QuestionFour />,
       },
       {
-        path: "profile/",
+        path: "/profile",
         element: Auth.loggedIn() ? <Profile /> : <Entry />,
       },
       {
-        path: "matches",
+        path: "/matches",
         element: Auth.loggedIn() ? <Matches /> : <Entry />,
       },
       {
-        path: "inTarget",
+        path: "/inTarget",
         element: Auth.loggedIn() ? <InTarget /> : <Entry />,
       },
       {
-        path: "conversation",
+        path: "/conversation",
         element: Auth.loggedIn() ? <Conversation /> : <Entry />,
       },
     ],

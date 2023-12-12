@@ -3,20 +3,25 @@ import { useQuery } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
 import { BoxContainer } from "../style/profile.style";
 import { ProfileNavBar } from "../components/ProfileNavBar";
-import Grid from "@mui/material/Grid"
-import { useState, useEffect } from 'react';
+import Grid from "@mui/material/Grid";
+import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 
 export const Matches = () => {
-  const { loading, data } = useQuery(GET_USERS)
-  const { loading: myLoading, data: myData, error: myError, refetch: myRefetch } = useQuery(GET_ME);
+  const { loading, data } = useQuery(GET_USERS);
+  const {
+    loading: myLoading,
+    data: myData,
+    error: myError,
+    refetch: myRefetch,
+  } = useQuery(GET_ME);
   const [yourMatches, setYourMatches] = useState();
   let users;
   // let me;
 
-  useEffect(() => {
-    init();
-  }, []);
+  // useEffect(() => {
+  //   init();
+  // }, [data]);
 
   function containsAny(arr, elements) {
     return arr.some(item => elements.includes(item));
@@ -24,36 +29,41 @@ export const Matches = () => {
 
   const init = () => {
     // setYourMatches(users);
-    setYourMatches(data && data.users.filter(
-      // Matches where their gender matches what you're looking for
-      (user) => user.gender.toLowerCase() === myData.me.lookingFor.toLowerCase()
-    )
-    .filter(
-      // Matches where your gender matches what they're looking for
-      (user) => user.lookingFor.toLowerCase() === myData.me.gender.toLowerCase()
-    )
-    .filter(
-      (user) => containsAny(user.hobbies, myData.me.hobbies)
-    )
-    .filter(
-      (user) => containsAny(user.interests, myData.me.interests)
-    ));
-    console.log(yourMatches);
-  }
+    if (data) {
+      users = data.users.filter(
+        // Matches where their gender matches what you're looking for
+        (user) => user.gender.toLowerCase() === myData.me.lookingFor.toLowerCase()
+      )
+      .filter(
+        // Matches where your gender matches what they're looking for
+        (user) => user.lookingFor.toLowerCase() === myData.me.gender.toLowerCase()
+      )
+      .filter(
+        (user) => containsAny(user.hobbies, myData.me.hobbies)
+      )
+      .filter(
+        (user) => containsAny(user.interests, myData.me.interests)
+      )
+      .filter(
+        (user) => user._id != myData.me._id
+      );
+      console.log(yourMatches);
+    }
+
+  };
 
   if (loading || myLoading) {
     return <h2>Loading...</h2>;
   } else {
-    // init();
+    init();
   }
 
 
   // console.log(yourMatches[0].gender.toLowerCase());
 
-
   // console.log(users);
   // console.log(myData.me);
-  console.log(yourMatches);
+  console.log(users);
 
   const tempUsers = [
     {
@@ -73,15 +83,15 @@ export const Matches = () => {
     },
   ];
 
-  // console.log(data);
+  console.log(data.users);
   return (
     <>
       <BoxContainer>
         <ProfileNavBar />
         <Grid container spacing={2}>
-          {tempUsers.map((user, i) => (
-            <Grid item xs={4}>
-              <MatchCard user={user} key={i} />
+          {users.map((user, i) => (
+            <Grid item xs={4} key={i}>
+              <MatchCard user={user} />
             </Grid>
           ))}
         </Grid>

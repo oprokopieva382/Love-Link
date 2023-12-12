@@ -10,19 +10,19 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/jradmorrison/tasty-tableau">
+  <a href="https://github.com/kurtriecken/love-link">
     <img src="./public/Assets/Logo.png" alt="Logo" width="320" height="320">
   </a>
 </div>
 
 <h3 align="center">Ciao Bootcamp</h3>
 
-<p align="center">Welcome to Tasty Tableau, a comprehensive culinary platform that empowers users to explore, discover, and savor a world of recipes. Our app offers a delightful and engaging experience, enabling users to create personalized accounts, search for a wide variety of recipes, access and contribute reviews, and save their favorite recipes for future reference. Whether you're a seasoned chef or a home cook looking for culinary inspiration, Tasty Tableau is your go-to destination for a delectable journey through the world of gastronomy. Join us today to embark on your culinary adventure!</p>
+<p align="center">Welcome to LoveLink, the premier dating platform designed to bring people together based on shared interests and hobbies. Logging in is quick and easy, allowing users to seamlessly navigate through a world of potential matches tailored to their preferences. Discover like-minded individuals and kickstart meaningful conversations through our user-friendly messaging system. At LoveLink, we prioritize creating a positive and welcoming environment. While enjoying the excitement of finding someone special, users can rest assured that our platform values respect and genuine connections. Join LoveLink today and embark on a journey where connections are sparked, and love blossoms effortlessly.</p>
 
   
-<p align="center"> – Tasty Tableau - Where Every Dish Tells a Story, Yours Included.</p>
+<p align="center"> – LoveLink: Connecting Hearts Through Shared Passions and Personalized Matches</p>
 
-<h3 font size="1" align="right"><a href="https://cryptic-tundra-53497-2c1c36d10121.herokuapp.com/" target="_blank">Visit Site🚀</a></h3>
+<h3 font size="1" align="right"><a href="" target="_blank">Visit Site🚀</a></h3>
 
 ## Table of Contents
 
@@ -42,13 +42,16 @@
 ![HTML](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/css3%20-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
-![jQuery](https://img.shields.io/badge/jQuery%20-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
-![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white)
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
-![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-%23FF6F00.svg?style=for-the-badge&logo=TensorFlow&logoColor=white)
+![Apollo-GraphQL](https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql)
+![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -68,20 +71,20 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-## Team - SCRUMptious
+## Team - Ciao Bootcamp
 
 <a name="team"></a>
 
-### Jared <span style="font-size: 12px"></span>
+### Oksana <span style="font-size: 12px"></span>
 
-<p>Email - <a href="mailto:jmorrison.m44@gmail.com">jmorrison.m44@gmail.com</a></p>
-<p>Github - <a href="https://github.com/jradmorrison">jradmorrison</a></p>
+<p>Email - <a href="mailto:"></a></p>
+<p>Github - <a href="https://github.com/oprokopieva382">oprokopieva382</a></p>
 <hr>
 
-### Brandon <span style="font-size: 12px"></span>
+### Jorlyna <span style="font-size: 12px"></span>
 
-<p>Email - <a href="mailto:ImBrandonBarnes@gmail.com">imbrandonbarnes@gmail.com</a></p>
-<p>Github - <a href="https://github.com/ThatZiro">ThatZiro</a></p>
+<p>Email - <a href="mailto:"></a></p>
+<p>Github - <a href="https://github.com/jorlyna326">jorlyna326</a></p>
 <hr>
 
 ### Kurt <span style="font-size: 12px"></span>
@@ -96,13 +99,13 @@
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/ThatZiro/Listy-Flix.svg?style=for-the-badge
-[contributors-url]: https://github.com/jradmorrison/tasty-tableau/graphs/contributors
+[contributors-url]: https://github.com/kurtriecken/love-link/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/ThatZiro/Listy-Flix.svg?style=for-the-badge
-[forks-url]: https://github.com/jradmorrison/tasty-tableau/network/members
+[forks-url]: https://github.com/kurtriecken/love-link/network/members
 [stars-shield]: https://img.shields.io/github/stars/ThatZiro/Listy-Flix.svg?style=for-the-badge
-[stars-url]: https://github.com/jradmorrison/tasty-tableau/stargazers
+[stars-url]: https://github.com/kurtriecken/love-link/stargazers
 [issues-shield]: https://img.shields.io/github/issues/ThatZiro/Listy-Flix.svg?style=for-the-badge
-[issues-url]: https://github.com/jradmorrison/tasty-tableau/issues
+[issues-url]: https://github.com/kurtriecken/love-link/issues
 [license-shield]: https://img.shields.io/github/license/ThatZiro/Listy-Flix.svg?style=for-the-badge
-[license-url]: https://github.com/jradmorrison/tasty-tableau/blob/main/LICENSE
-[commits-shield]: https://img.shields.io/github/commit-activity/t/jradmorrison/tasty-tableau.svg?style=for-the-badge
+[license-url]: https://github.com/kurtriecken/love-link/blob/main/LICENSE
+[commits-shield]: https://img.shields.io/github/commit-activity/t/kurtriecken/love-link.svg?style=for-the-badge

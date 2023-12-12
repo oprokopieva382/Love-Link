@@ -23,12 +23,15 @@ export default function MatchCard(props) {
       <CardMedia
         component="img"
         height="194"
-        image={Placeholder}
-        alt="Paella dish"
+        image={props.user.image}
+        
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {props.user.userName}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {props.user.about}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

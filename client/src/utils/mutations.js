@@ -40,6 +40,31 @@ export const LOGIN_USER = gql`
   }
 `;
 
+export const ADD_PROFILE_IMG = gql`
+  mutation addProfileImg($image: String!) {
+    addProfileImg(image: $image) {
+      _id
+      firstName
+      lastName
+      image
+    }
+  }
+`;
+
+export const ADD_GALLERY_IMG = gql`
+  mutation addGalleryImg($gallery: [GalleryInput!]!) {
+    addGalleryImg(gallery: $gallery) {
+      _id
+      firstName
+      lastName
+      gallery {
+        name
+        imageUrl
+      }
+    }
+  }
+`;
+
 export const ADD_DOB = gql`
   mutation addDOB($dob: String!) {
     addDOB(dob: $dob) {
