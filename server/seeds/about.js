@@ -61,7 +61,7 @@ const aboutArray = [
 ]
 
 const getAbout = () => {
-    return aboutArray[Math.floor(Math.random() * aboutArray.length)]
+    return aboutArray[Math.floor(Math.random() * aboutArray.length)];
 }
 
 module.exports = getAbout;

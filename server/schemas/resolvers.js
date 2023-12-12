@@ -17,11 +17,11 @@ const resolvers = {
     },
 
     user: async (_, { userID }, context) => {
-        const userData = await User.findOne({ _id: userID })
-          .select("-__v-password")
-          .populate("inbox", "outbox");
+      const userData = await User.findOne({ _id: userID })
+        .select("-__v-password")
+        .populate("inbox", "outbox");
 
-          return userData;
+      return userData;
     },
 
     users: async () => {
@@ -52,6 +52,36 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+
+    addProfileImg: async (_, { image }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $set: { image },
+          },
+          { new: true }
+        );
+      }
+      throw AuthenticationError;
+    },
+
+    addGalleryImg: async (_, { gallery }, context) => {
+      if (context.user) {
+        return User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $addToSet: { gallery: { $each: gallery } },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+
+      throw AuthenticationError;
     },
 
     addDOB: async (_, { dob }, context) => {
