@@ -13,6 +13,10 @@ export const GET_ME = gql`
       about
       dob
       image
+      gallery {
+        name
+        imageUrl
+      }
       inbox {
         text
         userId
@@ -33,36 +37,36 @@ export const GET_ME = gql`
 `;
 
 export const GET_USER = gql`
-query user($userId: ID!) {
-  user(userID: $userId) {
-    _id
-    firstName
-    lastName
-    email
-    password
-    gender
-    lookingFor
-    about
-    dob
-    image
-    inbox {
-      text
-      userId
-      read
-      createdAt
+  query user($userId: ID!) {
+    user(userID: $userId) {
+      _id
+      firstName
+      lastName
+      email
+      password
+      gender
+      lookingFor
+      about
+      dob
+      image
+      inbox {
+        text
+        userId
+        read
+        createdAt
+      }
+      outbox {
+        text
+        userId
+        read
+        createdAt
+      }
+      interests
+      hobbies
+      matches
     }
-    outbox {
-      text
-      userId
-      read
-      createdAt
-    }
-    interests
-    hobbies
-    matches
   }
-}
-`
+`;
 
 export const GET_USERS = gql`
   query users {
