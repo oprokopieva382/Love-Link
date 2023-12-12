@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import { SignUpFields } from "../components/SignUpFields";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FormControlRadio } from "../components/FormControlRadio";
 import { EntryNavBar } from "../components/EntryNavBar";
 import {
@@ -13,6 +13,9 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Box from "@mui/material/Box";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { successMessage } from "../utils/helper/notifications";
 
 export const Entry = () => {
   const [addUser] = useMutation(ADD_USER);
@@ -24,6 +27,10 @@ export const Entry = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    successMessage("Hi dear! Login or Signup, wait for you...");
+  }, []);
 
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -100,6 +107,7 @@ export const Entry = () => {
             </Button>
           </ButtonBox>
         </form>
+        <ToastContainer />
       </BoxContainer>
     </>
   );

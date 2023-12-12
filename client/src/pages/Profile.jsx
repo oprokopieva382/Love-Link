@@ -20,6 +20,9 @@ import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { Spinner } from "../components/Spinner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { successMessage } from "../utils/helper/notifications";
 
 export const Profile = () => {
   const [showProfileButton, setProfileButton] = useState(false);
@@ -35,6 +38,8 @@ export const Profile = () => {
   const widgetRefGallery = useRef();
 
   useEffect(() => {
+    successMessage("You can add more info to your profile");
+
     cloudinaryRef.current = window.cloudinary;
     widgetRefProfile.current = cloudinaryRef.current.createUploadWidget(
       {
@@ -160,6 +165,7 @@ export const Profile = () => {
           </Grid>
         </Grid>
       </Box>
+      <ToastContainer />
     </BoxContainer>
   );
 };

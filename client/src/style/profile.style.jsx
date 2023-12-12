@@ -189,6 +189,7 @@ export const StyledButton = styledMUI(Button)`
 
 export const StyledUploadButton = styledMUI(Button)`
   font-size: 18px;
+
   &:hover {
     transition: transform 0.3s ease-in, color 0.5s ease-out;
     transform: scale(1.1);
@@ -199,6 +200,7 @@ export const StyledSubmitUploadButton = styledMUI(Button)`
   display: block;
   margin: 0 auto;
   margin-top: 10px;
+  background-color: #EBD7B4;
 `;
 
 export const StyledUploadTypography = styledMUI(Typography)`
