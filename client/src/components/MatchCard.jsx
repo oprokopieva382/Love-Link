@@ -19,11 +19,12 @@ import Placeholder from "../assets/img/placeholder.jpg"
 export default function MatchCard(props) {
   console.log("test");
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, borderRadius: "10px"}}>
       <CardMedia
         component="img"
         height="194"
         image={props.user.image}
+        sx= {{Radius:"20px"}}
         
       />
       <CardContent>
