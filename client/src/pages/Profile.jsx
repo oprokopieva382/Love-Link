@@ -38,7 +38,7 @@ export const Profile = () => {
   const widgetRefGallery = useRef();
 
   useEffect(() => {
-    successMessage("You can add more info to your profile");
+    successMessage("Good to see you🩵");
 
     cloudinaryRef.current = window.cloudinary;
     widgetRefProfile.current = cloudinaryRef.current.createUploadWidget(

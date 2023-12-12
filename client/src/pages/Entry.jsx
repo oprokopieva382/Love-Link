@@ -15,7 +15,7 @@ import { ADD_USER } from "../utils/mutations";
 import Box from "@mui/material/Box";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { successMessage } from "../utils/helper/notifications";
+import { successMessage, errorMessage } from "../utils/helper/notifications";
 
 export const Entry = () => {
   const [addUser] = useMutation(ADD_USER);
@@ -35,7 +35,7 @@ export const Entry = () => {
   const handleChange = (event) => {
     console.log(event.target.value);
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
 
   const resetForm = () => {
@@ -64,6 +64,7 @@ export const Entry = () => {
       });
       Auth.signUp(data.addUser.token);
     } catch (err) {
+       errorMessage("Something went wrong. Try again");
       console.error(err);
     }
     resetForm();
