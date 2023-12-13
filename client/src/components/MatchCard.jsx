@@ -19,17 +19,16 @@ import Placeholder from "../assets/img/placeholder.jpg"
 export default function MatchCard(props) {
   console.log("test");
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: "10px"}}>
+    <Card sx={{ maxWidth: 345, borderRadius: "20px"}}>
       <CardMedia
         component="img"
         height="194"
         image={props.user.image}
-        sx= {{Radius:"20px"}}
-        
+        sx= {{borderRadius:"20px"}}
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {props.user.userName}
+        <Typography variant="body2" color="text.secondary" style={{marginBottom: '5px'}}>
+         {`${props.user.firstName} ${props.user.lastName} `}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {props.user.about}
