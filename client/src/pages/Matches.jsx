@@ -77,7 +77,7 @@ export const Matches = () => {
           // Gets users who share at least one interest
           (user) => containsAny(user.interests, myData.me.interests)
         )
-        .filter((user) => user._id != myData.me._id);
+        .filter((user) => user._id !== myData.me._id);
     }
   };
   init();

@@ -17,7 +17,7 @@ export const MatchCard = ({ user, setMatch, me }) => {
       />
       <CardContent>
         <Typography
-          variant="body2"
+          variant="h5"
           color="text.secondary"
           sx={{ marginBottom: "5px" }}
         >

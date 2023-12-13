@@ -15,12 +15,17 @@ import {
 } from "../assets/style/inTarget.style";
 import { PiEyeClosed } from "react-icons/pi";
 import { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_ME } from "../utils/queries";
+import Auth from "../utils/auth";
 import { successMessage } from "../utils/helper/notifications";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
   const [open, setOpen] = useState(false);
+  const { data } = useQuery(GET_ME);
+  console.log(data)
 
   useEffect(() => {
     successMessage("Talk with your favorites");
@@ -39,16 +44,6 @@ export const InTarget = () => {
     console.log(`Messaging user with ID: ${userId}`);
   };
 
-  const favorites = [
-    "Bob Marley",
-    "Lil Wayne",
-    "Ólafur Arnalds",
-    "Jan Blomqvist",
-    "Ry Cuming",
-    "Estas Tonne",
-    "Wlad Roerich",
-  ];
-
   return (
     <BoxContainer>
       <ProfileNavBar />
@@ -56,11 +51,11 @@ export const InTarget = () => {
         <PiEyeClosed style={{ padding: "5px 5px 0", fontSize: "1.5rem" }} />
         Catch my eye
       </StyledTypography>
-      {favorites.map((favorite, i) => (
+      {data?.me?.matches.map((favorite, i) => (
         <StyledCard key={i}>
           <StyledCardContent>
             <AvatarBox>
-              <StyledAvatar alt="avatar" src={avatar} />
+              <StyledAvatar alt="avatar" src={favorite.image} />
               <div>
                 <Typography variant="h6">{favorite}</Typography>
                 <Typography>I am exactly who you're looking for</Typography>
