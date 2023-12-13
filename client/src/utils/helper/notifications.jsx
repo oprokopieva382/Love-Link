@@ -11,6 +11,13 @@ export const successMessage = (message) => {
 export const errorMessage = (message) => {
   toast.error(message, {
     position: toast.POSITION.BOTTOM_LEFT,
-    autoClose: 2500,
+    autoClose: 3000,
+  });
+};
+
+export const warningMessage = (message) => {
+  toast.warning(message, {
+    position: toast.POSITION.BOTTOM_LEFT,
+    autoClose: 3000,
   });
 };
