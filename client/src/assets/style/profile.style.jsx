@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import profileBackground from "../assets/img/profileBackground.jpeg";
+import profileBackground from "../img/profileBackground.jpeg";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
@@ -85,7 +85,7 @@ export const StyledAboutMeText = styledMUI(Typography)`
 
 export const StyledFlexBox = styledMUI(Box)`
   display: flex;
-  width: 90%;
+  width: 100%;
   flex-direction: column;
   @media (min-width: 765px) {
     flex-direction: row;
@@ -189,6 +189,7 @@ export const StyledButton = styledMUI(Button)`
 
 export const StyledUploadButton = styledMUI(Button)`
   font-size: 18px;
+
   &:hover {
     transition: transform 0.3s ease-in, color 0.5s ease-out;
     transform: scale(1.1);
@@ -199,6 +200,7 @@ export const StyledSubmitUploadButton = styledMUI(Button)`
   display: block;
   margin: 0 auto;
   margin-top: 10px;
+  background-color: #EBD7B4;
 `;
 
 export const StyledUploadTypography = styledMUI(Typography)`

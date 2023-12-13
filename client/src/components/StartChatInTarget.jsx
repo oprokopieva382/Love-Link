@@ -1,10 +1,10 @@
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import { StyledModalBox } from "../style/loginModal.style";
+import { StyledModalBox } from "../assets/style/loginModal.style";
 import {
   StyledSubmitUploadButton,
   StyledUploadTypography,
-} from "../style/profile.style";
+} from "../assets/style/profile.style";
 
 export const StartChatInTarget = ({ open, handleClose }) => {
   const handleSubmit = async (event) => {

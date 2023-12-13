@@ -1,18 +1,19 @@
 import Button from "@mui/material/Button";
-import { SignUpFields } from "../components/SignUpFields";
-import { useState } from "react";
-import { FormControlRadio } from "../components/FormControlRadio";
-import { EntryNavBar } from "../components/EntryNavBar";
+import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
+import { EntryNavBar, SignUpFields, FormControlRadio } from "../components";
 import {
   BoxContainer,
   StyledFormContainer,
   StyledTypography,
   ButtonBox,
-} from "../style/entry.style";
+} from "../assets/style/entry.style";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
-import Box from "@mui/material/Box";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { successMessage, errorMessage } from "../utils/helper/notifications";
 
 export const Entry = () => {
   const [addUser] = useMutation(ADD_USER);
@@ -25,10 +26,13 @@ export const Entry = () => {
     password: "",
   });
 
+  useEffect(() => {
+    successMessage("Hi dear! Login or Signup, wait for you...");
+  }, []);
+
   const handleChange = (event) => {
-    console.log(event.target.value);
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
 
   const resetForm = () => {
@@ -55,9 +59,9 @@ export const Entry = () => {
       const { data } = await addUser({
         variables: { ...formData },
       });
-
       Auth.signUp(data.addUser.token);
     } catch (err) {
+      errorMessage("Something went wrong. Try again");
       console.error(err);
     }
     resetForm();
@@ -69,13 +73,14 @@ export const Entry = () => {
       <BoxContainer>
         <StyledTypography variant="h4">Let's get start</StyledTypography>
         <form onSubmit={handleSubmit}>
-          <Box sx={{display: "flex"}}>
+          <Box sx={{ display: "flex" }}>
             <StyledFormContainer>
               <FormControlRadio
                 title="I am"
                 name="gender"
                 value={formData.gender}
                 onChange={handleChange}
+                required
               />
             </StyledFormContainer>
             <StyledFormContainer>
@@ -84,6 +89,7 @@ export const Entry = () => {
                 value={formData.lookingFor}
                 name="lookingFor"
                 onChange={handleChange}
+                required
               />
             </StyledFormContainer>
           </Box>
@@ -99,6 +105,7 @@ export const Entry = () => {
             </Button>
           </ButtonBox>
         </form>
+        <ToastContainer />
       </BoxContainer>
     </>
   );

@@ -1,9 +1,8 @@
 import Grid from "@mui/material/Grid";
 import CardMedia from "@mui/material/CardMedia";
-import { StyledMediaCard } from "../style/profile.style";
+import { StyledMediaCard } from "../assets/style/profile.style";
 
-export const Gallery = ({gallery}) => {
-  
+export const Gallery = ({ gallery }) => {
   return (
     <Grid container padding="10px">
       {gallery &&

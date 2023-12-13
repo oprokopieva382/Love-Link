@@ -1,9 +1,9 @@
-import { BoxContainer } from "../style/profile.style";
-import { ProfileNavBar } from "../components/ProfileNavBar";
+import { ProfileNavBar, StartChatInTarget } from "../components";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import avatar from "../assets/img/placeholder.jpg";
+import { BoxContainer } from "../assets/style/profile.style";
 import {
   AvatarBox,
   StyledAvatar,
@@ -12,13 +12,19 @@ import {
   StyledTypography,
   TalkIcon,
   UnlikeIcon,
-} from "../style/inTarget.style";
+} from "../assets/style/inTarget.style";
 import { PiEyeClosed } from "react-icons/pi";
-import { StartChatInTarget } from "../components/StartChatInTarget";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { successMessage } from "../utils/helper/notifications";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    successMessage("Talk with your favorites");
+  }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -69,6 +75,7 @@ export const InTarget = () => {
         </StyledCard>
       ))}
       <StartChatInTarget open={open} handleClose={handleClose} />
+      <ToastContainer />
     </BoxContainer>
   );
 };
