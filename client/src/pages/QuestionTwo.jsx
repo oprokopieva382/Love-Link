@@ -20,6 +20,20 @@ const options = [
   "👨‍👩‍👧‍👦 Family",
   "🧑‍💼 Politics",
   "🧘‍♀️ Mental health Awareness",
+  "🏀 Sports Fans",
+  "📚 Literature and Writing",
+  "🎓 Education Advocacy",
+  "🚗 Automobile Enthusiasts",
+  "🌿 Environmental Sustainability",
+  "📰 Journalism and Media",
+  "🎤 Public Speaking",
+  "🍷 Wine Tasting",
+  "🔬 Science Fiction",
+  "🌻 Gardening Enthusiasts",
+  "🎧 Podcast Enthusiasts",
+  "🕊️ Peace and Harmony",
+  "🛠️ DIY Home Improvement",
+  "🪷 Spiritual"
 ];
 
 export const QuestionTwo = () => {
@@ -42,7 +56,6 @@ export const QuestionTwo = () => {
       await addInterest({
         variables: { interests: selectedOptions },
       });
-      console.log(selectedOptions);
       navigate("/question3");
     } catch (error) {
       console.error("Mutation Error:", error);

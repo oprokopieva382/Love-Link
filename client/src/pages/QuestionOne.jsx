@@ -31,7 +31,6 @@ export const QuestionOne = () => {
       await addDOB({
         variables: { dob: selectedDate },
       });
-      console.log(selectedDate);
       navigate("/question2");
     } catch (error) {
       console.error("Mutation Error:", error);

@@ -32,6 +32,16 @@ const options = [
   "🏎️ Motorcycle or Car Enthusiasts",
   "📸 Photography",
   "💃 Dance/Performing Arts",
+  "🚵‍♂️ Mountain Biking",
+  "🏄‍♂️ Surfing",
+  "🛶 Kayaking",
+  "🚁 Drone Flying",
+  "🏋️‍♀️ Fitness Workouts",
+  "🎤 Karaoke Nights",
+  "🛹 Skateboarding",
+  "🚀 Space Exploration",
+  "🌐 Learning New Languages",
+  "🧘‍♂️ Yoga and Meditation",
 ];
 
 export const QuestionThree = () => {
@@ -53,7 +63,6 @@ export const QuestionThree = () => {
       await addHobbies({
         variables: { hobbies: selectedOptions },
       });
-      console.log(selectedOptions);
       navigate("/question4");
     } catch (error) {
       console.error("Mutation Error:", error);

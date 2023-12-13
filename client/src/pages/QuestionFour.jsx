@@ -29,7 +29,6 @@ export const QuestionFour = () => {
       await addAbout({
         variables: { about: userInput },
       });
-      console.log(userInput);
       navigate("/profile");
     } catch (error) {
       console.error("Mutation Error:", error);
