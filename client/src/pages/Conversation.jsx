@@ -77,13 +77,8 @@ export const Conversation = () => {
     mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
-        className="button"
+        className="button match-buttons"
         centerRipple={true}
-        style={{ 
-          textAlign: "center", 
-          margin: "auto",
-          width: "100%",
-          height: "auto" }}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
@@ -200,14 +195,14 @@ export const Conversation = () => {
         <ConversationsHeader>
           <h1>{data.me.firstName}'s Conversations</h1>
         </ConversationsHeader>
-        <MatchesContainer>
-          <MatchesSidebar>
-            <ButtonGroup orientation="vertical" variant="none" fullWidth={true}>
+        <MatchesContainer id="match_container" >
+          <MatchesSidebar id="match_sub">
+            <ButtonGroup id="match_buttons" variant="none">
               <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
-          <ConversationMain>
+          <ConversationMain >
             <ConversationTitle>
               {match
                 ? `Your conversation with ${match.firstName}`
