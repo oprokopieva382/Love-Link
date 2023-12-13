@@ -1,18 +1,10 @@
-import { Hearts } from "react-loader-spinner";
+import { InfinitySpin } from "react-loader-spinner";
 import { SpinnerContainer } from "../style/general.style";
 
 export const Spinner = () => {
   return (
     <SpinnerContainer>
-      <Hearts
-        height="15rem"
-        width="15rem"
-        color="#90D1FF"
-        ariaLabel="hearts-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        visible={true}
-      />
+      <InfinitySpin width="200" color="#33A4E0" />
     </SpinnerContainer>
   );
 };

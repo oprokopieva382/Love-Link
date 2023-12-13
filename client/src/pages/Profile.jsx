@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { AboutMe } from "../components/AboutMe";
-import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
-import { Avatar } from "../components/Avatar";
-import { ProfileNavBar } from "../components/ProfileNavBar";
+import {
+  AboutMe,
+  Avatar,
+  AboutMeInterestHobbyBlock,
+  ProfileNavBar,
+  Gallery,
+  Spinner,
+} from "../components";
 import {
   BoxContainer,
   StyledSubmitUploadButton,
@@ -11,13 +15,11 @@ import {
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Gallery } from "../components/Gallery";
 import { TbPhotoPlus } from "react-icons/tb";
 import { GET_ME } from "../utils/queries";
 import { ADD_PROFILE_IMG, ADD_GALLERY_IMG } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { Spinner } from "../components/Spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { successMessage, errorMessage } from "../utils/helper/notifications";
@@ -167,6 +169,6 @@ export const Profile = () => {
         </Grid>
       </Box>
       <ToastContainer />
-    </BoxContainer>
+     </BoxContainer>
   );
 };

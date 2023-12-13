@@ -1,4 +1,4 @@
-import MatchCard from "../components/MatchCard";
+import {MatchCard} from "../components/MatchCard";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
 import { BoxContainer } from "../style/profile.style";

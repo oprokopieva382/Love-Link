@@ -13,10 +13,12 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { useMutation } from "@apollo/client";
-import { ADD_HOBBIES } from "../utils/mutations";
-import { ADD_INTEREST } from "../utils/mutations";
-import { REMOVE_INTEREST } from "../utils/mutations";
-import { REMOVE_HOBBIES } from "../utils/mutations";
+import {
+  ADD_HOBBIES,
+  ADD_INTEREST,
+  REMOVE_INTEREST,
+  REMOVE_HOBBIES,
+} from "../utils/mutations";
 import Auth from "../utils/auth";
 
 export const AboutMeContent = ({ title, content, isUser }) => {
