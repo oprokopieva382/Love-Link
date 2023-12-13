@@ -45,7 +45,7 @@ export const Conversation = () => {
     error,
     refetch,
   } = useQuery(GET_USERS);
-  
+
   const [sendMessageMutation, { err }] = useMutation(
     ADD_MESSAGE,
     // invalidate cache of use query data
@@ -74,16 +74,17 @@ export const Conversation = () => {
     mappedData = newData.users.filter((user) =>
       data.me.matches.includes(user._id)
     );
-    mappedData = mappedData.slice(0, 5);
+    // mappedData = mappedData.slice(0, 5);
     mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
-        className="button match-buttons"
+        className="button match_buttons"
         centerRipple={true}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
         <img
+          className="match_images"
           src={person.image}
           alt="user avatar"
           style={{ borderRadius: "50px" }}
@@ -190,7 +191,7 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer sx={{paddingRight: "5%"}}>
+    <BoxContainer sx={{ paddingRight: "5%" }}>
       <ProfileNavBar />
       <ConversationsContainer >
         <ConversationsHeader>
@@ -198,9 +199,8 @@ export const Conversation = () => {
         </ConversationsHeader>
         <MatchesContainer id="match_container" >
           <MatchesSidebar id="match_sub">
-          <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
             <ButtonGroup id="match_buttons" variant="none">
-              
+
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
