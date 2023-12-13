@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "react-router-dom";
 import { AboutMe } from "../components/AboutMe";
 import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
 import { Avatar } from "../components/Avatar";
@@ -9,7 +10,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { Gallery } from "../components/Gallery";
 import { TbPhotoPlus } from "react-icons/tb";
-import { GET_ME } from "../utils/queries";
+import { GET_ME, GET_USER } from "../utils/queries";
 import { ADD_PROFILE_IMG } from "../utils/mutations";
 import { ADD_GALLERY_IMG } from "../utils/mutations";
 import { useQuery } from "@apollo/client";
@@ -17,12 +18,17 @@ import { useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { Spinner } from "../components/Spinner";
 
-export const Profile = () => {
+export const ProfileUser = () => {
   const [showProfileButton, setProfileButton] = useState(false);
   const [showGalleryButton, setGalleryButton] = useState(false);
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [galleryImgUrl, setGalleryImgUrl] = useState([]);
-  const { loading, error, data } = useQuery(GET_ME);
+  const [isUser, setIsUser] = useState(false);
+  // const { loading, error, data } = useQuery(GET_ME);
+  const { id } = useParams();
+  const { loading, error, data } = useQuery(GET_USER, {
+    variables: { userId: id },
+  });
   const [addProfileImg] = useMutation(ADD_PROFILE_IMG);
   const [addGalleryImg] = useMutation(ADD_GALLERY_IMG);
 
@@ -73,8 +79,8 @@ export const Profile = () => {
     );
   }, []);
 
-  const avatar = data?.me?.image;
-  const gallery = data?.me?.gallery;
+  const avatar = data?.user?.image;
+  const gallery = data?.user?.gallery;
 
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
@@ -119,38 +125,16 @@ export const Profile = () => {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Box sx={{ textAlign: "center" }}>
-              <StyledUploadButton
-                onClick={() => widgetRefProfile.current.open()}
-              >
-                <TbPhotoPlus />
-              </StyledUploadButton>
             </Box>
             <Avatar avatar={avatar} />
             <AboutMe />
-            {showProfileButton ? (
-              <StyledSubmitUploadButton onClick={updateUserAvatar}>
-                update
-              </StyledSubmitUploadButton>
-            ) : (
-              ""
-            )}
           </Grid>
           <Grid item xs={8}>
-            <AboutMeInterestHobbyBlock />
+            <AboutMeInterestHobbyBlock 
+              isUser={isUser}/>
             <Typography variant="h5">
               Gallery{" "}
-              <StyledUploadButton
-                onClick={() => widgetRefGallery.current.open()}
-              >
-                <TbPhotoPlus />
-              </StyledUploadButton>
-              {showGalleryButton ? (
-                <StyledSubmitUploadButton onClick={updateUserGallery}>
-                  update
-                </StyledSubmitUploadButton>
-              ) : (
-                ""
-              )}
+
             </Typography>
             <Gallery gallery={gallery} />
           </Grid>

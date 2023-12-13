@@ -19,7 +19,7 @@ import { REMOVE_INTEREST } from "../utils/mutations";
 import { REMOVE_HOBBIES } from "../utils/mutations";
 import Auth from "../utils/auth";
 
-export const AboutMeContent = ({ title, content }) => {
+export const AboutMeContent = ({ title, content, isUser }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addHobbies] = useMutation(ADD_HOBBIES);
   const [addInterest] = useMutation(ADD_INTEREST);
@@ -107,9 +107,18 @@ export const AboutMeContent = ({ title, content }) => {
       <StyledContentPaper>
         <StyledContentTypography variant="h6">
           Favorite {title}:
-          <StyledRiHeartAddFill onClick={openModal} />
+          {!isUser ? '': <StyledRiHeartAddFill onClick={openModal} /> }
         </StyledContentTypography>
-        {content &&
+        {content && !isUser ?
+          content.map((item) => (
+            <Badge
+              key={item}
+              color="info"
+              sx={{ margin: "2%" }}
+            >
+              <StyledDeleteButton>{item}</StyledDeleteButton>
+            </Badge>
+          )) : 
           content.map((item) => (
             <Badge
               key={item}
