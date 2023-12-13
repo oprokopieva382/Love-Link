@@ -2,7 +2,7 @@ import { ProfileNavBar, Spinner, StartChatInTarget } from "../components";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
-import { REMOVE_MATCH} from "../utils/mutations";
+import { REMOVE_MATCH } from "../utils/mutations";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -63,8 +63,7 @@ export const InTarget = () => {
 
   const onStartTalk = (userId) => {
     setOpen(true);
-    setTalkWith(userId)
-    console.log(`Messaging user with ID: ${userId}`);
+    setTalkWith(userId);
   };
 
   const loadMatches = () => {
