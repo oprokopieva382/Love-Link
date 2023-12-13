@@ -2,7 +2,7 @@ import { ProfileNavBar, Spinner, StartChatInTarget } from "../components";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
-import { REMOVE_MATCH } from "../utils/mutations";
+import { REMOVE_MATCH} from "../utils/mutations";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -31,6 +31,7 @@ export const InTarget = () => {
     refetch: myRefetch,
   } = useQuery(GET_ME);
   const [open, setOpen] = useState(false);
+  const [talkWith, setTalkWith] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +63,7 @@ export const InTarget = () => {
 
   const onStartTalk = (userId) => {
     setOpen(true);
+    setTalkWith(userId)
     console.log(`Messaging user with ID: ${userId}`);
   };
 
@@ -115,7 +117,11 @@ export const InTarget = () => {
           First pick your favorites on Match page
         </h5>
       )}
-      <StartChatInTarget open={open} handleClose={handleClose} />
+      <StartChatInTarget
+        open={open}
+        handleClose={handleClose}
+        talkWith={talkWith}
+      />
       <ToastContainer />
     </BoxContainer>
   );

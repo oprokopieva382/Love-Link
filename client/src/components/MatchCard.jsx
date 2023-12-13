@@ -35,7 +35,7 @@ export const MatchCard = ({ user, setMatch, me }) => {
           onClick={() => setMatch(user._id)}
         >
           {me.matches.includes(user._id) ? (
-            <FavoriteIcon
+            <FavoriteIcon 
               style={{ color: "#90D1FF", animation: "heartbeat 1.2s infinite" }}
             />
           ) : (

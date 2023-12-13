@@ -21,7 +21,7 @@ export const Matches = () => {
   const [addMatch, { loading: matchLoading, error: matchError }] =
     useMutation(SAVE_MATCH);
   const [matchCount, setMatchCount] = useState(0);
-
+ 
   useEffect(() => {
     async () => {
       try {
@@ -47,6 +47,7 @@ export const Matches = () => {
         },
       });
       successMessage("Successfully added.");
+      refetch()
       setMatchCount(matchCount + 1);
     } catch (err) {
       console.error("Error!", err);
