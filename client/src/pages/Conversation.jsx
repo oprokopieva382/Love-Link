@@ -104,7 +104,10 @@ export const Conversation = () => {
   function loadMatches() {
     // const { data } = await getUsersQuery;
     // console.log(newData);
-    mappedData = newData.users.slice(0, 5);
+    mappedData = newData.users.filter(
+      (user) => data.me.matches.includes(user._id)
+    )
+    mappedData = mappedData.slice(0, 5);
     mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
@@ -215,7 +218,7 @@ export const Conversation = () => {
 
 
   const flagAccountToxic = async () => {
-    const retData = setToxic();
+    const retData = await setToxic();
     console.log(retData);
   }
 

@@ -14,6 +14,7 @@ import { QuestionTwo } from "./pages/QuestionTwo.jsx";
 import { QuestionThree } from "./pages/QuestionThree.jsx";
 import { QuestionFour } from "./pages/QuestionFour.jsx";
 import Auth from './utils/auth.js'
+import { ProfileUser } from "./pages/ProfileUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
         path: "/conversation",
         element: Auth.loggedIn() ? <Conversation /> : <Entry />,
       },
+      {
+        path: "/user/:id",
+        element: Auth.loggedIn() ? <ProfileUser /> : <Entry />,
+      }
     ],
   },
 ]);
