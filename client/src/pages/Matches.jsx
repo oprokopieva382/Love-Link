@@ -1,4 +1,15 @@
 import MatchCard from "../components/MatchCard";
+import Typography from "@mui/material/Typography";
+import {
+  AvatarBox,
+  StyledAvatar,
+  StyledCard,
+  StyledCardContent,
+  StyledTypography,
+  TalkIcon,
+  UnlikeIcon,
+} from "../style/inTarget.style";
+import { PiEyeClosed } from "react-icons/pi";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
 import { BoxContainer } from "../style/profile.style";
@@ -28,7 +39,7 @@ export const Matches = () => {
       try {
         await refetch();
         await myRefetch();
-      init();
+        init();
       } catch (err) {
         console.log('Error occured when refetching');
       }
@@ -119,15 +130,23 @@ export const Matches = () => {
     console.log(data.users);
     return (
       <>
-        <BoxContainer>
+        <BoxContainer spacing={12}>
           <ProfileNavBar />
-          <Grid container spacing={2}>
+          <StyledTypography variant="h5">
+            <PiEyeClosed style={{ padding: "5px 5px 0", fontSize: "1.5rem" }} />
+            Catch my eye
+          </StyledTypography>
+          <Grid
+            container
+            spacing={2}
+            sx={{ margin: "auto" }}>
             {users.map((user, i) => (
-              <Grid item xs={4} key={i}>
+              <Grid item xs={6} sm={4} lg={3} key={i}>
                 <MatchCard
                   user={user}
                   setMatch={setMatch}
-                  me={myData.me} />
+                  me={myData.me}
+                   />
               </Grid>
             ))}
           </Grid>

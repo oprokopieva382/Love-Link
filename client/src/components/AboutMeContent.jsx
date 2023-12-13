@@ -107,9 +107,9 @@ export const AboutMeContent = ({ title, content, isUser }) => {
       <StyledContentPaper>
         <StyledContentTypography variant="h6">
           Favorite {title}:
-          {!isUser ? '': <StyledRiHeartAddFill onClick={openModal} /> }
+          {isUser === false ? '': <StyledRiHeartAddFill onClick={openModal} /> }
         </StyledContentTypography>
-        {content && !isUser ?
+        {content && isUser === false ?
           content.map((item) => (
             <Badge
               key={item}

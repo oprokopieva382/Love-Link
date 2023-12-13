@@ -20,7 +20,11 @@ import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 export default function MatchCard(props) {
   console.log("test");
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card 
+      sx={{ 
+        maxWidth: 345,
+        borderRadius: "20px" }}
+      raised="true">
       <CardMedia
         component="img"
         height="194"

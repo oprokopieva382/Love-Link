@@ -113,11 +113,21 @@ export const Conversation = () => {
         key={person.email}
         className="button"
         centerRipple={true}
-        style={{ textAlign: "center", margin: "auto" }}
+        style={{ 
+          textAlign: "center", 
+          margin: "auto",
+          width: "100%",
+          height: "auto" }}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
-        <img src={person.image} alt="" style={{ borderRadius: "50px" }} />
+        <img 
+          src={person.image} 
+          alt={person.firstName} 
+          style={{ 
+            borderRadius: "50px",
+            minWidth: "100px",
+            height: "auto" }} />
       </Button>
     ));
   }
@@ -240,39 +250,40 @@ export const Conversation = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <div style={{ width: "100%", height: "100vh" }}>
-        <div
-          style={{
+      <Box style={{ width: "100%", height: "100vh" }}>
+        <Box
+          sx={{
             margin: "auto",
             width: "100%",
             textAlign: "center",
             padding: "10px 10%",
           }}
         >
-          <h1>{data.me.firstName}'s Conversations</h1>
-        </div>
-        <div
-          style={{
+          <h1>{data.me.firstName}'s Chats</h1>
+        </Box>
+        <Box
+          sx={{
             display: "flex",
+            flexDirection: "row",
+            width: "100%"
           }}
         >
-          <div
-            style={{
-              width: "20%",
+          <Box
+            sx={{ 
+              width: { xs: "100%", md: "20%"},
               margin: "10px 20px",
               padding: "10px 20px",
               border: "solid #8C5EEB 3px",
-              borderRadius: "30px",
-            }}
+              borderRadius: "30px",}}
           >
             <ButtonGroup orientation="vertical" variant="none" fullWidth={true}>
-              <h3 style={{ textAlign: "center" }}>Your top 5 matches!</h3>
+              <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
               {mappedData}
             </ButtonGroup>
-          </div>
-          <div
-            style={{
-              width: "70%",
+          </Box>
+          <Box
+            sx={{
+              width: "inherit",
               margin: "10px 20px",
               padding: "10px 20px",
             }}
@@ -282,7 +293,7 @@ export const Conversation = () => {
                 ? `Your conversation with ${match.firstName}`
                 : "Click on a match to start a conversation!"}
             </h3>
-            {messages.length ? (
+            {messages.length && messages ? (
               messages.map((m) => (
                 <div
                   key={m.createdAt}
@@ -336,9 +347,9 @@ export const Conversation = () => {
                 <Avatar alt="Remy Sharp" src={tempImgURL} />
               </Box>
             </Box>
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
       <React.Fragment>
         <Dialog
           open={open}

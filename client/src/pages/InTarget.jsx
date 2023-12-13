@@ -46,10 +46,7 @@ export const InTarget = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <StyledTypography variant="h5">
-        <PiEyeClosed style={{ padding: "5px 5px 0", fontSize: "1.5rem" }} />
-        Catch my eye
-      </StyledTypography>
+
       {favorites.map((favorite, i) => (
         <StyledCard key={i}>
           <StyledCardContent>
