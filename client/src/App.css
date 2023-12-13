@@ -16,6 +16,13 @@ h1, h2, h3, h4, h5, h6 {
    font-family: 'Lora', serif;
 }
 
+.datepicker {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  color: blue
+}
+
 /* heartbeat animation */
 @keyframes heartbeat {
   0% {
