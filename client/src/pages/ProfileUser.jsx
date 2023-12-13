@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { AboutMe } from "../components/AboutMe";
-import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
-import { Avatar } from "../components/Avatar";
-import { ProfileNavBar } from "../components/ProfileNavBar";
-import { BoxContainer, StyledSubmitUploadButton, StyledUploadButton } from "../style/profile.style";
+import {
+  AboutMe,
+  AboutMeInterestHobbyBlock,
+  Avatar,
+  ProfileNavBar,
+  Gallery,
+  Spinner,
+} from "../components";
+import { BoxContainer } from "../assets/style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Gallery } from "../components/Gallery";
-import { TbPhotoPlus } from "react-icons/tb";
-import { GET_ME, GET_USER } from "../utils/queries";
-import { ADD_PROFILE_IMG } from "../utils/mutations";
-import { ADD_GALLERY_IMG } from "../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { GET_USER } from "../utils/queries";
+import { ADD_PROFILE_IMG, ADD_GALLERY_IMG } from "../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { Spinner } from "../components/Spinner";
 
 export const ProfileUser = () => {
   const [showProfileButton, setProfileButton] = useState(false);
@@ -24,7 +23,7 @@ export const ProfileUser = () => {
   const [profileImgUrl, setProfileImgUrl] = useState("");
   const [galleryImgUrl, setGalleryImgUrl] = useState([]);
   const [isUser, setIsUser] = useState(false);
-  // const { loading, error, data } = useQuery(GET_ME);
+
   const { id } = useParams();
   const { loading, error, data } = useQuery(GET_USER, {
     variables: { userId: id },
@@ -47,7 +46,6 @@ export const ProfileUser = () => {
       },
       function (err, result) {
         if (result.event === "success") {
-          console.log(result.info.secure_url);
           setProfileImgUrl(result.info.secure_url);
           setProfileButton(true);
         }
@@ -71,7 +69,6 @@ export const ProfileUser = () => {
           };
 
           galleryArray.push(newObj);
-
           setGalleryButton(true);
           setGalleryImgUrl(galleryArray);
         }
@@ -133,8 +130,7 @@ export const ProfileUser = () => {
             <AboutMeInterestHobbyBlock 
               isUser={isUser}/>
             <Typography variant="h5">
-              Gallery{" "}
-
+              Gallery
             </Typography>
             <Gallery gallery={gallery} />
           </Grid>

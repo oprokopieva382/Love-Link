@@ -1,21 +1,28 @@
 import { useState, useEffect, useRef } from "react";
-import { AboutMe } from "../components/AboutMe";
-import { AboutMeInterestHobbyBlock } from "../components/AboutMeInterestHobbyBlock";
-import { Avatar } from "../components/Avatar";
-import { ProfileNavBar } from "../components/ProfileNavBar";
-import { BoxContainer, StyledSubmitUploadButton, StyledUploadButton } from "../style/profile.style";
+import {
+  AboutMe,
+  Avatar,
+  AboutMeInterestHobbyBlock,
+  ProfileNavBar,
+  Gallery,
+  Spinner,
+} from "../components";
+import {
+  BoxContainer,
+  StyledSubmitUploadButton,
+  StyledUploadButton,
+} from "../assets/style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { Gallery } from "../components/Gallery";
 import { TbPhotoPlus } from "react-icons/tb";
 import { GET_ME } from "../utils/queries";
-import { ADD_PROFILE_IMG } from "../utils/mutations";
-import { ADD_GALLERY_IMG } from "../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { ADD_PROFILE_IMG, ADD_GALLERY_IMG } from "../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
-import { Spinner } from "../components/Spinner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { successMessage, errorMessage } from "../utils/helper/notifications";
 
 export const Profile = () => {
   const [showProfileButton, setProfileButton] = useState(false);
@@ -31,6 +38,8 @@ export const Profile = () => {
   const widgetRefGallery = useRef();
 
   useEffect(() => {
+    successMessage("Good to see you🩵");
+
     cloudinaryRef.current = window.cloudinary;
     widgetRefProfile.current = cloudinaryRef.current.createUploadWidget(
       {
@@ -41,7 +50,6 @@ export const Profile = () => {
       },
       function (err, result) {
         if (result.event === "success") {
-          console.log(result.info.secure_url);
           setProfileImgUrl(result.info.secure_url);
           setProfileButton(true);
         }
@@ -86,12 +94,13 @@ export const Profile = () => {
     if (!token) {
       return false;
     }
-
     try {
       await addGalleryImg({
         variables: { gallery: galleryImgUrl },
       });
+      successMessage("Uploaded. You can add more.");
     } catch (error) {
+      errorMessage("Something went wrong, try again");
       console.error("Remove Mutation Error:", error);
     }
   };
@@ -107,7 +116,9 @@ export const Profile = () => {
       await addProfileImg({
         variables: { image: profileImgUrl },
       });
+      successMessage("This picture such a cool");
     } catch (error) {
+      errorMessage("Something went wrong, try again");
       console.error("Mutation Error:", error);
     }
   };
@@ -156,6 +167,7 @@ export const Profile = () => {
           </Grid>
         </Grid>
       </Box>
-    </BoxContainer>
+      <ToastContainer />
+     </BoxContainer>
   );
 };

@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import entryBackground from "../assets/img/entryBackground.jpeg";
+import entryBackground from "../img/entryBackground.jpeg";
 import styled from "styled-components";
 
 export const BoxContainer = styled(Box)`

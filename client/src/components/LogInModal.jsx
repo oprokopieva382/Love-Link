@@ -7,7 +7,8 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Button from "@mui/material/Button";
-import { StyledModalBox } from "../style/loginModal.style";
+import { StyledModalBox } from "../assets/style/loginModal.style";
+import { errorMessage } from "../utils/helper/notifications";
 
 export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
   const [login] = useMutation(LOGIN_USER);
@@ -26,7 +27,7 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
 
   const handleTextFieldChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value.trim() });
   };
 
   const resetForm = () => {
@@ -52,8 +53,10 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
 
       Auth.login(data.login.token);
     } catch (err) {
+      errorMessage("Something went wrong. Try again");
       console.error(err);
     }
+
     resetForm();
   };
 
@@ -78,6 +81,7 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
               variant="outlined"
               value={formData.email}
               sx={{ width: "100%" }}
+              required
               onChange={handleTextFieldChange}
             />
           </FormControl>
@@ -87,6 +91,7 @@ export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {
               label="Enter your password"
               name="password"
               variant="outlined"
+              required
               value={formData.password}
               sx={{ width: "100%" }}
               onChange={handleTextFieldChange}
