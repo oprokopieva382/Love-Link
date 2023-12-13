@@ -53,7 +53,19 @@ export const Matches = () => {
     }
   };
 
-  if (loading || myLoading) return <Spinner />;
+  const loadMatches = () => {
+    let mappedData = data.users.filter((user) =>
+      myData.me.matches.includes(user._id)
+    );
+    console.log(mappedData);
+  }
+
+
+  if (loading || myLoading) {
+    return <Spinner />
+  } else {
+    loadMatches();
+  }
 
   let users = [];
   const init = () => {

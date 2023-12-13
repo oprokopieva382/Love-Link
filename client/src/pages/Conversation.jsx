@@ -45,6 +45,7 @@ export const Conversation = () => {
     error,
     refetch,
   } = useQuery(GET_USERS);
+  
   const [sendMessageMutation, { err }] = useMutation(
     ADD_MESSAGE,
     // invalidate cache of use query data
@@ -77,9 +78,8 @@ export const Conversation = () => {
     mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
-        className="button"
+        className="button match-buttons"
         centerRipple={true}
-        style={{ textAlign: "center", margin: "auto" }}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
@@ -190,20 +190,21 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer>
+    <BoxContainer sx={{paddingRight: "5%"}}>
       <ProfileNavBar />
-      <ConversationsContainer>
+      <ConversationsContainer >
         <ConversationsHeader>
           <h1>{data.me.firstName}'s Conversations</h1>
         </ConversationsHeader>
-        <MatchesContainer>
-          <MatchesSidebar>
-            <ButtonGroup orientation="vertical" variant="none" fullWidth={true}>
-              <h3 style={{ textAlign: "center" }}>Your top 5 matches!</h3>
+        <MatchesContainer id="match_container" >
+          <MatchesSidebar id="match_sub">
+          <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
+            <ButtonGroup id="match_buttons" variant="none">
+              
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
-          <ConversationMain>
+          <ConversationMain id="conv_container">
             <ConversationTitle>
               {match
                 ? `Your conversation with ${match.firstName}`
@@ -216,7 +217,7 @@ export const Conversation = () => {
                     {m.text} @ {m.createdAt}
                   </MessageText>
                   <MessageImage
-                    src={m.userId !== match._id ? match.image : tempImgURL}
+                    src={m.userId !== match._id ? match.image : data.me.image}
                     alt="avatar"
                   />
                 </ConversationMessageBox>
@@ -242,7 +243,7 @@ export const Conversation = () => {
                   onChange={(event) => setInput(event.target.value)}
                   onKeyUp={classify}
                 />
-                <Avatar alt="Remy Sharp" src={tempImgURL} />
+                <Avatar alt="Remy Sharp" src={data.me.image} />
               </StyledConversationInputBox>
             </Box>
           </ConversationMain>
