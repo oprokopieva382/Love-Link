@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import background from "../assets/img/questionBackground.jpeg";
+import background from "../img/questionBackground.jpeg";
 import Box from "@mui/material/Box";
 
 export const BoxContainer = styled(Box)`

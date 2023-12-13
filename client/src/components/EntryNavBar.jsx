@@ -4,7 +4,7 @@ import {
   StyledContainer,
   StyledFaHeart,
   StyledTypography,
-} from "../style/entryNavBar.style";
+} from "../assets/style/entryNavBar.style";
 import { LogInModal } from "./LogInModal";
 import { useState } from "react";
 

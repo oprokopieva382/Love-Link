@@ -6,17 +6,19 @@ import {
   StyledDeleteButton,
   StyledRiHeartAddFill,
   StyledTbHeartOff,
-} from "../style/profile.style";
+} from "../assets/style/profile.style";
 import Badge from "@mui/material/Badge";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import { useMutation } from "@apollo/client";
-import { ADD_HOBBIES } from "../utils/mutations";
-import { ADD_INTEREST } from "../utils/mutations";
-import { REMOVE_INTEREST } from "../utils/mutations";
-import { REMOVE_HOBBIES } from "../utils/mutations";
+import {
+  ADD_HOBBIES,
+  ADD_INTEREST,
+  REMOVE_INTEREST,
+  REMOVE_HOBBIES,
+} from "../utils/mutations";
 import Auth from "../utils/auth";
 
 export const AboutMeContent = ({ title, content, isUser }) => {
@@ -107,35 +109,31 @@ export const AboutMeContent = ({ title, content, isUser }) => {
       <StyledContentPaper>
         <StyledContentTypography variant="h6">
           Favorite {title}:
-          {!isUser ? '': <StyledRiHeartAddFill onClick={openModal} /> }
+          {!isUser ? "" : <StyledRiHeartAddFill onClick={openModal} />}
         </StyledContentTypography>
-        {content && !isUser ?
-          content.map((item) => (
-            <Badge
-              key={item}
-              color="info"
-              sx={{ margin: "2%" }}
-            >
-              <StyledDeleteButton>{item}</StyledDeleteButton>
-            </Badge>
-          )) : 
-          content.map((item) => (
-            <Badge
-              key={item}
-              badgeContent={
-                <StyledTbHeartOff
-                  onClick={() => {
-                    console.log(`delete ${item}`);
-                    handleDeleteItem(item);
-                  }}
-                />
-              }
-              color="info"
-              sx={{ margin: "2%" }}
-            >
-              <StyledDeleteButton>{item}</StyledDeleteButton>
-            </Badge>
-          ))}
+        {content && !isUser
+          ? content.map((item) => (
+              <Badge key={item} color="info" sx={{ margin: "2%" }}>
+                <StyledDeleteButton>{item}</StyledDeleteButton>
+              </Badge>
+            ))
+          : content.map((item) => (
+              <Badge
+                key={item}
+                badgeContent={
+                  <StyledTbHeartOff
+                    onClick={() => {
+                      console.log(`delete ${item}`);
+                      handleDeleteItem(item);
+                    }}
+                  />
+                }
+                color="info"
+                sx={{ margin: "2%" }}
+              >
+                <StyledDeleteButton>{item}</StyledDeleteButton>
+              </Badge>
+            ))}
       </StyledContentPaper>
       <Dialog open={isModalOpen} onClose={closeModal}>
         <DialogTitle>Select {title}</DialogTitle>
