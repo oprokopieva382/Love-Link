@@ -45,7 +45,7 @@ export const Conversation = () => {
     error,
     refetch,
   } = useQuery(GET_USERS);
-  
+
   const [sendMessageMutation, { err }] = useMutation(
     ADD_MESSAGE,
     // invalidate cache of use query data
@@ -74,16 +74,17 @@ export const Conversation = () => {
     mappedData = newData.users.filter((user) =>
       data.me.matches.includes(user._id)
     );
-    mappedData = mappedData.slice(0, 5);
+    // mappedData = mappedData.slice(0, 5);
     mappedData = mappedData.map((person) => (
       <Button
         key={person.email}
-        className="button match-buttons"
+        className="button match_buttons"
         centerRipple={true}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
         <img
+          className="match_images"
           src={person.image}
           alt="user avatar"
           style={{ borderRadius: "50px" }}
@@ -113,9 +114,13 @@ export const Conversation = () => {
   function getMessages(match) {
     // this will bring back the conversation between the two
     setMatch(match);
-    let newArr1 = match.outbox?.filter((m) => m.userId === match._id);
+    let newArr1 = match.outbox?.filter((m) => m.userId === data.me._id);
+    console.log('Match name: ' + match.firstName);
+    console.log('Match outbox:');
+    console.log(newArr1);
     let newArr2 = data?.me?.outbox?.filter((m) => m.userId === match._id);
     let newArr = newArr1?.concat(newArr2);
+    newArr = newArr.sort((a, b) => a.creatdAt-b.createdAt);
     setMessages(newArr);
   }
 
@@ -190,7 +195,7 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer sx={{paddingRight: "5%"}}>
+    <BoxContainer sx={{ paddingRight: "5%" }}>
       <ProfileNavBar />
       <ConversationsContainer >
         <ConversationsHeader>
@@ -198,9 +203,8 @@ export const Conversation = () => {
         </ConversationsHeader>
         <MatchesContainer id="match_container" >
           <MatchesSidebar id="match_sub">
-          <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
             <ButtonGroup id="match_buttons" variant="none">
-              
+
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
