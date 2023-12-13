@@ -11,7 +11,7 @@ import {
   BoxContainer,
   StyledSubmitUploadButton,
   StyledUploadButton,
-} from "../style/profile.style";
+} from "../assets/style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";

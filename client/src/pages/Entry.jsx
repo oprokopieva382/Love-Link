@@ -7,7 +7,7 @@ import {
   StyledFormContainer,
   StyledTypography,
   ButtonBox,
-} from "../style/entry.style";
+} from "../assets/style/entry.style";
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";

@@ -3,8 +3,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "@mui/material/Autocomplete";
-import { BoxContainer } from "../style/general.style";
-import { StyledTextField, StyledTypography } from "../style/question.style";
+import { BoxContainer } from "../assets/style/general.style";
+import {
+  StyledTextField,
+  StyledTypography,
+} from "../assets/style/question.style";
 import { useMutation } from "@apollo/client";
 import { ADD_INTEREST } from "../utils/mutations";
 import Auth from "../utils/auth";

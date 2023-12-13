@@ -7,7 +7,7 @@ import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Button from "@mui/material/Button";
-import { StyledModalBox } from "../style/loginModal.style";
+import { StyledModalBox } from "../assets/style/loginModal.style";
 import { errorMessage } from "../utils/helper/notifications";
 
 export const LogInModal = ({ modal, handleCloseModal, handleOpenModal }) => {

@@ -1,7 +1,7 @@
 import { BiSolidSkipNextCircle } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
-import { GreetingSubText, GreetingText } from "../style/greeting.style";
-import { BoxContainer } from "../style/general.style";
+import { GreetingSubText, GreetingText } from "../assets/style/greeting.style";
+import { BoxContainer } from "../assets/style/general.style";
 import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
 import { Spinner } from "./../components";

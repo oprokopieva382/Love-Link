@@ -1,7 +1,7 @@
 import { MatchCard, ProfileNavBar, Spinner } from "../components";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
-import { BoxContainer } from "../style/profile.style";
+import { BoxContainer } from "../assets/style/profile.style";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
 import { SAVE_MATCH } from "../utils/mutations";
@@ -23,7 +23,6 @@ export const Matches = () => {
   const [matchCount, setMatchCount] = useState(0);
 
   useEffect(() => {
-   
     async () => {
       try {
         await refetch();

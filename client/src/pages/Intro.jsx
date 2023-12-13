@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import intro from "../assets/video/intro.mp4";
-import {StyledTypography} from "../style/Intro.styles";
+import { StyledTypography } from "../assets/style/Intro.styles";
 
 export const Intro = () => {
   const navigate = useNavigate();

@@ -1,5 +1,8 @@
 import TextField from "@mui/material/TextField";
-import { StyledFormControl, StyledTypography } from "../style/signUpFields.style";
+import {
+  StyledFormControl,
+  StyledTypography,
+} from "../assets/style/signUpFields.style";
 
 export const SignUpFields = ({ formData, handleChange }) => {
   return (

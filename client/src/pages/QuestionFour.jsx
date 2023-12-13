@@ -1,8 +1,11 @@
 import { BiSolidSkipNextCircle } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { BoxContainer } from "../style/general.style";
-import { StyledTextField, StyledTypography } from "../style/question.style";
+import { BoxContainer } from "../assets/style/general.style";
+import {
+  StyledTextField,
+  StyledTypography,
+} from "../assets/style/question.style";
 import { useMutation } from "@apollo/client";
 import { ADD_ABOUT } from "../utils/mutations";
 import Auth from "../utils/auth";

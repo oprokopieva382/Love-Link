@@ -3,7 +3,7 @@ import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import avatar from "../assets/img/placeholder.jpg";
-import { BoxContainer } from "../style/profile.style";
+import { BoxContainer } from "../assets/style/profile.style";
 import {
   AvatarBox,
   StyledAvatar,
@@ -12,7 +12,7 @@ import {
   StyledTypography,
   TalkIcon,
   UnlikeIcon,
-} from "../style/inTarget.style";
+} from "../assets/style/inTarget.style";
 import { PiEyeClosed } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import { successMessage } from "../utils/helper/notifications";

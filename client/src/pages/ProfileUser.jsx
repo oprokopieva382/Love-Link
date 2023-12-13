@@ -8,7 +8,7 @@ import {
   Gallery,
   Spinner,
 } from "../components";
-import { BoxContainer } from "../style/profile.style";
+import { BoxContainer } from "../assets/style/profile.style";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";

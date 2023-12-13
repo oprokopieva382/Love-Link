@@ -1,6 +1,6 @@
 import heartIcon from "../assets/img/heart-icon.png";
 import { useState, useEffect } from "react";
-import "../style/conversation.css";
+import "../assets/style/conversation.css";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_USERS, GET_ME } from "../utils/queries";
 import { ADD_MESSAGE, SET_TOXIC } from "../utils/mutations";
@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import Skeleton from "@mui/material/Skeleton";
 import { ProfileNavBar, Spinner } from "../components";
-import { BoxContainer } from "../style/profile.style";
+import { BoxContainer } from "../assets/style/profile.style";
 import * as toxicity from "@tensorflow-models/toxicity";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -34,7 +34,7 @@ import {
   MessageText,
   NoMessageTitle,
   StyledConversationInputBox,
-} from "../style/conversation.style";
+} from "../assets/style/conversation.style";
 
 export const Conversation = () => {
   const { loading, data, myError, refetch: myRefetch } = useQuery(GET_ME);
@@ -83,7 +83,11 @@ export const Conversation = () => {
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
-        <img src={person.image} alt="user avatar" style={{ borderRadius: "50px" }} />
+        <img
+          src={person.image}
+          alt="user avatar"
+          style={{ borderRadius: "50px" }}
+        />
       </Button>
     ));
   };
