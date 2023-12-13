@@ -1,6 +1,7 @@
 import { ProfileNavBar, Spinner, StartChatInTarget } from "../components";
+import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@apollo/client";
-import { GET_USERS, GET_ME, } from "../utils/queries";
+import { GET_USERS, GET_ME } from "../utils/queries";
 import { REMOVE_MATCH } from "../utils/mutations";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +22,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
-   const [removeMatch] = useMutation(REMOVE_MATCH);
+  const [removeMatch] = useMutation(REMOVE_MATCH);
   const { loading, data, error, refetch } = useQuery(GET_USERS);
   const {
     loading: myLoading,
@@ -30,6 +31,8 @@ export const InTarget = () => {
     refetch: myRefetch,
   } = useQuery(GET_ME);
   const [open, setOpen] = useState(false);
+  const [talkWith, setTalkWith] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     refetch();
@@ -60,7 +63,7 @@ export const InTarget = () => {
 
   const onStartTalk = (userId) => {
     setOpen(true);
-    console.log(`Messaging user with ID: ${userId}`);
+    setTalkWith(userId);
   };
 
   const loadMatches = () => {
@@ -68,10 +71,14 @@ export const InTarget = () => {
       myData.me.matches.includes(user._id)
     );
 
+    const openMatchUserProfile = (userId) => {
+      navigate(`/user/${userId}`);
+    };
+
     return favorites.map((favorite, i) => (
       <StyledCard key={i}>
         <StyledCardContent>
-          <AvatarBox>
+          <AvatarBox onClick={() => openMatchUserProfile(favorite._id)}>
             <StyledAvatar alt="avatar" src={favorite.image} />
             <div>
               <Typography variant="h6">
@@ -109,7 +116,11 @@ export const InTarget = () => {
           First pick your favorites on Match page
         </h5>
       )}
-      <StartChatInTarget open={open} handleClose={handleClose} />
+      <StartChatInTarget
+        open={open}
+        handleClose={handleClose}
+        talkWith={talkWith}
+      />
       <ToastContainer />
     </BoxContainer>
   );
