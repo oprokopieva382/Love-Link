@@ -57,12 +57,10 @@ export const Matches = () => {
     let mappedData = data.users.filter((user) =>
       myData.me.matches.includes(user._id)
     );
-    console.log(mappedData);
-  }
-
+  };
 
   if (loading || myLoading) {
-    return <Spinner />
+    return <Spinner />;
   } else {
     loadMatches();
   }
@@ -89,7 +87,7 @@ export const Matches = () => {
           // Gets users who share at least one interest
           (user) => containsAny(user.interests, myData.me.interests)
         )
-        .filter((user) => user._id != myData.me._id);
+        .filter((user) => user._id !== myData.me._id);
     }
   };
   init();
