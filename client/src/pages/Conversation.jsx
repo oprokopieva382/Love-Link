@@ -45,6 +45,7 @@ export const Conversation = () => {
     error,
     refetch,
   } = useQuery(GET_USERS);
+  
   const [sendMessageMutation, { err }] = useMutation(
     ADD_MESSAGE,
     // invalidate cache of use query data
