@@ -40,7 +40,7 @@
 
 #match_buttons {
     /* width: 100% !important; */
-    display: contents !important;
+    display: contents;
     flex-direction: column;
 }
 
@@ -56,16 +56,24 @@
     }
     #match_sub {
         display: flex;
-        background-color: blue;
+        /* background-color: blue; */
         width: 100%;
     }
-    #match-buttons {
+    #match_buttons {
         display: flex;
-        width: 20% !important;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        /* width: 20% !important; */
         /* flex-wrap: wrap; */
     }
     .match-buttons {
         display: flex;
         margin: 0;
+        padding: 2%;
+        width: 150px;
+    }
+    #conv_container {
+        width: 100%;
     }
 }
