@@ -85,7 +85,7 @@ export const StyledAboutMeText = styledMUI(Typography)`
 
 export const StyledFlexBox = styledMUI(Box)`
   display: flex;
-  width: 90%;
+  width: 100%;
   flex-direction: column;
   @media (min-width: 765px) {
     flex-direction: row;

@@ -15,10 +15,17 @@ import {
 } from "../style/inTarget.style";
 import { PiEyeClosed } from "react-icons/pi";
 import { StartChatInTarget } from "../components/StartChatInTarget";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { successMessage } from "../utils/helper/notifications";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
   const [open, setOpen] = useState(false);
+
+   useEffect(() => {
+     successMessage("Talk with your favorites");
+   }, []);
 
   const handleClose = () => {
     setOpen(false);
@@ -72,6 +79,7 @@ export const InTarget = () => {
         </StyledCard>
       ))}
       <StartChatInTarget open={open} handleClose={handleClose} />
+      <ToastContainer />
     </BoxContainer>
   );
 };

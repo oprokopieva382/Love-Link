@@ -14,15 +14,13 @@ import Grid from "@mui/material/Grid";
 import { Gallery } from "../components/Gallery";
 import { TbPhotoPlus } from "react-icons/tb";
 import { GET_ME } from "../utils/queries";
-import { ADD_PROFILE_IMG } from "../utils/mutations";
-import { ADD_GALLERY_IMG } from "../utils/mutations";
-import { useQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
+import { ADD_PROFILE_IMG, ADD_GALLERY_IMG } from "../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import { Spinner } from "../components/Spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { successMessage } from "../utils/helper/notifications";
+import { successMessage, errorMessage } from "../utils/helper/notifications";
 
 export const Profile = () => {
   const [showProfileButton, setProfileButton] = useState(false);
@@ -95,12 +93,13 @@ export const Profile = () => {
     if (!token) {
       return false;
     }
-
     try {
       await addGalleryImg({
         variables: { gallery: galleryImgUrl },
       });
+      successMessage("Uploaded. You can add more.");
     } catch (error) {
+      errorMessage("Something went wrong, try again");
       console.error("Remove Mutation Error:", error);
     }
   };
@@ -116,7 +115,9 @@ export const Profile = () => {
       await addProfileImg({
         variables: { image: profileImgUrl },
       });
+      successMessage("This picture such a cool");
     } catch (error) {
+      errorMessage("Something went wrong, try again");
       console.error("Mutation Error:", error);
     }
   };
