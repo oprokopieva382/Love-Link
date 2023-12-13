@@ -79,7 +79,11 @@ export const Conversation = () => {
         key={person.email}
         className="button"
         centerRipple={true}
-        style={{ textAlign: "center", margin: "auto" }}
+        style={{ 
+          textAlign: "center", 
+          margin: "auto",
+          width: "100%",
+          height: "auto" }}
         onClick={() => getMessages(person)}
       >
         <img className="heart-icon" src={heartIcon} alt="Heart Icon" />
@@ -199,7 +203,7 @@ export const Conversation = () => {
         <MatchesContainer>
           <MatchesSidebar>
             <ButtonGroup orientation="vertical" variant="none" fullWidth={true}>
-              <h3 style={{ textAlign: "center" }}>Your top 5 matches!</h3>
+              <h3 style={{ textAlign: "center" }}>Your top matches!</h3>
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
@@ -216,7 +220,7 @@ export const Conversation = () => {
                     {m.text} @ {m.createdAt}
                   </MessageText>
                   <MessageImage
-                    src={m.userId !== match._id ? match.image : tempImgURL}
+                    src={m.userId !== match._id ? match.image : data.me.image}
                     alt="avatar"
                   />
                 </ConversationMessageBox>
@@ -242,7 +246,7 @@ export const Conversation = () => {
                   onChange={(event) => setInput(event.target.value)}
                   onKeyUp={classify}
                 />
-                <Avatar alt="Remy Sharp" src={tempImgURL} />
+                <Avatar alt="Remy Sharp" src={data.me.image} />
               </StyledConversationInputBox>
             </Box>
           </ConversationMain>

@@ -17,6 +17,37 @@ export const AboutMeInterestHobbyBlock = ({ isUser }) => {
   if (error) return <p>Error: {error.message}</p>;
 
   let date = new Date(parseInt(dob));
+  let age = calculateYearsSince(date);
+
+  date = formatDateToString(date);
+
+  function formatDateToString(date) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const formattedDate = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+
+    return formattedDate;
+  }
+
+  function calculateYearsSince(date) {
+    const currentDate = new Date();
+    const yearsSince = currentDate.getFullYear() - date.getFullYear();
+
+    // Check if the birthday for this year has occurred or not
+    const hasBirthdayOccurred = (
+      currentDate.getMonth() > date.getMonth() ||
+      (currentDate.getMonth() === date.getMonth() && currentDate.getDate() >= date.getDate())
+    );
+
+    // If birthday hasn't occurred yet, subtract 1 from the calculated years
+    const adjustedYearsSince = hasBirthdayOccurred ? yearsSince : yearsSince - 1;
+
+    return adjustedYearsSince;
+  }
+
 
   return (
     <>
@@ -24,7 +55,10 @@ export const AboutMeInterestHobbyBlock = ({ isUser }) => {
         {firstName} {lastName}
       </StyledTitle>
       <StyledSubtitle variant="h6">
-        Date of birth: {date.toLocaleString()}
+        Date of birth: {date}
+      </StyledSubtitle>
+      <StyledSubtitle>
+        Age: {age}
       </StyledSubtitle>
       <StyledFlexBox>
         <AboutMeContent title="interests" content={interests} isUser={isUser} />
