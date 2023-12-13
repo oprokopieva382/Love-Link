@@ -85,7 +85,7 @@ export const Matches = () => {
 
   };
 
-  if (loading || myLoading) {
+  if (loading ) {
     return <h2>Loading...</h2>;
   } else {
     init();
