@@ -22,22 +22,22 @@ import Skeleton from "@mui/material/Skeleton";
 import { ProfileNavBar } from "../components/ProfileNavBar";
 import { BoxContainer } from "../style/profile.style";
 
-import * as toxicity from '@tensorflow-models/toxicity';
-import * as React from 'react';
-import Stack from '@mui/material/Stack';
+import * as toxicity from "@tensorflow-models/toxicity";
+import * as React from "react";
+import Stack from "@mui/material/Stack";
 // import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 // Working on dialog; import here
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // const Alert = React.forwardRef(function Alert(props, ref) {
 //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -46,17 +46,25 @@ import CircularProgress from '@mui/material/CircularProgress';
 export const Conversation = () => {
   const { loading, data, myError, refetch: myRefetch } = useQuery(GET_ME);
 
-  const { loading: newLoading, data: newData, error, refetch } = useQuery(GET_USERS);
-  const [sendMessageMutation, { err }] = useMutation(ADD_MESSAGE,
+  const {
+    loading: newLoading,
+    data: newData,
+    error,
+    refetch,
+  } = useQuery(GET_USERS);
+  const [sendMessageMutation, { err }] = useMutation(
+    ADD_MESSAGE,
     // invalidate cache of use query data
     {
       onCompleted: () => {
-        refetch()
-        myRefetch()
-      }
-    });
+        refetch();
+        myRefetch();
+      },
+    }
+  );
 
-  const [setToxic, { loading: toxicLoading, error: toxicError }] = useMutation(SET_TOXIC);
+  const [setToxic, { loading: toxicLoading, error: toxicError }] =
+    useMutation(SET_TOXIC);
   // const  = useQuery(GET_USER);
   // const { meLoading, meData } = useQuery(GET_ME);
   const [matches, setMatches] = useState([]);
@@ -73,14 +81,12 @@ export const Conversation = () => {
   // For loading spinner
   const [spinner, setSpinner] = useState(false);
 
-
   // Using test data while server connection is down
   // let data = require('../assets/testData.json');
   const valueRef = useRef(""); //creating a refernce for TextField Component
   const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg";
   let mappedData;
   let newMessages;
-
 
   useEffect(() => {
     (async () => {
@@ -89,10 +95,10 @@ export const Conversation = () => {
         await myRefetch();
         getMessages(match);
       } catch (err) {
-        console.log('Error occured when refetching');
+        console.log("Error occured when refetching");
       }
     })();
-  }, [newData])
+  }, [newData]);
 
   if (newLoading) {
     return <h2>Loading...</h2>;
@@ -104,9 +110,9 @@ export const Conversation = () => {
   function loadMatches() {
     // const { data } = await getUsersQuery;
     // console.log(newData);
-    mappedData = newData.users.filter(
-      (user) => data.me.matches.includes(user._id)
-    )
+    mappedData = newData.users.filter((user) =>
+      data.me.matches.includes(user._id)
+    );
     mappedData = mappedData.slice(0, 5);
     mappedData = mappedData.map((person) => (
       <Button
@@ -147,9 +153,8 @@ export const Conversation = () => {
     // console.log(text);
     // setInput(text);
 
-      // console.log("ENTER KEY clicked!!");
-      makeMessage(text);
-
+    // console.log("ENTER KEY clicked!!");
+    makeMessage(text);
   }
 
   function printMessages() {
@@ -193,10 +198,10 @@ export const Conversation = () => {
     setInput(event.target.value);
     if (event.keyCode === 13 || event.which === 13) {
       setSpinner(true);
-      toxicity.load(threshold).then(model => {
+      toxicity.load(threshold).then((model) => {
         console.log(sentence);
         // Activate spinner
-        model.classify(sentence).then(predictions => {
+        model.classify(sentence).then((predictions) => {
           // console.log(predictions);
           // Deactivate spinner
           setSpinner(false);
@@ -207,20 +212,19 @@ export const Conversation = () => {
 
             if (predictions[i].results[0].match === true) {
               handleClickOpen();
-            } else if (i === predictions.length-1) {
+            } else if (i === predictions.length - 1) {
               sendMessage();
             }
           }
-        })
-      })
+        });
+      });
     }
-  };
-
+  }
 
   const flagAccountToxic = async () => {
     const retData = await setToxic();
     console.log(retData);
-  }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -351,20 +355,21 @@ export const Conversation = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              We have determined that the message you wish to send is potentially toxic.
-              Sending toxic messages may flag your account and make you less visible to potential matches.
+              We have determined that the message you wish to send is
+              potentially toxic. Sending toxic messages may flag your account
+              and make you less visible to potential matches.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} autoFocus>Cancel</Button>
-            <Button onClick={handleCloseAndContinue}>
-              Send
+            <Button onClick={handleClose} autoFocus>
+              Cancel
             </Button>
+            <Button onClick={handleCloseAndContinue}>Send</Button>
           </DialogActions>
         </Dialog>
       </React.Fragment>
       <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={spinner}
       >
         <CircularProgress color="inherit" />
@@ -373,10 +378,11 @@ export const Conversation = () => {
   );
 };
 
-
 // onKeyUp={(event) => sendMessage(event)}
-{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+{
+  /* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
 <Alert onClose={handleClose} severity="warning" sx={{ width: '100%' }}>
   Warning: your text is potentially toxic.
 </Alert>
-</Snackbar> */}
+</Snackbar> */
+}

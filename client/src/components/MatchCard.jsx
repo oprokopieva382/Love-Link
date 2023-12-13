@@ -6,25 +6,26 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
-export const MatchCard = (props) => {
+export const MatchCard = ({ user, setMatch, me }) => {
+ 
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardMedia component="img" height="194" image={props.user.image} />
+      <CardMedia component="img" height="194" image={user.image} />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {props.user.userName}
+          {user.userName}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {props.user.about}
+          {user.about}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
           aria-label="add to favorites"
-          onClick={() => props.setMatch(props.user._id)}
+          onClick={() => setMatch(user._id)}
         >
-          {props.me.matches.includes(props.user._id) ? (
-            <FavoriteIcon style={{ color: "red" }} />
+          {me.matches.includes(user._id) ? (
+            <FavoriteIcon style={{ color: "#90D1FF", animation: "heartbeat 1.2s infinite" }} />
           ) : (
             <FavoriteIcon />
           )}

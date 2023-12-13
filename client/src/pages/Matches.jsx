@@ -23,7 +23,7 @@ export const Matches = () => {
   const [matchCount, setMatchCount] = useState(0);
 
   useEffect(() => {
-    successMessage("We picked for you best match.");
+   
     async () => {
       try {
         await refetch();
@@ -47,6 +47,7 @@ export const Matches = () => {
           matchId: userID,
         },
       });
+      successMessage("Successfully added.");
       setMatchCount(matchCount + 1);
     } catch (err) {
       console.error("Error!", err);
