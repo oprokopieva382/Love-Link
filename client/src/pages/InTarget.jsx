@@ -1,6 +1,7 @@
 import { ProfileNavBar, Spinner, StartChatInTarget } from "../components";
-import { useQuery } from "@apollo/client";
-import { GET_USERS, GET_ME } from "../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_USERS, GET_ME, } from "../utils/queries";
+import { REMOVE_MATCH } from "../utils/mutations";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -14,11 +15,13 @@ import {
   UnlikeIcon,
 } from "../assets/style/inTarget.style";
 import { useState, useEffect } from "react";
-import { successMessage } from "../utils/helper/notifications";
+import Auth from "../utils/auth";
+import { successMessage, errorMessage } from "../utils/helper/notifications";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
+   const [removeMatch] = useMutation(REMOVE_MATCH);
   const { loading, data, error, refetch } = useQuery(GET_USERS);
   const {
     loading: myLoading,
@@ -29,6 +32,7 @@ export const InTarget = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    refetch();
     successMessage("Talk with your favorites");
   }, []);
 
@@ -36,8 +40,22 @@ export const InTarget = () => {
     setOpen(false);
   };
 
-  const onUnlikeUser = (userId) => {
-    console.log(`Removing user with ID: ${userId}`);
+  const onUnlikeUser = async (userId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    try {
+      await removeMatch({
+        variables: { matchId: userId },
+      });
+      successMessage("Successfully removed from your match list");
+      refetch();
+    } catch (error) {
+      errorMessage("Something went wrong, try again");
+      console.error("Remove Mutation Error:", error);
+    }
   };
 
   const onStartTalk = (userId) => {

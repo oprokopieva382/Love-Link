@@ -9,10 +9,8 @@ import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import Tooltip from '@mui/material/Tooltip';
 
 export const MatchCard = ({ user, setMatch, me }) => {
-
-  console.log(user);
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: "20px" }} raised="true">
+    <Card sx={{ maxWidth: 345, borderRadius: "20px" }} raised={true}>
       <CardMedia
         component="img"
         height="194"

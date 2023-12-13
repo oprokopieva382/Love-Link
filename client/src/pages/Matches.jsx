@@ -57,12 +57,10 @@ export const Matches = () => {
     let mappedData = data.users.filter((user) =>
       myData.me.matches.includes(user._id)
     );
-    console.log(mappedData);
-  }
-
+  };
 
   if (loading || myLoading) {
-    return <Spinner />
+    return <Spinner />;
   } else {
     loadMatches();
   }
