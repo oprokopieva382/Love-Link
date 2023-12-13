@@ -120,7 +120,15 @@ export const Conversation = () => {
     console.log(newArr1);
     let newArr2 = data?.me?.outbox?.filter((m) => m.userId === match._id);
     let newArr = newArr1?.concat(newArr2);
-    newArr = newArr.sort((a, b) => a.creatdAt-b.createdAt);
+    newArr = newArr.sort((a, b) => a.createdAt-b.createdAt);
+    newArr.forEach(message => {
+      message.createdAt = (new Date(parseInt(message.createdAt))).toString();
+    });
+    // newArr = newArr.map((message) => {
+    //   message.createdAt = (new Date(parseInt(message.createdAt)));
+    // })
+    // console.log(newArr[0].createdAt);
+    // console.log(new Date(parseInt(newArr[0].createdAt)));
     setMessages(newArr);
   }
 
@@ -195,9 +203,9 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer sx={{ paddingRight: "5%" }}>
+    <BoxContainer>
       <ProfileNavBar />
-      <ConversationsContainer >
+      <ConversationsContainer sx={{padding: "5%"}}>
         <ConversationsHeader>
           <h1>{data.me.firstName}'s Conversations</h1>
         </ConversationsHeader>
@@ -225,7 +233,8 @@ export const Conversation = () => {
                     alt="avatar"
                   />
                 </ConversationMessageBox>
-              ))
+              )
+              )
             ) : (
               <div>
                 <NoMessageTitle>
