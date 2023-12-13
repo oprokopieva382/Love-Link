@@ -16,11 +16,7 @@ export const AboutMeInterestHobbyBlock = ({ isUser }) => {
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
 
-  // console.log(props.show);
-  console.log(dob);
-  console.log(typeof dob);
   let date = new Date(parseInt(dob));
-  console.log(date);
 
   return (
     <>
