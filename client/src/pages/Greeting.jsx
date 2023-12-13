@@ -4,7 +4,7 @@ import { GreetingSubText, GreetingText } from "../style/greeting.style";
 import { BoxContainer } from "../style/general.style";
 import { GET_ME } from "../utils/queries";
 import { useQuery } from "@apollo/client";
-import { Spinner } from "./../components/Spinner";
+import { Spinner } from "./../components";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

@@ -10,3 +10,4 @@ export { ProfileNavBar } from "./ProfileNavBar";
 export { SignUpFields } from "./SignUpFields";
 export { Spinner } from "./Spinner";
 export { StartChatInTarget } from "./StartChatInTarget";
+export { EntryNavBar } from "./EntryNavBar";

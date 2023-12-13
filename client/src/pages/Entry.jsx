@@ -1,8 +1,7 @@
 import Button from "@mui/material/Button";
-import { SignUpFields } from "../components/SignUpFields";
+import Box from "@mui/material/Box";
 import { useState, useEffect } from "react";
-import { FormControlRadio } from "../components/FormControlRadio";
-import { EntryNavBar } from "../components/EntryNavBar";
+import { EntryNavBar, SignUpFields, FormControlRadio } from "../components";
 import {
   BoxContainer,
   StyledFormContainer,
@@ -12,7 +11,6 @@ import {
 import Auth from "../utils/auth";
 import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
-import Box from "@mui/material/Box";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { successMessage, errorMessage } from "../utils/helper/notifications";
@@ -33,7 +31,6 @@ export const Entry = () => {
   }, []);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value.trim() });
   };
@@ -64,7 +61,7 @@ export const Entry = () => {
       });
       Auth.signUp(data.addUser.token);
     } catch (err) {
-       errorMessage("Something went wrong. Try again");
+      errorMessage("Something went wrong. Try again");
       console.error(err);
     }
     resetForm();
