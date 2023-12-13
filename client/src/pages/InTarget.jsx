@@ -1,4 +1,6 @@
-import { ProfileNavBar, StartChatInTarget } from "../components";
+import { ProfileNavBar, Spinner, StartChatInTarget } from "../components";
+import { useQuery } from "@apollo/client";
+import { GET_USERS, GET_ME } from "../utils/queries";
 import CardActions from "@mui/material/CardActions";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
@@ -20,6 +22,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const InTarget = () => {
+  const { loading, data, error, refetch } = useQuery(GET_USERS);
+  const {
+    loading: myLoading,
+    data: myData,
+    error: myError,
+    refetch: myRefetch,
+  } = useQuery(GET_ME);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -38,6 +47,19 @@ export const InTarget = () => {
     setOpen(true);
     console.log(`Messaging user with ID: ${userId}`);
   };
+
+  const loadMatches = () => {
+    let mappedData = data.users.filter((user) =>
+      myData.me.matches.includes(user._id)
+    );
+    console.log(mappedData);
+  }
+
+  if (loading || myLoading) {
+    return <Spinner />
+  } else {
+    loadMatches();
+  }
 
   const favorites = [
     "Bob Marley",
