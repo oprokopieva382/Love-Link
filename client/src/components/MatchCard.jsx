@@ -9,10 +9,8 @@ import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import Tooltip from '@mui/material/Tooltip';
 
 export const MatchCard = ({ user, setMatch, me }) => {
-
-  console.log(user);
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: "20px" }} raised="true">
+    <Card sx={{ maxWidth: 345, borderRadius: "20px" }} raised={true}>
       <CardMedia
         component="img"
         height="194"
@@ -21,7 +19,7 @@ export const MatchCard = ({ user, setMatch, me }) => {
       />
       <CardContent>
         <Typography
-          variant="body2"
+          variant="h5"
           color="text.secondary"
           sx={{ marginBottom: "5px" }}
         >
@@ -37,14 +35,14 @@ export const MatchCard = ({ user, setMatch, me }) => {
           onClick={() => setMatch(user._id)}
         >
           {me.matches.includes(user._id) ? (
-            <FavoriteIcon
+            <FavoriteIcon 
               style={{ color: "#90D1FF", animation: "heartbeat 1.2s infinite" }}
             />
           ) : (
             <FavoriteIcon />
           )}
         </IconButton>
-        {user.isToxic === "false" ?
+        {user.isToxic === "true" ?
           <Tooltip title="WARNING: this user is potentially toxic">
             <CoronavirusIcon
               sx={{ color: "red" }}></CoronavirusIcon>

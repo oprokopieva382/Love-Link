@@ -87,11 +87,13 @@ export const GET_USERS = gql`
         text
         userId
         read
+        createdAt
       }
       outbox {
         text
         userId
         read
+        createdAt
       }
       interests
       hobbies

@@ -255,7 +255,7 @@ const resolvers = {
         const updatedUser = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $pull: { matches: { matchID } },
+            $pull: { matches: matchID  },
           },
           { new: true }
         );

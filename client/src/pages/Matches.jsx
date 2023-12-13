@@ -21,7 +21,7 @@ export const Matches = () => {
   const [addMatch, { loading: matchLoading, error: matchError }] =
     useMutation(SAVE_MATCH);
   const [matchCount, setMatchCount] = useState(0);
-
+ 
   useEffect(() => {
     async () => {
       try {
@@ -47,13 +47,24 @@ export const Matches = () => {
         },
       });
       successMessage("Successfully added.");
+      refetch()
       setMatchCount(matchCount + 1);
     } catch (err) {
       console.error("Error!", err);
     }
   };
 
-  if (loading || myLoading) return <Spinner />;
+  const loadMatches = () => {
+    let mappedData = data.users.filter((user) =>
+      myData.me.matches.includes(user._id)
+    );
+  };
+
+  if (loading || myLoading) {
+    return <Spinner />;
+  } else {
+    loadMatches();
+  }
 
   let users = [];
   const init = () => {
@@ -77,7 +88,7 @@ export const Matches = () => {
           // Gets users who share at least one interest
           (user) => containsAny(user.interests, myData.me.interests)
         )
-        .filter((user) => user._id != myData.me._id);
+        .filter((user) => user._id !== myData.me._id);
     }
   };
   init();
