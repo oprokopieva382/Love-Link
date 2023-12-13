@@ -50,7 +50,6 @@ export const Profile = () => {
       },
       function (err, result) {
         if (result.event === "success") {
-          console.log(result.info.secure_url);
           setProfileImgUrl(result.info.secure_url);
           setProfileButton(true);
         }
