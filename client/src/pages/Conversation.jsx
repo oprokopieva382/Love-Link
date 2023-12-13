@@ -220,7 +220,7 @@ export const Conversation = () => {
                     {m.text} @ {m.createdAt}
                   </MessageText>
                   <MessageImage
-                    src={m.userId !== match._id ? match.image : tempImgURL}
+                    src={m.userId !== match._id ? match.image : data.me.image}
                     alt="avatar"
                   />
                 </ConversationMessageBox>
@@ -246,7 +246,7 @@ export const Conversation = () => {
                   onChange={(event) => setInput(event.target.value)}
                   onKeyUp={classify}
                 />
-                <Avatar alt="Remy Sharp" src={tempImgURL} />
+                <Avatar alt="Remy Sharp" src={data.me.image} />
               </StyledConversationInputBox>
             </Box>
           </ConversationMain>
