@@ -85,9 +85,9 @@ export const Matches = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} style={{paddingLeft:"10%", paddingRight:"10%"}}> 
         {users.map((user, i) => (
-          <Grid item xs={4} key={i}>
+          <Grid item xs={6} md={4} key={i}>
             <MatchCard user={user} setMatch={setMatch} me={myData.me} />
           </Grid>
         ))}

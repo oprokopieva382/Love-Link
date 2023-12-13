@@ -47,7 +47,7 @@ export const MatchCard = ({ user, setMatch, me }) => {
         {user.isToxic === "false" ?
           <Tooltip title="WARNING: this user is potentially toxic">
             <CoronavirusIcon
-              sx={{ color: "green" }}></CoronavirusIcon>
+              sx={{ color: "red" }}></CoronavirusIcon>
           </Tooltip>
 
           :
