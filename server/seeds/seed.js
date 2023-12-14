@@ -10,8 +10,6 @@ const getHobbies = require('./hobbies');
 const getLooking = require('./lookingFor');
 const getAbout = require('./about');
 
-// console.trace(seedData[0]);
-
 const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor, about }) => ({
   firstName: name.first,
   lastName: name.last,

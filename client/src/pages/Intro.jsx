@@ -16,7 +16,7 @@ export const Intro = () => {
 
   return (
     <>
-       <video
+      <video
         autoPlay
         muted
         src={intro}
@@ -27,7 +27,10 @@ export const Intro = () => {
           display: "block",
         }}
       />
-      <StyledTypography variant="h4">LoveLink</StyledTypography>
+      <StyledTypography variant="h4">
+        <span style={{ color: "#90D1FF" }}>Love</span>
+        <span style={{ color: "#EFBB96", paddingRight: "10px" }}>Link </span>
+      </StyledTypography>
     </>
   );
 };

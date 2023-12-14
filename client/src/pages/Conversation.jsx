@@ -67,7 +67,6 @@ export const Conversation = () => {
 
   const [spinner, setSpinner] = useState(false);
 
-  const tempImgURL = "https://randomuser.me/api/portraits/men/1.jpg";
   let mappedData;
 
   const loadMatches = () => {
@@ -99,7 +98,7 @@ export const Conversation = () => {
         await refetch();
         await myRefetch();
         getMessages(match);
-        console.log('here');
+        console.log("here");
       } catch (err) {
         console.error(err);
       }
@@ -116,17 +115,27 @@ export const Conversation = () => {
     // Get hours, minutes, and seconds from the date
     const hours = date.getHours();
     const minutes = date.getMinutes();
-  
+
     // Format the time in 12-hour format with am/pm
-    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours < 12 ? 'am' : 'pm'}`;
-  
+    const formattedTime = `${hours % 12 || 12}:${
+      minutes < 10 ? "0" : ""
+    }${minutes} ${hours < 12 ? "am" : "pm"}`;
+
     // Get the day of the week
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     const dayOfWeek = daysOfWeek[date.getDay()];
-  
+
     // Combine the formatted time and day
     const formattedDateTime = `${formattedTime} (${dayOfWeek})`;
-  
+
     return formattedDateTime;
   }
 
@@ -134,20 +143,15 @@ export const Conversation = () => {
     // this will bring back the conversation between the two
     setMatch(match);
     let newArr1 = match.outbox?.filter((m) => m.userId === data.me._id);
-    console.log('Match name: ' + match.firstName);
-    console.log('Match outbox:');
+    console.log("Match name: " + match.firstName);
+    console.log("Match outbox:");
     console.log(newArr1);
     let newArr2 = data?.me?.outbox?.filter((m) => m.userId === match._id);
     let newArr = newArr1?.concat(newArr2);
-    newArr = newArr.sort((a, b) => a.createdAt-b.createdAt);
-    newArr.forEach(message => {
+    newArr = newArr.sort((a, b) => a.createdAt - b.createdAt);
+    newArr.forEach((message) => {
       message.timeStamp = formatDateTime(new Date(parseInt(message.createdAt)));
     });
-    // newArr = newArr.map((message) => {
-    //   message.createdAt = (new Date(parseInt(message.createdAt)));
-    // })
-    // console.log(newArr[0].createdAt);
-    // console.log(new Date(parseInt(newArr[0].createdAt)));
     setMessages(newArr);
   }
 
@@ -224,14 +228,13 @@ export const Conversation = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <ConversationsContainer sx={{padding: "5%"}}>
+      <ConversationsContainer sx={{ padding: "5%" }}>
         <ConversationsHeader>
           <h1>{data.me.firstName}'s Conversations</h1>
         </ConversationsHeader>
-        <MatchesContainer id="match_container" >
+        <MatchesContainer id="match_container">
           <MatchesSidebar id="match_sub">
             <ButtonGroup id="match_buttons" variant="none">
-
               {mappedData}
             </ButtonGroup>
           </MatchesSidebar>
@@ -245,15 +248,19 @@ export const Conversation = () => {
               messages.map((m, i) => (
                 <ConversationMessageBox key={i}>
                   <MessageText>
-                    <span style={{fontWeight: "bold", color: "#8c5eeb"}}>{m.text}</span><span style={{fontStyle: "italic"}}> @ {m.timeStamp}</span>
+                    <span style={{ fontWeight: "bold", color: "#8c5eeb" }}>
+                      {m.text}
+                    </span>
+                    <span style={{ fontStyle: "italic" }}>
+                     @ {m.timeStamp}
+                    </span>
                   </MessageText>
                   <MessageImage
                     src={m.userId !== match._id ? match.image : data.me.image}
                     alt="avatar"
                   />
                 </ConversationMessageBox>
-              )
-              )
+              ))
             ) : (
               <div>
                 <NoMessageTitle>
