@@ -17,10 +17,14 @@ export const BoxContainer = styled(Box)`
 export const StyledTypography = styled(Typography)`
   padding-right: 8%;
   padding-bottom: 1%;
+  text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
+    2px 2px 0 #fff;
 `;
 
 export const StyledFormContainer = styled(Box)`
-  color: white;
+  color: #efbb96;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000
+    1px 1px 0 #fff;
   margin-right: 37px;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 20px;

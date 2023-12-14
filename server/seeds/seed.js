@@ -36,12 +36,12 @@ db.once('open', async () => {
   await cleanDB('User', 'users');
 
 
-  var obj = { data: mappedData };
+  // var obj = { data: mappedData };
 
-  var json = JSON.stringify(obj);
+  // var json = JSON.stringify(obj);
 
-  var fs = require('fs');
-  fs.writeFile('myjsonfile.json', json, 'utf-8', () => { });
+  // var fs = require('fs');
+  // fs.writeFile('myjsonfile.json', json, 'utf-8', () => { });
 
   const usersData = await User.insertMany(mappedData);
 

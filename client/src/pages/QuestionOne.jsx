@@ -46,6 +46,8 @@ export const QuestionOne = () => {
         selected={selectedDate}
         onChange={(date) => setSelectedDate(date)}
         dateFormat="yyyy-MM-dd"
+        className="datepicker"
+        placeholderText="YYYY-MM-DD"
       />
       <BiSolidSkipNextCircle
         onClick={runNextPage}
