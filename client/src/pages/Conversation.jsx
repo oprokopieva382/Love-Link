@@ -246,7 +246,8 @@ export const Conversation = () => {
             </ConversationTitle>
             {messages?.length ? (
               messages.map((m, i) => (
-                <ConversationMessageBox key={i}>
+                <ConversationMessageBox 
+                  key={i}>
                   <MessageText>
                     <span style={{ fontWeight: "bold", color: "#8c5eeb" }}>
                       {m.text}
