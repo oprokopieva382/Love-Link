@@ -82,6 +82,20 @@ export const AboutMeContent = ({ title, content, isUser }) => {
           "👨‍👩‍👧‍👦 Family",
           "🧑‍💼 Politics",
           "🧘‍♀️ Mental health Awareness",
+          "🏀 Sports Fans",
+          "📚 Literature and Writing",
+          "🎓 Education Advocacy",
+          "🚗 Automobile Enthusiasts",
+          "🌿 Environmental Sustainability",
+          "📰 Journalism and Media",
+          "🎤 Public Speaking",
+          "🍷 Wine Tasting",
+          "🔬 Science Fiction",
+          "🌻 Gardening Enthusiasts",
+          "🎧 Podcast Enthusiasts",
+          "🕊️ Peace and Harmony",
+          "🛠️ DIY Home Improvement",
+          "🪷 Spiritual",
         ]
       : [
           "📽️ Movie Buffs",
@@ -102,6 +116,16 @@ export const AboutMeContent = ({ title, content, isUser }) => {
           "🏎️ Motorcycle or Car Enthusiasts",
           "📸 Photography",
           "💃 Dance/Performing Arts",
+          "🚵‍♂️ Mountain Biking",
+          "🏄‍♂️ Surfing",
+          "🛶 Kayaking",
+          "🚁 Drone Flying",
+          "🏋️‍♀️ Fitness Workouts",
+          "🎤 Karaoke Nights",
+          "🛹 Skateboarding",
+          "🚀 Space Exploration",
+          "🌐 Learning New Languages",
+          "🧘‍♂️ Yoga and Meditation",
         ];
 
   return (

@@ -23,7 +23,7 @@ export const EntryNavBar = () => {
     <StyledContainer>
       <Typography variant="h5">
         <span style={{ color: "#90D1FF" }}>Love</span>
-        <span style={{ color: "white", paddingRight: "10px" }}>Link </span>
+        <span style={{ color: "#EFBB96", paddingRight: "10px" }}>Link </span>
       </Typography>
       <StyledFaHeart onClick={handleOpenModal} />
       <StyledArrow />
