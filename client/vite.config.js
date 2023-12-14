@@ -16,4 +16,5 @@ export default defineConfig({
 
     },
   },
+  resolve: { alias: [{ find: '@assets', replacement: '/src/assets' }] },
 });

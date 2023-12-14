@@ -99,6 +99,7 @@ export const Conversation = () => {
         await refetch();
         await myRefetch();
         getMessages(match);
+        console.log('here');
       } catch (err) {
         console.error(err);
       }
@@ -111,6 +112,24 @@ export const Conversation = () => {
     loadMatches();
   }
 
+  function formatDateTime(date) {
+    // Get hours, minutes, and seconds from the date
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+  
+    // Format the time in 12-hour format with am/pm
+    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours < 12 ? 'am' : 'pm'}`;
+  
+    // Get the day of the week
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+  
+    // Combine the formatted time and day
+    const formattedDateTime = `${formattedTime} (${dayOfWeek})`;
+  
+    return formattedDateTime;
+  }
+
   function getMessages(match) {
     // this will bring back the conversation between the two
     setMatch(match);
@@ -120,7 +139,15 @@ export const Conversation = () => {
     console.log(newArr1);
     let newArr2 = data?.me?.outbox?.filter((m) => m.userId === match._id);
     let newArr = newArr1?.concat(newArr2);
-    newArr = newArr.sort((a, b) => a.creatdAt-b.createdAt);
+    newArr = newArr.sort((a, b) => a.createdAt-b.createdAt);
+    newArr.forEach(message => {
+      message.timeStamp = formatDateTime(new Date(parseInt(message.createdAt)));
+    });
+    // newArr = newArr.map((message) => {
+    //   message.createdAt = (new Date(parseInt(message.createdAt)));
+    // })
+    // console.log(newArr[0].createdAt);
+    // console.log(new Date(parseInt(newArr[0].createdAt)));
     setMessages(newArr);
   }
 
@@ -195,9 +222,9 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer sx={{ paddingRight: "5%" }}>
+    <BoxContainer>
       <ProfileNavBar />
-      <ConversationsContainer >
+      <ConversationsContainer sx={{padding: "5%"}}>
         <ConversationsHeader>
           <h1>{data.me.firstName}'s Conversations</h1>
         </ConversationsHeader>
@@ -218,14 +245,15 @@ export const Conversation = () => {
               messages.map((m, i) => (
                 <ConversationMessageBox key={i}>
                   <MessageText>
-                    {m.text} @ {m.createdAt}
+                    <span style={{fontWeight: "bold", color: "#8c5eeb"}}>{m.text}</span><span style={{fontStyle: "italic"}}> @ {m.timeStamp}</span>
                   </MessageText>
                   <MessageImage
                     src={m.userId !== match._id ? match.image : data.me.image}
                     alt="avatar"
                   />
                 </ConversationMessageBox>
-              ))
+              )
+              )
             ) : (
               <div>
                 <NoMessageTitle>
