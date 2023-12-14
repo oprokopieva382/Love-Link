@@ -112,6 +112,24 @@ export const Conversation = () => {
     loadMatches();
   }
 
+  function formatDateTime(date) {
+    // Get hours, minutes, and seconds from the date
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+  
+    // Format the time in 12-hour format with am/pm
+    const formattedTime = `${hours % 12 || 12}:${minutes < 10 ? '0' : ''}${minutes} ${hours < 12 ? 'am' : 'pm'}`;
+  
+    // Get the day of the week
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+  
+    // Combine the formatted time and day
+    const formattedDateTime = `${formattedTime} (${dayOfWeek})`;
+  
+    return formattedDateTime;
+  }
+
   function getMessages(match) {
     // this will bring back the conversation between the two
     setMatch(match);
@@ -123,7 +141,7 @@ export const Conversation = () => {
     let newArr = newArr1?.concat(newArr2);
     newArr = newArr.sort((a, b) => a.createdAt-b.createdAt);
     newArr.forEach(message => {
-      message.createdAt = (new Date(parseInt(message.createdAt))).toString();
+      message.timeStamp = formatDateTime(new Date(parseInt(message.createdAt)));
     });
     // newArr = newArr.map((message) => {
     //   message.createdAt = (new Date(parseInt(message.createdAt)));
@@ -227,7 +245,7 @@ export const Conversation = () => {
               messages.map((m, i) => (
                 <ConversationMessageBox key={i}>
                   <MessageText>
-                    {m.text} @ {m.createdAt}
+                    <span style={{fontWeight: "bold", color: "#8c5eeb"}}>{m.text}</span><span style={{fontStyle: "italic"}}> @ {m.timeStamp}</span>
                   </MessageText>
                   <MessageImage
                     src={m.userId !== match._id ? match.image : data.me.image}
