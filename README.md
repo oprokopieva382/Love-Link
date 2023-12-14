@@ -62,6 +62,20 @@
 
 ## How to use
 
+Let's get started!
+
+To begin, either click the blue heart at the top of the screen (if you've been here before and created an account) or fill out the information on the right side. You can specify your gender, what you're looking for, and enter your name, email, and a password.
+
+The next few screens will guide you gently through our profile creation process. You will enter your date of birth, then select any and all from a list of hobbies and interests that align with who you are! You have the option to add and remove hobbies and interests later, too so don't worry if you change your mind. Finally, you will have a chance to write a short blurb that will tell other users about you. Be creative but don't sweat it! Just be yourself.
+
+After finishing your set-up process, you will be directed to your profile page. All of your information that you have entered so far will show up here. This is also the page that other users will see when they find you!
+
+Start by uploading a profile image on the left side of your screen. After selecting the image from your device or another source, hit the refresh button that appears and voila! Everyone can now see your beautiful smiling face. You also have the option to add other images into a gallery that will appear on the right side of the screen. Select one or multiple images and upload them the same way you did for your profile picture.
+
+Click on the matches icon (2nd icon in at the top navigation bar) to see profiles of 
+
+
+
 ## Team - Ciao Bootcamp
 
 <a name="team"></a>
