@@ -23,7 +23,7 @@ const interests = [
 
 const getInterests = () => {
   let interestsArr = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     let newInterest = interests[Math.floor(Math.random() * interests.length)];
     if (!interestsArr.includes(newInterest)) {
       interestsArr.push(newInterest);

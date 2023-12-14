@@ -8,13 +8,28 @@ import {
 } from "../assets/style/profile.style";
 import { Spinner } from "./Spinner";
 
-export const AboutMeInterestHobbyBlock = ({ isUser }) => {
+export const AboutMeInterestHobbyBlock = ({ isUser, match }) => {
   const { loading, error, data } = useQuery(GET_ME);
   const user = data?.me || {};
-  const { firstName, lastName, dob, hobbies, interests } = user;
+  // if (match) {
+    // const { 
+    // firstName: matchFN, lastName: matchLN, dob: matchDOB, 
+    // hobbies: matchHobbies, interests: matchInterests } = match?.user;
+  // }
+  let { firstName, lastName, dob, 
+    hobbies, interests } = user;
 
-  if (loading) return <Spinner />;
+
+  if (loading) return <Spinner />
   if (error) return <p>Error: {error.message}</p>;
+  if (isUser === false) {
+    firstName = match.user.firstName;
+    lastName = match.user.lastName;
+    dob = match.user.dob;
+    hobbies = match.user.hobbies;
+    interests = match.user.interests;
+  }
+
 
   let date = new Date(parseInt(dob));
   let age = calculateYearsSince(date);

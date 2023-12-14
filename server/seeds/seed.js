@@ -10,7 +10,7 @@ const getHobbies = require('./hobbies');
 const getLooking = require('./lookingFor');
 const getAbout = require('./about');
 
-const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor, about }) => ({
+const mappedData = seedData.map(({ gender, name, email, dob, picture }) => ({
   firstName: name.first,
   lastName: name.last,
   email: email,
@@ -23,11 +23,11 @@ const mappedData = seedData.map(({ gender, name, email, dob, picture, lookingFor
   interests: getInterests(),
   image: picture.large,
   lookingFor: getLooking(),
-  message: [{
-    "text": "Hey Bob! How are you?",
-    "userId": "6574589a07f2b1e63fa59444",
-    "read": false
-  }]
+  // message: [{
+  //   "text": "Hey Bob! How are you?",
+  //   "userId": "6574589a07f2b1e63fa59444",
+  //   "read": false
+  // }]
 }));
 
 db.once('open', async () => {
@@ -48,12 +48,12 @@ db.once('open', async () => {
       { _id: usersData[i]._id.toString() },
       {
         $addToSet: {
-          interests: usersData[i].interests,
-          outbox: usersData[i].message
+          // interests: usersData[i].interests,
+          // outbox: usersData[i].message
         },
         $set:
         {
-          image: usersData[i].image
+          // image: usersData[i].image
         },
       },
       {

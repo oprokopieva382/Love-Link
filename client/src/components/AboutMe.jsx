@@ -8,12 +8,16 @@ import { useQuery } from "@apollo/client";
 import { TfiThought } from "react-icons/tfi";
 import { Spinner } from "./Spinner";
 
-export const AboutMe = () => {
+export const AboutMe = ({ isUser, matchAbout }) => {
   const { loading, error, data } = useQuery(GET_ME);
-  const about = data?.me?.about;
+  let about = data?.me?.about;
 
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
+
+  if (isUser === false) {
+    about = matchAbout;
+  }
 
   return (
     <TransparentBox>

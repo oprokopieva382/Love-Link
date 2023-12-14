@@ -31,7 +31,7 @@ const hobbies = [
 
 const getHobbies = () => {
   let interestsArr = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     let newInterest = hobbies[Math.floor(Math.random() * hobbies.length)];
     if (!interestsArr.includes(newInterest)) {
       interestsArr.push(newInterest);

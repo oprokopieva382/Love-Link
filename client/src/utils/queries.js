@@ -50,6 +50,10 @@ export const GET_USER = gql`
       about
       dob
       image
+      gallery {
+        name
+        imageUrl
+      }
       inbox {
         text
         userId
