@@ -94,8 +94,9 @@ export const Matches = () => {
   init();
 
   return (
-    <BoxContainer>
+    <BoxContainer sx={{textAlign: "center"}}>
       <ProfileNavBar />
+      <h2>Our curated matches just for you!</h2>
       <Grid container spacing={2} style={{paddingLeft:"5%", paddingRight:"5%"}}> 
         {users.map((user, i) => (
           <Grid item xs={6} md={4} key={i}>
