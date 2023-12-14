@@ -36,6 +36,10 @@ export const StyledContainer = styled(Box)`
 `;
 
 export const StyledTypography = styled(Typography)`
-  color: white;
+  color: #000;
+  font-size: 1rem;
+  font-weight: bold;
   padding-top: 3px;
- `;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+`;
