@@ -12,7 +12,7 @@ export const BoxContainer = styled(Box)`
   flex-direction: column;
   justify-content: center;
   align-items: end;
-  `;
+`;
 
 export const StyledTypography = styled(Typography)`
   padding-right: 8%;
@@ -22,9 +22,7 @@ export const StyledTypography = styled(Typography)`
 `;
 
 export const StyledFormContainer = styled(Box)`
-  color: #efbb96;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000
-    1px 1px 0 #fff;
+  color: black;
   margin-right: 37px;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 20px;

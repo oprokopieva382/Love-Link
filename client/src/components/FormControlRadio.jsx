@@ -8,15 +8,24 @@ export const FormControlRadio = ({ title, value, onChange, name }) => {
 
   return (
     <FormControl>
-      <FormLabel id="demo-radio-buttons-group-label">{title}</FormLabel>
+      <FormLabel
+        id="radio-buttons-group-label"
+        style={{
+          color: "#efbb96",
+          textShadow:
+            "-0.5px -0.5px 0 #000, 0.5px -0.5px 0 #000, -0.5px 0.5px 0 #000, 0.5px 0.5px 0 #000",
+        }}
+      >
+        {title}
+      </FormLabel>
       <RadioGroup
-        aria-labelledby="demo-radio-buttons-group-label"
+        aria-labelledby="radio-buttons-group-label"
         defaultValue="female"
         name={name}
         value={value}
         onChange={onChange}
       >
-        <FormControlLabel value="female"  control={<Radio />} label="Female" />
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
         <FormControlLabel value="male" control={<Radio />} label="Male" />
         <FormControlLabel
           value="nonbinary"
