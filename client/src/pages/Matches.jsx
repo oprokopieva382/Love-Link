@@ -118,7 +118,6 @@ export const Matches = () => {
   return (
     <BoxContainer sx={{textAlign: "center"}}>
       <ProfileNavBar />
-
       <h2>Our curated matches just for you!</h2>
       <Grid container spacing={2} style={{paddingLeft:"5%", paddingRight:"5%"}}> 
         {users.map((user, i) => (
