@@ -195,7 +195,7 @@ export const Conversation = () => {
   };
 
   return (
-    <BoxContainer sx={{ paddingRight: "5%" }}>
+    <BoxContainer>
       <ProfileNavBar />
       <ConversationsContainer >
         <ConversationsHeader>
