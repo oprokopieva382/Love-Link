@@ -4,13 +4,16 @@ import { GET_USERS, GET_ME } from "../utils/queries";
 import { BoxContainer } from "../assets/style/profile.style";
 import Grid from "@mui/material/Grid";
 import { useState, useEffect } from "react";
-import { SAVE_MATCH } from "../utils/mutations";
+import { SAVE_MATCH, REMOVE_MATCH } from "../utils/mutations";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { successMessage } from "../utils/helper/notifications";
 
+import Auth from "../utils/auth";
+
 export const Matches = () => {
   const { loading, data, error, refetch } = useQuery(GET_USERS);
+
   const {
     loading: myLoading,
     data: myData,
@@ -20,8 +23,9 @@ export const Matches = () => {
 
   const [addMatch, { loading: matchLoading, error: matchError }] =
     useMutation(SAVE_MATCH);
+  const [removeMatch] = useMutation(REMOVE_MATCH);
   const [matchCount, setMatchCount] = useState(0);
- 
+
   useEffect(() => {
     async () => {
       try {
@@ -47,8 +51,26 @@ export const Matches = () => {
         },
       });
       successMessage("Successfully added.");
-      refetch()
+      refetch();
       setMatchCount(matchCount + 1);
+    } catch (err) {
+      console.error("Error!", err);
+    }
+  };
+
+  const unlike = async (userId) => {
+    const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
+    
+    try {
+      await removeMatch({
+        variables: { matchId: userId },
+      });
+      successMessage("Successfully removed from your match list");
+      refetch();
     } catch (err) {
       console.error("Error!", err);
     }
@@ -96,10 +118,14 @@ export const Matches = () => {
   return (
     <BoxContainer>
       <ProfileNavBar />
-      <Grid container spacing={2} style={{paddingLeft:"5%", paddingRight:"5%"}}> 
+      <Grid
+        container
+        spacing={2}
+        style={{ paddingLeft: "5%", paddingRight: "5%" }}
+      >
         {users.map((user, i) => (
           <Grid item xs={6} md={4} key={i}>
-            <MatchCard user={user} setMatch={setMatch} me={myData.me} />
+            <MatchCard user={user} setMatch={setMatch} me={myData.me} unlike={unlike} />
           </Grid>
         ))}
       </Grid>

@@ -8,7 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CoronavirusIcon from '@mui/icons-material/Coronavirus';
 import Tooltip from '@mui/material/Tooltip';
 
-export const MatchCard = ({ user, setMatch, me }) => {
+export const MatchCard = ({ user, setMatch, me, unlike }) => {
   return (
     <Card sx={{ maxWidth: 345, borderRadius: "20px" }} raised={true}>
       <CardMedia
@@ -30,18 +30,24 @@ export const MatchCard = ({ user, setMatch, me }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton
-          aria-label="add to favorites"
-          onClick={() => setMatch(user._id)}
-        >
           {me.matches.includes(user._id) ? (
+             <IconButton
+             aria-label="add to favorites"
+             onClick={() => unlike(user._id)}
+           >
             <FavoriteIcon 
               style={{ color: "#90D1FF", animation: "heartbeat 1.2s infinite" }}
             />
+            </IconButton>
           ) : (
+            <IconButton
+            aria-label="add to favorites"
+            onClick={() => setMatch(user._id)}
+          >
             <FavoriteIcon />
+            </IconButton>
           )}
-        </IconButton>
+       
         {user.isToxic === "true" ?
           <Tooltip title="WARNING: this user is potentially toxic">
             <CoronavirusIcon
