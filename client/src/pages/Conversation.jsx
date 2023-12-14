@@ -99,6 +99,7 @@ export const Conversation = () => {
         await refetch();
         await myRefetch();
         getMessages(match);
+        console.log('here');
       } catch (err) {
         console.error(err);
       }
