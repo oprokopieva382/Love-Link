@@ -11,23 +11,23 @@ import { Spinner } from "./Spinner";
 export const AboutMeInterestHobbyBlock = ({ isUser, match }) => {
   const { loading, error, data } = useQuery(GET_ME);
   const user = data?.me || {};
-  if (match) {
-    const { 
-    firstName: matchFN, lastName: matchLN, dob: matchDOB, 
-    hobbies: matchHobbies, interests: matchInterests } = match.user;
-  }
+  // if (match) {
+    // const { 
+    // firstName: matchFN, lastName: matchLN, dob: matchDOB, 
+    // hobbies: matchHobbies, interests: matchInterests } = match?.user;
+  // }
   let { firstName, lastName, dob, 
     hobbies, interests } = user;
 
 
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner />
   if (error) return <p>Error: {error.message}</p>;
   if (isUser === false) {
-    firstName = matchFN;
-    lastName = matchLN;
-    dob = matchDOB;
-    hobbies = matchHobbies;
-    interests = matchInterests;
+    firstName = match.user.firstName;
+    lastName = match.user.lastName;
+    dob = match.user.dob;
+    hobbies = match.user.hobbies;
+    interests = match.user.interests;
   }
 
 
