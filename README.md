@@ -7,13 +7,6 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 
-<!-- PROJECT LOGO -->
-<br />
-<div align="center">
-  <a href="https://github.com/kurtriecken/love-link">
-    <img src="./public/Assets/Logo.png" alt="Logo" width="320" height="320">
-  </a>
-</div>
 
 <h3 align="center">Ciao Bootcamp</h3>
 
@@ -22,7 +15,7 @@
   
 <p align="center"> – LoveLink: Connecting Hearts Through Shared Passions and Personalized Matches</p>
 
-<h3 font size="1" align="right"><a href="" target="_blank">Visit Site🚀</a></h3>
+<h3 font size="1" align="right"><a href="https://hidden-garden-06286-72f8e54246d1.herokuapp.com/login" target="_blank">Visit Site🚀</a></h3>
 
 ## Table of Contents
 
@@ -32,6 +25,7 @@
   <ol>
     <li><a href="#tech-stack">Tech Stack</a></li>
     <li><a href="#sneak-peek">Sneak Peek</a></li>
+    <li><a href="#how-to-use">How to use</a></li>
     <li><a href="#team">Team</a></li>
   </ol>
 </details>
@@ -56,20 +50,17 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- GETTING STARTED -->
-
 ## Sneak Peek
 
 <a name="sneak-peek"></a>
 
-<img src="./Assets/Screenshot1.png" alt="Screenshot of landing page" width="360px"> <img src="./Assets/Screenshot2.png" alt="Screenshot of recipe page" width="360px">
-<img src="./Assets/Screenshot3.png" alt="Screenshot of dashboard page" width="360px"> <img src="./Assets/Screenshot4.png" alt="Screenshot of new recipe page" width="360px">
+<img src="./Screenshots/5.png" alt="Screenshot of landing page" width="360px"> <img src="./Screenshots/3.png" alt="Screenshot of profile page" width="360px">
+<img src="./Screenshots/2.png" alt="Screenshot of matches page" width="360px"> <img src="./Screenshots/4.png" alt="Screenshot of conversations page" width="360px"> <img src="./Screenshots/1.png" alt="Screenshot of InTarget page" width="360px">
 
-
-<!-- ### <a href="https://thatziro.github.io/Listy-Flix/" target="_blank">Visit Site</a> 🚀 -->
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+## How to use
 
 ## Team - Ciao Bootcamp
 
