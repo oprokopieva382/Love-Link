@@ -30,6 +30,8 @@ export const ProfileUser = () => {
   if (loading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
 
+  let matchAbout = data.user.about;
+
    return (
     <BoxContainer>
       <ProfileNavBar />
@@ -39,11 +41,14 @@ export const ProfileUser = () => {
             <Box sx={{ textAlign: "center" }}>
             </Box>
             <Avatar avatar={avatar} />
-            <AboutMe />
+            <AboutMe 
+              isUser={isUser}
+              matchAbout={matchAbout}/>
           </Grid>
           <Grid item xs={8}>
             <AboutMeInterestHobbyBlock 
-              isUser={isUser}/>
+              isUser={isUser}
+              match={data}/>
             <Typography variant="h5">
               Gallery
             </Typography>
